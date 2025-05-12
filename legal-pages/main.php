@@ -35,20 +35,34 @@ if ( ! class_exists('Adl_Legal_Pages') ) :
         }
 
         public function wpwax_legal_page( $atts, $content = null ) {
-            ob_start();
-
-            extract( shortcode_atts(array(
-                        'id' => "",
-                    ), $atts
-                    )
-                );
-            if ( empty( $id ) ) {
-                return;
+            $atts = shortcode_atts( array(
+                'id' => '',
+            ), $atts, 'wpwax_legal_page' );
+        
+            $post_id = intval( $atts['id'] );
+        
+            if ( empty( $post_id ) ) {
+                return '';
             }
-            $description = get_post_field( 'post_content', $id );
-            echo $description;
-            $true =  ob_get_clean();
-		    return $true;
+        
+            $post = get_post( $post_id );
+        
+            if ( ! $post ) {
+                return ''; // Invalid post ID
+            }
+        
+            // Check if the current user has permission to view this post
+            if ( ! current_user_can( 'read_post', $post_id ) ) {
+                return '<p>' . esc_html__( 'You do not have permission to view this content.', 'your-textdomain' ) . '</p>';
+            }
+        
+            // Optional: prevent viewing password-protected content
+            if ( ! empty( $post->post_password ) ) {
+                return '<p>' . esc_html__( 'This content is password protected.', 'your-textdomain' ) . '</p>';
+            }
+        
+            // Return filtered content
+            return apply_filters( 'the_content', $post->post_content );
         }
 
         /**
