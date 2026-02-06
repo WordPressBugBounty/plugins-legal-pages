@@ -3,7 +3,7 @@
 Plugin Name: Legal Pages
 Plugin URI: https://wpwax.com/product/legal-pages-pro
 Description: A very useful plugin to generate legal pages for your websites/ business. It is simple, easy and elegant to use. It comes with ready-made templates which gives you even better experience creating legal pages with ease. You can customize the page template too.
-Version: 1.4.6
+Version: 1.5.0
 Author: wpWax
 Author URI: https://wpwax.com
 License: GPLv2 or later
@@ -28,24 +28,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 Copyright 2016 wpwax.
 */
 
-// Make sure we don't expose any info if called directly
+// Prevent direct access
+defined('ABSPATH') || die('Cheating? Direct access is not allowed !!!');
 
-defined('ABSPATH') || die( 'Cheating? Direct access is not allowed !!!' );
-if ( !defined('ADL_LP_BASE') ) { define('ADL_LP_BASE', plugin_basename( __FILE__ )); }
-if ( ! defined( 'WPLP_URL' ) ) { define( 'WPLP_URL', plugin_dir_url( __FILE__ ) ); }
+// Define constants
+if ( !defined('ADL_LP_BASE') ) define('ADL_LP_BASE', plugin_basename(__FILE__));
+if ( !defined('WPLP_URL') ) define('WPLP_URL', plugin_dir_url(__FILE__));
 
-// Load plugin config
+// Load configuration and main plugin class
 require_once 'config.php';
-// main plugin class
 require_once 'main.php';
 
+// Instantiate the plugin only if the class exists and the Pro plugin is NOT active
+if ( class_exists('Adl_Legal_Pages') ) {
 
-if ( class_exists( 'Adl_Legal_Pages' ) ) { // Instantiate the plugin class
+    // Stop loading free plugin if Pro is active
+    if ( defined('ADL_LP_PRO_ACTIVE') ) return;
+
     global $ADL_LP;
     $ADL_LP = new Adl_Legal_Pages();
+
+    // Check PHP version and WordPress compatibility
     $ADL_LP->check_req_php_version();
     $ADL_LP->warn_if_unsupported_wp();
+
+    // Register activation/deactivation hooks
     register_activation_hook(__FILE__, array($ADL_LP, 'prepare_plugin'));
     register_deactivation_hook(__FILE__, array($ADL_LP, 'remove_plugin_data'));
+
+    // Initialize the plugin
     $ADL_LP->init();
 }

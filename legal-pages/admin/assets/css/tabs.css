@@ -205,14 +205,15 @@ li.active span.round-tabs.five{
 }
 
 .adl-lp-upgrade-notice{
-    background: #fff;
-    border-radius: 4px;
     margin-top: 30px;
     padding: 50px 30px !important;
-    box-shadow: 0 0 5px rgba(173,180,210,0.25);
-    margin-left: 10px;
-    max-width: 570px;
+    max-width: 1000px;
     border: 0 none;
+    /* margin: 0 auto; */
+}
+
+.adl-lp-upgrade-notice .wplp-btn-primary{
+    width: 270px;
 }
 .adl-lp-upgrade-notice h3{
     margin: 0 0 20px;

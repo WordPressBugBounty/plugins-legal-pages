@@ -6,7 +6,18 @@ class ADL_LP_general {
 
     public function __construct(){
 
-        add_action('admin_menu', array($this, 'show_admin_menu'));
+        add_action('admin_menu', [ $this, 'show_admin_menu' ]);
+        add_action('admin_footer', [ $this, 'footer' ]);
+       
+    }
+
+    public function footer(){
+        ?>
+        <!-- Container for dynamic confirmation modals -->
+        <div id="adl-trash-modal-container"></div>
+
+        <div id="adl_lp_loader" style="display:none;"></div>
+        <?php
     }
 
     /**
@@ -133,14 +144,40 @@ class ADL_LP_general {
 
     public function acceptTermsAndCondition() {
         global $ADL_LP;
-        // set adl_lp_accept_term when user use the plugin for the first time and them load the general  setting. else show the terms page.
-        if ( isset( $_POST['adl_lp_submit'] ) && 'Accept' == $_POST['adl_lp_submit'] && isset( $_POST['adl_accept_terms'] ) && wp_verify_nonce( $_POST['adl_lp_accept_terms_nonce_field'], 'adl_lp_accept_terms_nonce' ) ) {
-            update_option('adl_lp_accept_term', $_POST['adl_accept_terms']);
-            $this->general_setting();
-        }else{
-            $ADL_LP->loadView('disclaimer');
+
+        // Check if form is submitted
+        if ( ! isset( $_POST['adl_lp_submit'] ) ) {
+            $ADL_LP->loadView( 'disclaimer' );
+            return;
         }
+
+        // Verify nonce
+        if (
+            ! isset( $_POST['adl_lp_accept_terms_nonce_field'] ) ||
+            ! wp_verify_nonce(
+                $_POST['adl_lp_accept_terms_nonce_field'],
+                'adl_lp_accept_terms_nonce'
+            )
+        ) {
+            $ADL_LP->loadView( 'disclaimer' );
+            return;
+        }
+
+        // Validate acceptance
+        if ( isset( $_POST['adl_accept_terms'] ) && 'Accept' === $_POST['adl_lp_submit'] ) {
+
+            // Save acceptance
+            update_option( 'adl_lp_accept_term', 1 );
+
+            // Load general settings page
+            $this->general_setting();
+            return;
+        }
+
+        // Fallback: show disclaimer
+        $ADL_LP->loadView( 'disclaimer' );
     }
+
 }
 
 endif;

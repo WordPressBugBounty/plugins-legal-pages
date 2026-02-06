@@ -11,19 +11,41 @@ if ( ! class_exists('Adl_Legal_Pages') ) :
         /**
          * Load all classes and instantiate them and flush rewrite rules
          */
-        public function __construct( ){
+        public function __construct() {
+
+            // Prevent direct access
+            if ( ! defined( 'ABSPATH' ) ) {
+                exit( 'Cheating? Direct access is not allowed!' );
+            }
+
             global $wpdb;
-            // Don't let the class/plugin instantiate outside of WordPress
-            if ( ! defined('ABSPATH') ) { die( 'Cheating? Direct access is not allowed !!!' ); }
-            $this->template_table_name = $wpdb->prefix .'adl_lp_templates';
-            // load all classes and its object
-            $this->load_classes(ADL_LP_CLASS_DIR);
-            add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes') );
-            add_shortcode( 'wpwax_legal_page', array( $this, 'wpwax_legal_page' ) );
-            if( empty( get_option('wplp_legal_page_discount') ) ) {
-                add_action( 'admin_notices', array( $this, 'admin_notices') );
-            } 
-            // Initialize appsero tracking
+
+            /**
+             * Database tables
+             */
+            $this->template_table_name = $wpdb->prefix . 'adl_lp_templates';
+
+            /**
+             * Load required classes
+             */
+            $this->load_classes( ADL_LP_CLASS_DIR );
+
+            /**
+             * Hooks & Shortcodes
+             */
+            add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
+            add_shortcode( 'wpwax_legal_page', [ $this, 'wpwax_legal_page' ] );
+
+            /**
+             * Admin notices
+             */
+            if ( ! get_option( 'wplp_legal_page_discount' ) ) {
+                add_action( 'admin_notices', [ $this, 'admin_notices' ] );
+            }
+
+            /**
+             * Initialize Appsero tracking
+             */
             $this->init_appsero();
         }
 
@@ -169,22 +191,33 @@ if ( ! class_exists('Adl_Legal_Pages') ) :
          * @param $dir Name of the directory where all classes resides
          * @return void
          */
-        public function load_classes($dir){
-            if (!file_exists($dir)) return;
-            $objects = array();
-            foreach (scandir($dir) as $file) {
-                // if any file(eg.class files) found in the given dir then require it once and then create an object and add it to the objects array.
-                if( preg_match( "/.php$/i" , $file ) ) {
-                    require_once( $dir . $file );
-                    $singleClass = str_replace( ".php", "", $file );
-                    $objects[] = new $singleClass; // File name must match Class names in order to dynamically instantiate the class
+        public function load_classes( $dir ) {
+
+            // Stop if directory does not exist
+            if ( ! is_dir( $dir ) ) {
+                return;
+            }
+
+            foreach ( scandir( $dir ) as $file ) {
+
+                // Load only PHP files
+                if ( pathinfo( $file, PATHINFO_EXTENSION ) !== 'php' ) {
+                    continue;
+                }
+
+                $file_path  = trailingslashit( $dir ) . $file;
+                $class_name = str_replace( '.php', '', $file );
+
+                // Load class file
+                require_once $file_path;
+
+                // Instantiate only if class exists
+                if ( class_exists( $class_name ) ) {
+                    $this->objects[] = new $class_name();
                 }
             }
-            if($objects){
-                foreach( $objects as $object )
-                    $this->objects[] = $object;
-            }
         }
+
 
         /**
          * Dynamically calls a method from this class if it is not public or from a subclass

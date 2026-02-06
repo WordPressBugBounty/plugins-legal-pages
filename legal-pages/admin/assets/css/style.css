@@ -399,8 +399,8 @@ li {
 }
 
 .wplp-switch-label .wplp-checkbox-text {
-  font-weight: 400;
-  color: #868EAE;
+  /* font-weight: 400; */
+  /* color: #868EAE; */
 }
 
 /* Cookie Page */
@@ -487,6 +487,10 @@ li {
   margin: 0;
   padding: 25px 30px;
   border-bottom: 1px solid #F1F2F6;
+}
+.wplp-support-card  .wplp-btn-primary{
+  margin: unset;
+  width: 18%;
 }
 
 .wplp-support-card .wplp-support-card-content {
@@ -580,8 +584,8 @@ li {
 }
 
 .wplp-page-wrapper__content {
-  flex: 0 0 60%;
-  padding: 0 15px;
+  flex: 0 0 55%;
+  padding: 15px 15px;
 }
 
 .wplp-page-wrapper__sidebar {
@@ -591,6 +595,7 @@ li {
 
 .wplp-page-wrapper__sidebar__content {
   max-width: 430px;
+  max-height: 615px;
 }
 
 .wplp-page-wrapper__sidebar__title {
@@ -644,7 +649,7 @@ li {
 .wplp-page-wrapper .wplp-shortcode-list li {
   color: #5A5F7D;
   font-size: 15px;
-  padding: 0;
+  padding: 7px 15px;
   margin: 0 0 8px 0;
 }
 
@@ -878,7 +883,17 @@ li {
 .wplp-tab-content .form-horizontal .form-group {
   margin-left: 0;
   margin-right: 0;
-  padding: 0 26px;
+  /* padding: 0 22px; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 90%;
+  align-items: center;
+}
+
+#tab5 .form-group {
+  width: 100%;
+
 }
 
 .wplp-tab-content .form-horizontal .form-group .control-label {

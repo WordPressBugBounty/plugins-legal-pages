@@ -9,13 +9,16 @@ class ADL_LP_database {
         add_action( 'pre_get_posts', array($this, 'remove_legal_page_from_search') );
     }
 
-    function remove_legal_page_from_search( $query ) {
-        if ( get_option('adl_lp_misc')['hide_lp_in_search'] ) { // remove legal pages from search.
-            if ( ! $query->is_admin && $query->is_search && $query->is_main_query() ) {
+    public function remove_legal_page_from_search( $query ) {
+
+        $options = get_option( 'adl_lp_misc', [] ); // default empty array
+
+        if ( ! empty( $options['hide_lp_in_search'] ) ) {
+
+            if ( ! is_admin() && $query->is_search() && $query->is_main_query() ) {
                 $query->set( 'post__not_in', $this->get_ids() );
             }
         }
-
     }
 
     public function get_ids(  ) {

@@ -9,7 +9,7 @@
                         <h1 class="wplp-support-card-title">Need Help?</h1>
                         <div class="wplp-support-card-content">
                             <p class="wplp-mb-20">Need help? Get special care from our dedicated support team.</p>
-                            <a href="https://wpwax.com/contact/" class="wplp-btn-primary">Get Support</a>
+                            <a target="_blank" href="https://wpwax.com/contact/" class="wplp-btn-primary">Get Support</a>
                         </div>
                     </div>
                 </div> <!--ends .tab-pane   #Support-->
