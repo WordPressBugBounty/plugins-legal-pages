@@ -1,0 +1,63 @@
+<?php return array(
+    'root' => array(
+        'name' => 'wpwax/legal-page',
+        'pretty_version' => 'v1.6.0',
+        'version' => '1.6.0.0',
+        'reference' => '4a92878ec74918d4a3322cafe64b7f3970733352',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => false,
+    ),
+    'versions' => array(
+        'mustache/mustache' => array(
+            'pretty_version' => 'v3.0.0',
+            'version' => '3.0.0.0',
+            'reference' => '176b6b21d68516dd5107a63ab71b0050e518b7a4',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mustache/mustache',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'wp-cli/mustangostang-spyc' => array(
+            'pretty_version' => '0.6.6',
+            'version' => '0.6.6.0',
+            'reference' => '30f25baaaba939caaff1f4b8c7ed998632f59fe2',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../wp-cli/mustangostang-spyc',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'wp-cli/php-cli-tools' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'cf3b8901123fed33a752897d336b1561243913a4',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../wp-cli/php-cli-tools',
+            'aliases' => array(
+                0 => '0.12.x-dev',
+            ),
+            'dev_requirement' => false,
+        ),
+        'wp-cli/wp-cli' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '43a6ef34888bf07f1a6751423082604343ea7a5b',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../wp-cli/wp-cli',
+            'aliases' => array(
+                0 => '2.13.x-dev',
+            ),
+            'dev_requirement' => false,
+        ),
+        'wpwax/legal-page' => array(
+            'pretty_version' => 'v1.6.0',
+            'version' => '1.6.0.0',
+            'reference' => '4a92878ec74918d4a3322cafe64b7f3970733352',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

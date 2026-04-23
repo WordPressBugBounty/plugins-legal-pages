@@ -1,0 +1,3 @@
+<?php ?>
+<h2>Testimonials Disclosure</h2>
+<p>Unique experiences and past performances do not guarantee future results! Testimonials herein are unsolicited and are non-representative of all clients; certain accounts may have worse performance than that indicated. [businessNiche] involves risk and there is always the potential for loss. Your results may vary. If you do not have the extra capital that you can afford to lose, you should not invest in the [businessNiche] market. </p>

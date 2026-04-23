@@ -1,0 +1,142 @@
+================================================================================
+                        LEGAL PAGES - PROJECT STRUCTURE FLOW
+================================================================================
+
+legal-pages/
+│
+├── adl-legal-pages.php          [Main Plugin Entry Point]
+├── config.php                   [Configuration File]
+├── index.php                    [Security Index File]
+├── composer.json                [Composer Dependencies]
+├── composer.lock                [Locked Dependencies]
+│
+├── app/
+│   │
+│   ├── Core/                    [Core Plugin Functionality]
+│   │   ├── Initializer.php      --> Initializes the plugin
+│   │   ├── Activator.php        --> Runs on plugin activation
+│   │   └── Deactivator.php      --> Runs on plugin deactivation
+│   │
+│   ├── Controllers/
+│   │   │
+│   │   ├── Admin/               [Admin Panel Controllers]
+│   │   │   ├── Init.php         --> Admin initialization
+│   │   │   └── Menu.php         --> Admin menu setup
+│   │   │
+│   │   ├── Common/              [Shared Controllers]
+│   │   │   ├── API.php          --> REST API handler
+│   │   │   └── Asset.php        --> Asset management
+│   │   │
+│   │   └── Front/               [Frontend Controllers]
+│   │       ├── Init.php         --> Frontend initialization
+│   │       ├── Shortcode.php    --> Shortcode handlers
+│   │       └── Template.php     --> Template rendering
+│   │
+│   ├── API/                     [REST API Endpoints]
+│   │   └── Settings.php         --> Settings API endpoint
+│   │
+│   ├── Abstracts/               [Abstract Classes]
+│   │   └── Payment_Method.php   --> Base payment method class
+│   │
+│   ├── Interfaces/              [Interfaces]
+│   │   └── Payment_Gateway.php  --> Payment gateway interface
+│   │
+│   ├── Traits/                  [Reusable Traits]
+│   │   ├── Asset.php            --> Asset management trait
+│   │   ├── Hook.php             --> WordPress hooks trait
+│   │   ├── Menu.php             --> Menu registration trait
+│   │   └── Rest.php             --> REST API trait
+│   │
+│   └── Helpers/                 [Helper Functions & Classes]
+│       ├── Utility.php          --> Utility class
+│       └── functions.php        --> Global helper functions
+│
+└── vendor/                      [Composer Packages]
+    │
+    ├── autoload.php             --> Composer autoloader
+    │
+    ├── composer/                [Composer Files]
+    │   ├── autoload_classmap.php
+    │   ├── autoload_files.php
+    │   ├── autoload_namespaces.php
+    │   ├── autoload_psr4.php
+    │   ├── autoload_real.php
+    │   ├── autoload_static.php
+    │   ├── ClassLoader.php
+    │   ├── InstalledVersions.php
+    │   ├── installed.json
+    │   ├── installed.php
+    │   ├── LICENSE
+    │   └── platform_check.php
+    │
+    └── mustache/mustache/       [Mustache Template Engine]
+        └── src/
+            ├── Engine.php
+            ├── Parser.php
+            ├── Tokenizer.php
+            ├── Exception.php
+            ├── HelperCollection.php
+            ├── LambdaHelper.php
+            ├── RenderedString.php
+            ├── Loader.php
+            ├── Logger.php
+            ├── Cache.php
+            ├── compat.php
+            │
+            ├── Cache/
+            │   ├── AbstractCache.php
+            │   ├── FilesystemCache.php
+            │   └── NoopCache.php
+            │
+            ├── Loader/
+            │   ├── ArrayLoader.php
+            │   ├── CascadingLoader.php
+            │   ├── FilesystemLoader.php
+            │   ├── InlineLoader.php
+            │   ├── MutableLoader.php
+            │   ├── ProductionFilesystemLoader.php
+            │   └── StringLoader.php
+            │
+            ├── Logger/
+            │   ├── AbstractLogger.php
+            │   └── StreamLogger.php
+            │
+            └── Source/
+                └── FilesystemSource.php
+
+
+================================================================================
+                              EXECUTION FLOW
+================================================================================
+
+1. PLUGIN LOAD
+   └── adl-legal-pages.php (Entry Point)
+       └── vendor/autoload.php (Composer Autoloader)
+       └── config.php (Load Configuration)
+
+2. PLUGIN ACTIVATION
+   └── app/Core/Activator.php
+       └── Create database tables, set options, etc.
+
+3. PLUGIN INITIALIZATION
+   └── app/Core/Initializer.php
+       ├── app/Controllers/Admin/Init.php (Admin Setup)
+       │   └── app/Controllers/Admin/Menu.php (Admin Menus)
+       │
+       ├── app/Controllers/Front/Init.php (Frontend Setup)
+       │   ├── app/Controllers/Front/Shortcode.php (Shortcodes)
+       │   └── app/Controllers/Front/Template.php (Templates)
+       │
+       └── app/Controllers/Common/
+           ├── API.php (REST API Registration)
+           └── Asset.php (Enqueue Scripts/Styles)
+
+4. REST API REQUESTS
+   └── app/Controllers/Common/API.php
+       └── app/API/Settings.php
+
+5. PLUGIN DEACTIVATION
+   └── app/Core/Deactivator.php
+       └── Cleanup tasks
+
+================================================================================

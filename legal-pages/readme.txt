@@ -1,9 +1,9 @@
-=== Legal Pages – Privacy Policy, Terms & Conditions, GDPR, CCPA, and Cookie Notice Generator ===
+﻿=== Legal Pages – Privacy Policy, Terms & Conditions, GDPR, CCPA, and Cookie Notice Generator ===
 Contributors: wpWax
 Tags: GDPR, Privacy Policy, Terms and conditions, Legal documents, Cookie notice, Legal compliance, Legal templates, Website legal requirements, Legal pages generator, GDPR compliance, CCPA compliance, DMCA compliance
 Requires at least: 4.0
 Tested up to:  6.8
-Stable tag: 1.5.0
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,13 +118,22 @@ If you like this free version and want to get more templates and features and al
 7. Edit Legal Page Template
 
 == Changelog ==
-
-= 1.5.0 =
-* New: All shortcodes can now be copied with a single click
-* Improvement: Improved overall plugin UI
-* Improvement: Added confirmation before deleting a page to prevent accidental deletion
-* Fixed: Resolved an issue that caused a fatal error in the premium plugin
-
+= 1.6.0 =
+* Add: Updated release workflow for WordPress.org deployment
+- [ui] Improve Legal Pages layout
+- [ui] Improve settings layout
+- [ui] Improve Add Legal Page Template layout
+- [ui] Improve Edit Legal Page Template layout
+- [refactor] Refactor Edit Legal Page Template
+- [refactor] Refactor Add Legal Page Template
+- [refactor] Refactor Legal Page Templates
+- [refactor] Refactor Legal Pages
+- [refactor] Refactor Settings
+- [refactor] Refactor Shortcodes
+- [refactor] Refactor API
+- [refactor] Refactor Utility
+- [refactor] Refactor Assets
+- [refactor] Refactor Templates
 = 1.4.7 =
 * Fixed: Security issue
 = 1.4.6 =

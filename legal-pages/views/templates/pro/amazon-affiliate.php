@@ -1,0 +1,2 @@
+<?php ?>
+<h2>Amazon Affiliate</h2><p>Amazon Affiliate Disclosure Notice:  It is important to also note that [siteName] is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for website owners to earn advertising fees by advertising and linking to amazon.com, endless.com, smallparts.com, myhabit.com, and any other website that may be affiliated with Amazon Service LLC Associates Program.</p>

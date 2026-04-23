@@ -3,7 +3,7 @@
 Plugin Name: Legal Pages
 Plugin URI: https://wpwax.com/product/legal-pages-pro
 Description: A very useful plugin to generate legal pages for your websites/ business. It is simple, easy and elegant to use. It comes with ready-made templates which gives you even better experience creating legal pages with ease. You can customize the page template too.
-Version: 1.5.0
+Version: 1.6.0
 Author: wpWax
 Author URI: https://wpwax.com
 License: GPLv2 or later
@@ -27,35 +27,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 Copyright 2016 wpwax.
 */
+namespace LegalPage;
 
-// Prevent direct access
-defined('ABSPATH') || die('Cheating? Direct access is not allowed !!!');
+defined( 'ABSPATH' ) || exit;
 
-// Define constants
-if ( !defined('ADL_LP_BASE') ) define('ADL_LP_BASE', plugin_basename(__FILE__));
-if ( !defined('WPLP_URL') ) define('WPLP_URL', plugin_dir_url(__FILE__));
+define( 'LEGAL_PAGES_FILE', __FILE__ );
+define( 'LEGAL_PAGES_VERSION', '1.6.0' );
+define( 'LEGAL_PAGES_PLUGIN_DIR', plugin_dir_path( LEGAL_PAGES_FILE ) );
+define( 'LEGAL_PAGES_URL', plugin_dir_url( LEGAL_PAGES_FILE ) );
+define( 'LEGAL_PAGES_ASSETS_URL', LEGAL_PAGES_URL . 'assets/' );
+define( 'LEGAL_PAGES_BUILD_URL', LEGAL_PAGES_URL . 'build/' );
+define( 'LEGAL_PAGES_SPA_URL', LEGAL_PAGES_URL . 'spa/' );
 
-// Load configuration and main plugin class
-require_once 'config.php';
-require_once 'main.php';
 
-// Instantiate the plugin only if the class exists and the Pro plugin is NOT active
-if ( class_exists('Adl_Legal_Pages') ) {
-
-    // Stop loading free plugin if Pro is active
-    if ( defined('ADL_LP_PRO_ACTIVE') ) return;
-
-    global $ADL_LP;
-    $ADL_LP = new Adl_Legal_Pages();
-
-    // Check PHP version and WordPress compatibility
-    $ADL_LP->check_req_php_version();
-    $ADL_LP->warn_if_unsupported_wp();
-
-    // Register activation/deactivation hooks
-    register_activation_hook(__FILE__, array($ADL_LP, 'prepare_plugin'));
-    register_deactivation_hook(__FILE__, array($ADL_LP, 'remove_plugin_data'));
-
-    // Initialize the plugin
-    $ADL_LP->init();
+if ( ! defined( 'WPLP_REMOTE_POST_ID' ) ) {
+    define( 'WPLP_REMOTE_POST_ID', 3315 );
 }
+
+if ( ! defined( 'WPLP_REMOTE_URL' ) ) {
+    define( 'WPLP_REMOTE_URL', 'https://wpwax.com' );
+}
+
+// if ( ! defined( 'WPLP_VERSION' ) ) {
+//     define( 'WPLP_VERSION', '1.7.2' );
+// }
+
+/**
+ * Composer autoloader or manual fallback
+ */
+
+require_once 'vendor/autoload.php';
+
+// add_action( 'plugins_loaded', function() {
+//    echo LEGAL_PAGES_ASSETS_URL . '/admin/js/admin.js';
+// } );
+
+// Bootstrap the Initializer
+if ( class_exists( 'LegalPage\\Core\\Initializer' ) ) {
+    $legalpage_init = Core\Initializer::get_instance();
+    $legalpage_init->init();
+}
+
+// Activation hook
+// Auto-run on plugin update (without needing deactivate/activate)
+// Run on 'init' hook instead of 'plugins_loaded' to ensure WordPress is fully loaded
+add_action( 'init', function() {
+    $installed_version = get_option( 'adl_lp_plugin_version' );
+
+    // If version is different (update) or not set (fresh install), run activation tasks
+    if ( $installed_version !== LEGAL_PAGES_VERSION ) {
+        if ( class_exists( 'LegalPage\\Core\\Activator' ) ) {
+            Core\Activator::activate();
+        }
+    }
+}, 5 ); // Priority 5 to run early on init but after WordPress is loaded
+
+// Also register traditional activation hook for fresh installs
+register_activation_hook( __FILE__, function() {
+    if ( class_exists( 'LegalPage\\Core\\Activator' ) ) {
+        Core\Activator::activate();
+    }
+} );
+
+// Deactivation hook
+register_deactivation_hook( __FILE__, function() {
+    if ( class_exists( 'PhotoVault\\Core\\Deactivator' ) ) {
+        Core\Deactivator::deactivate();
+    }
+} );

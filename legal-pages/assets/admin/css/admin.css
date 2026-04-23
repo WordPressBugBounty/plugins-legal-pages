@@ -1,0 +1,252 @@
+
+.toplevel_page_adl-legal-pages #wpcontent {
+    padding: 0 !important;
+    background-color: #f8fafc;
+}
+
+/* Hide all WordPress admin notices on Legal Pages plugin screens */
+.toplevel_page_adl-legal-pages .notice,
+.toplevel_page_adl-legal-pages div.updated,
+.toplevel_page_adl-legal-pages div.error,
+.toplevel_page_adl-legal-pages .notice-warning,
+.toplevel_page_adl-legal-pages .notice-error,
+.toplevel_page_adl-legal-pages .notice-success,
+.toplevel_page_adl-legal-pages .notice-info,
+.toplevel_page_adl-legal-pages .update-nag,
+.toplevel_page_adl-legal-pages .error,
+.toplevel_page_adl-legal-pages .warning,
+.toplevel_page_adl-legal-pages .notice-large,
+.toplevel_page_adl-legal-pages .notice-alt {
+    display: none !important;
+}
+
+/* Also hide notices that might appear inside the content area */
+/* .toplevel_page_adl-legal-pages #wpcontent .notice,
+.toplevel_page_adl-legal-pages #wpbody-content .notice,
+.toplevel_page_adl-legal-pages .wrap > .notice,
+.toplevel_page_adl-legal-pages .wrap > div[class*="notice"],
+.toplevel_page_adl-legal-pages *[id*="message"],
+.toplevel_page_adl-legal-pages *[class*="message"] {
+    display: none !important;
+} */
+
+/* Hide common plugin notice patterns */
+/* .toplevel_page_adl-legal-pages .lp-notice,
+.toplevel_page_adl-legal-pages .plugin-notice,
+.toplevel_page_adl-legal-pages .review-notice,
+.toplevel_page_adl-legal-pages .promo-notice,
+.toplevel_page_adl-legal-pages .upgrade-notice {
+    display: none !important;
+} */
+
+.toplevel_page_adl-legal-pages #wpbody-content {
+    padding-bottom: 0 !important;
+}
+
+.toplevel_page_adl-legal-pages #wpfooter {
+    display: none !important;
+}
+
+.toplevel_page_adl-legal-pages .wrap {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100% !important;
+}
+
+/* .toplevel_page_adl-legal-pages #adl-legal-pages {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    min-height: calc(100vh - 32px) !important;
+    background-color: #f8fafc;
+    overflow-x: hidden;
+} */
+
+/* Legal Pages submenu icons */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a {
+    padding-left: 32px;
+    position: relative;
+}
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.7;
+}
+
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a:hover::before,
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li.current a::before {
+    opacity: 1;
+}
+
+#adminmenu #toplevel_page_adl-legal-pages .wp-has-submenu.wp-not-current-submenu.menu-top.toplevel_page_adl-legal-pages.menu-top-last .wp-menu-image img {
+    width: 21px !important;
+    height: 21px !important;
+    margin-bottom: 1px;
+    object-fit: contain;
+}
+#adminmenu #toplevel_page_adl-legal-pages .wp-has-submenu.wp-has-current-submenu.wp-menu-open.menu-top.toplevel_page_adl-legal-pages.menu-top-last .wp-menu-image img {
+    width: 27px !important;
+    height: 30px !important;
+    padding: 3px;
+    margin-top: 2px;
+    object-fit: contain;
+    margin-left: 4px;
+}
+
+#toplevel_page_adl-legal-pages .wp-submenu.wp-submenu-wrap {
+    padding-left: 3px;
+}
+/* Settings */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages"]::before {
+    background-image: url('../../images/icons/settings.png');
+}
+
+/* Add New Legal Page */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/add-new"]::before {
+    background-image: url('../../images/icons/add-new.png');
+}
+
+/* All Legal Pages */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/all-legal-pages"]::before {
+    background-image: url('../../images/icons/all-pages.png');
+}
+
+/* Legal Page Templates */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/legal-page-templates"]::before {
+    background-image: url('../../images/icons/templates.png');
+}
+
+/* Pro Features */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/pro-features/all-popups"]::before {
+    background-image: url('../../images/icons/all-pages.png');
+}
+
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/pro-features/cookie-bar"]::before {
+    background-image: url('../../images/icons/cookie-bar.png');
+}
+
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href$="#/pro-features/all-popups"]::after,
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href$="#/pro-features/cookie-bar"]::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px !important;
+    height: 20px !important;
+    background: url('../../images/icons/pro-features.png') center / contain no-repeat !important;
+    opacity: 9;
+    pointer-events: none;
+}
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href$="#/pro-features/all-popups"],
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href$="#/pro-features/cookie-bar"] {
+    padding-right: 42px !important;
+}
+/* Help & Support */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/help-support"]::before {
+    background-image: url('../../images/icons/help-support.png');
+}
+
+/* Upgrade to Pro */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/upgrade-to-pro"]::before {
+    background-image: url('../../images/icons/upgrade.png');
+}
+
+/* License */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/license"]::before {
+    background-image: url('../../images/icons/license.png');
+}
+/* ── PRO FEATURES parent ── */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href*="adl-legal-pages#/pro-features"] {
+    padding-left: 10px !important;
+    font-size: 10px !important;
+    margin-top: 10px;
+    position: relative;
+}
+
+/* ── FREE locked children (nested /pro-features/ prefix) ── */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href*="#/pro-features/all-popups"],
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href*="#/pro-features/cookie-bar"] {
+    font-size: inherit !important;
+    margin-top: 0;
+    padding-left: 29px !important;
+    padding-right: 52px !important;
+}
+
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href*="#/pro-features/cookie-bar"] {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #454040 !important;
+}
+
+/* ── PRO active children (flat slugs) ── */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href$="adl-legal-pages#/all-popups"],
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href$="adl-legal-pages#/cookie-bar"] {
+    font-size: inherit !important;
+    margin-top: 0;
+    padding-left: 29px !important;
+}
+
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href$="adl-legal-pages#/cookie-bar"] {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #454040 !important;
+}
+
+/* ── Pro badge on free locked children ── */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href*="#/pro-features/all-popups"]::after,
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href*="#/pro-features/cookie-bar"]::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px !important;
+    height: 20px !important;
+    background: url('../../images/icons/pro-features.png') center / contain no-repeat !important;
+    pointer-events: none;
+}
+
+/* ── Icons for free locked children ── */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href*="#/pro-features/all-popups"]::before {
+    background-image: url('../../images/icons/all-pages.png');
+}
+
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href*="#/pro-features/cookie-bar"]::before {
+    background-image: url('../../images/icons/cookie-bar.png');
+}
+
+/* ── Icons for PRO active children (flat slugs) ── */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href$="adl-legal-pages#/all-popups"]::before {
+    background-image: url('../../images/icons/all-popup.png');
+}
+
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href$="adl-legal-pages#/cookie-bar"]::before {
+    background-image: url('../../images/icons/cookie-bar.png');
+}
+
+/* ── Collapse arrow on PRO FEATURES parent ── */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href$="#/pro-features"]::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px !important;
+    height: 12px !important;
+    background: url('../../images/icons/arrow-up.png') center / contain no-repeat;
+    opacity: 0.8;
+    transition: transform 0.2s ease;
+    pointer-events: none;
+}
+
+/* Arrow flips when collapsed */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li.lp-pro-collapsed > a[href$="#/pro-features"]::after {
+    transform: translateY(-50%) rotate(180deg);
+}

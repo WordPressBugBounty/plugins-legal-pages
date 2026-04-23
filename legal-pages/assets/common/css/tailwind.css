@@ -1,0 +1,68 @@
+@import "tailwindcss";
+/* @import "./custom-classes.css"; */
+
+/* WordPress admin compatibility tweaks */
+@layer base {
+  #wpwrap h1,
+  #wpwrap h2,
+  #wpwrap h3,
+  #wpwrap h4,
+  #wpwrap h5,
+  #wpwrap h6 {
+    font-size: inherit;
+    font-weight: inherit;
+    margin: inherit;
+    color: inherit;
+  }
+}
+/* .wp-list-table.widefat.table-view-list.posts {
+  position: unset !important;
+} */
+
+.wp-list-table.widefat.table-view-list.posts,
+.wp-list-table.widefat.table-view-list.pages {
+  position: unset !important;
+  @apply static;
+}
+.toplevel_page_adl-legal-pages .mce-top-part.mce-container.mce-stack-layout-item.mce-first {
+    padding: 10px 0 10px 0 !important;
+
+}
+.toplevel_page_adl-legal-pages .mce-container-body.mce-flow-layout {
+  margin: 0 !important;
+  background-color: white !important;
+}
+
+.toplevel_page_adl-legal-pages .mce-toolbar-grp.mce-container.mce-panel.mce-first.mce-last {
+    border-bottom: none ! important;
+}
+.toplevel_page_adl-legal-pages div.mce-toolbar-grp>div {
+    border-width: 0 ! important;
+    padding: 0 ! important;
+}
+
+.toplevel_page_adl-legal-pages .mce-toolbar .mce-btn-group .mce-btn.mce-listbox {
+    border: none !important;
+}
+.bg-lgp-color { 
+  @apply bg-[#7C3BED];
+  @apply text-white;
+  @apply hover:bg-indigo-700;
+}
+.lgb-content-title {
+  @apply text-base;
+  @apply font-bold;
+  @apply text-[#17171C];
+  @apply !flex !items-center gap-2;
+}
+.bg-lgp-body {
+  @apply text-[11px] text-[#6F6F7B] mb-3 uppercase font-semibold mt-8;
+}
+
+.theme-browser .themes .wp-clearfix{
+    box-sizing: unset !important ;
+}
+
+.adl-add-button {
+    @apply flex items-center gap-2 px-6 py-[14px] text-sm font-semibold leading-3 text-white bg-[#7C3BED] rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer shadow-[0px_4px_14px_-2px_#7C3BED40];
+}
