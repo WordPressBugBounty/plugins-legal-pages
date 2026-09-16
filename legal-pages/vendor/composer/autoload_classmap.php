@@ -8,12 +8,9 @@ $baseDir = dirname($vendorDir);
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'LegalPage\\API\\Settings' => $baseDir . '/app/API/Settings.php',
-    'LegalPage\\Abstracts\\Test' => $baseDir . '/app/Abstracts/Test.php',
-    'LegalPage\\Controllers\\Admin\\Init' => $baseDir . '/app/Controllers/Admin/Init.php',
     'LegalPage\\Controllers\\Admin\\Menu' => $baseDir . '/app/Controllers/Admin/Menu.php',
     'LegalPage\\Controllers\\Common\\API' => $baseDir . '/app/Controllers/Common/API.php',
     'LegalPage\\Controllers\\Common\\Assets' => $baseDir . '/app/Controllers/Common/Assets.php',
-    'LegalPage\\Controllers\\Front\\Init' => $baseDir . '/app/Controllers/Front/Init.php',
     'LegalPage\\Controllers\\Front\\Shortcode' => $baseDir . '/app/Controllers/Front/Shortcode.php',
     'LegalPage\\Core\\Activator' => $baseDir . '/app/Core/Activator.php',
     'LegalPage\\Core\\Deactivator' => $baseDir . '/app/Core/Deactivator.php',

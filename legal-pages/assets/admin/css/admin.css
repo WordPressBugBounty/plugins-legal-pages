@@ -160,6 +160,25 @@
     background-image: url('../../images/icons/upgrade.png');
 }
 
+/* ── Help & Support / Upgrade to Pro: stand out in their normal (inactive)
+   state too, not just on hover/current, so they draw the eye against the
+   plain gray submenu items above them. Amber, not purple/pink — WP core
+   already renders the current submenu item (e.g. License) in a pink/
+   magenta accent, so a purple here would blend in as "just another
+   highlighted item" instead of standing apart from it. ── */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/help-support"],
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/upgrade-to-pro"] {
+    color: #F59E0B !important;
+    font-weight: 600 !important;
+}
+
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/help-support"]:hover,
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li.current a[href="admin.php?page=adl-legal-pages#/help-support"],
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/upgrade-to-pro"]:hover,
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li.current a[href="admin.php?page=adl-legal-pages#/upgrade-to-pro"] {
+    color: #fff !important;
+}
+
 /* License */
 #adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/license"]::before {
     background-image: url('../../images/icons/license.png');

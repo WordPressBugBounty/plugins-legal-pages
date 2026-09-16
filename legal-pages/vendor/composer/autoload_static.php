@@ -59,12 +59,9 @@ class ComposerStaticInit7ea28a8bf56f1d0e9fd985c7862f8719
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'LegalPage\\API\\Settings' => __DIR__ . '/../..' . '/app/API/Settings.php',
-        'LegalPage\\Abstracts\\Test' => __DIR__ . '/../..' . '/app/Abstracts/Test.php',
-        'LegalPage\\Controllers\\Admin\\Init' => __DIR__ . '/../..' . '/app/Controllers/Admin/Init.php',
         'LegalPage\\Controllers\\Admin\\Menu' => __DIR__ . '/../..' . '/app/Controllers/Admin/Menu.php',
         'LegalPage\\Controllers\\Common\\API' => __DIR__ . '/../..' . '/app/Controllers/Common/API.php',
         'LegalPage\\Controllers\\Common\\Assets' => __DIR__ . '/../..' . '/app/Controllers/Common/Assets.php',
-        'LegalPage\\Controllers\\Front\\Init' => __DIR__ . '/../..' . '/app/Controllers/Front/Init.php',
         'LegalPage\\Controllers\\Front\\Shortcode' => __DIR__ . '/../..' . '/app/Controllers/Front/Shortcode.php',
         'LegalPage\\Core\\Activator' => __DIR__ . '/../..' . '/app/Core/Activator.php',
         'LegalPage\\Core\\Deactivator' => __DIR__ . '/../..' . '/app/Core/Deactivator.php',

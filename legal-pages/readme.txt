@@ -3,7 +3,7 @@ Contributors: wpWax
 Tags: GDPR, Privacy Policy, Terms and conditions, Legal documents, Cookie notice, Legal compliance, Legal templates, Website legal requirements, Legal pages generator, GDPR compliance, CCPA compliance, DMCA compliance
 Requires at least: 4.0
 Tested up to: 7.1
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,11 @@ If you like this free version and want to get more templates and features and al
 7. Edit Legal Page Template
 
 == Changelog ==
+= 1.6.4 =
+* Update: Redesigned Pro upgrade prompts across Settings and Legal Page Templates — locked features now show a live preview with a clear "Upgrade to Pro" call to action instead of a disabled screen
+* Update: "Upgrade to Pro" links now point to the new Legal Pages Pro pricing page
+* Add: "Upgrade to Pro" link on the Plugins list page for quick access to Legal Pages Pro
+* Removed: Google+ (Google Plus) social link field and shortcode — the service was discontinued in 2019
 = 1.6.3 =
 * Update: WordPress 7.1 compatibility
 = 1.6.2 =

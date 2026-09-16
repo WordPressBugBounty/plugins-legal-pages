@@ -113,7 +113,6 @@ class Settings {
             'zip_code'         => '',
             'complete_address' => '',
             'facebook_url'     => '',
-            'google_plus_url'  => '',
             'linkedin_url'     => '',
             'twitter_url'      => '',
         ];
@@ -147,10 +146,6 @@ class Settings {
             ?? $social['facebookUrl']
             ?? '';
 
-        $mapped['google_plus_url'] = $saved['google_plus_url']
-            ?? $social['googlePlusUrl']
-            ?? '';
-
         $mapped['linkedin_url'] = $saved['linkedin_url']
             ?? $social['linkedInUrl']
             ?? '';
@@ -179,7 +174,6 @@ class Settings {
             'zip_code'         => 'sanitize_text_field',
             'complete_address' => 'sanitize_textarea_field',
             'facebook_url'     => 'esc_url_raw',
-            'google_plus_url'  => 'esc_url_raw',
             'linkedin_url'     => 'esc_url_raw',
             'twitter_url'      => 'esc_url_raw',
         ];

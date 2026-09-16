@@ -64,7 +64,6 @@ function adl_replace_shortcodes_in_text( $content ) {
 	};
 
 	$fb = $get( 'facebook_url',    'facebookUrl' );
-	$gp = $get( 'google_plus_url', 'googlePlusUrl' );
 	$li = $get( 'linkedin_url',    'linkedInUrl' );
 	$tw = $get( 'twitter_url',     'twitterUrl' );
 
@@ -89,7 +88,9 @@ function adl_replace_shortcodes_in_text( $content ) {
 		'[mailingAddress]' => esc_html( $get( 'complete_address', 'mailingAddress' ) ),
 
 		'[facebookUrl]'   => $fb ? '<a href="' . esc_url( $fb ) . '" target="_blank">Find Us on Facebook</a>'        : '',
-		'[googlePlusUrl]' => $gp ? '<a href="' . esc_url( $gp ) . '" target="_blank">Connect us on Google Plus</a>' : '',
+		// Google+ shut down in 2019 — always blank so any pre-existing page/template still
+		// carrying this tag from before it was removed renders cleanly instead of showing raw text.
+		'[googlePlusUrl]' => '',
 		'[linkedinUrl]'   => $li ? '<a href="' . esc_url( $li ) . '" target="_blank">Connect us on LinkedIn</a>'     : '',
 		'[linkedInUrl]'   => $li ? '<a href="' . esc_url( $li ) . '" target="_blank">Connect us on LinkedIn</a>'     : '',
 		'[twitterUrl]'    => $tw ? '<a href="' . esc_url( $tw ) . '" target="_blank">Follow Us on Twitter</a>'       : '',

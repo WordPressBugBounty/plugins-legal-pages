@@ -18,6 +18,30 @@ class Menu {
     public function __construct() {
         $this->icon_url = LEGAL_PAGES_URL . 'assets/images/icons/';
         $this->action( 'admin_menu', [ $this, 'register_menus' ] );
+        $this->filter( 'plugin_action_links_' . plugin_basename( LEGAL_PAGES_FILE ), [ $this, 'add_plugin_action_links' ] );
+    }
+
+    /**
+     * Prepend an "Upgrade to Pro" link to the plugin's action links
+     * on the Plugins list page (next to Activate/Deactivate/Delete).
+     *
+     * @param string[] $links
+     * @return string[]
+     */
+    public function add_plugin_action_links( $links ) {
+        $license_status = get_option( 'wplp_license_status', '' );
+
+        if ( $license_status !== 'valid' ) {
+            $upgrade_link = sprintf(
+                '<a href="%1$s" target="_blank" rel="noopener noreferrer" style="color: #d54e21; font-weight: 600;">%2$s</a>',
+                esc_url( 'https://legalpagespro.com/?utm_source=lite-plugin#pricing' ),
+                esc_html__( 'Upgrade to Pro', 'legal-pages' )
+            );
+
+            array_unshift( $links, $upgrade_link );
+        }
+
+        return $links;
     }
 
     public function register_menus() {

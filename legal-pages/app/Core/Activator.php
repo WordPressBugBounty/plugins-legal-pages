@@ -95,7 +95,6 @@ class Activator {
         };
 
         $fb = $get( 'facebook_url',    'facebookUrl' );
-        $gp = $get( 'google_plus_url', 'googlePlusUrl' );
         $li = $get( 'linkedin_url',    'linkedInUrl' );
         $tw = $get( 'twitter_url',     'twitterUrl' );
 
@@ -103,8 +102,6 @@ class Activator {
         $wp_editor_patterns = array(
             '<a href="[facebookUrl]" target="_blank" rel="noopener"> Find Us on Facebook</a>'        => '[facebookUrl]',
             '<a href="[facebookUrl]" target="_blank" rel="noopener">Find Us on Facebook</a>'         => '[facebookUrl]',
-            '<a href="[googlePlusUrl]" target="_blank" rel="noopener"> Connect us on Google Plus</a>' => '[googlePlusUrl]',
-            '<a href="[googlePlusUrl]" target="_blank" rel="noopener">Connect us on Google Plus</a>'  => '[googlePlusUrl]',
             '<a href="[linkedInUrl]" target="_blank" rel="noopener"> Connect us on LinkedIn</a>'      => '[linkedInUrl]',
             '<a href="[linkedInUrl]" target="_blank" rel="noopener">Connect us on LinkedIn</a>'       => '[linkedInUrl]',
             '<a href="[twitterUrl]" target="_blank" rel="noopener"> Follow Us on Twitter</a>'         => '[twitterUrl]',
@@ -118,11 +115,6 @@ class Activator {
             $anchor_replacements[ "<a href='{$fb}' target='_blank'> Find Us on Facebook</a>" ]       = '[facebookUrl]';
             $anchor_replacements[ "<a href=\"{$fb}\" target=\"_blank\"> Find Us on Facebook</a>" ]    = '[facebookUrl]';
             $anchor_replacements[ $fb ] = '[facebookUrl]';
-        }
-        if ( $gp ) {
-            $anchor_replacements[ "<a href='{$gp}' target='_blank'> Connect us on Google Plus</a>" ]      = '[googlePlusUrl]';
-            $anchor_replacements[ "<a href=\"{$gp}\" target=\"_blank\"> Connect us on Google Plus</a>" ]   = '[googlePlusUrl]';
-            $anchor_replacements[ $gp ] = '[googlePlusUrl]';
         }
         if ( $li ) {
             $anchor_replacements[ "<a href='{$li}' target='_blank'> Connect us on LinkedIn</a>" ]     = '[linkedInUrl]';
@@ -239,7 +231,6 @@ class Activator {
             '[zipCode]'         => 'zip_code',
             '[mailingAddress]'  => 'complete_address',
             '[facebookUrl]'     => 'facebook_url',
-            '[googlePlusUrl]'   => 'google_plus_url',
             '[linkedinUrl]'     => 'linkedin_url',
             '[twitterUrl]'      => 'twitter_url',
         );

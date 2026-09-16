@@ -8,5 +8,5 @@
 <br/>[cityName], [stateName], [zipCode]
 <br/>[countryName]
 <br/>Contact Email: [emailAddress].</br>
-<div>[facebookUrl]&nbsp;[googlePlusUrl]&nbsp;[linkedInUrl]&nbsp;[twitterUrl]</div>
+<div>[facebookUrl]&nbsp;[linkedInUrl]&nbsp;[twitterUrl]</div>
 </br>

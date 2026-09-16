@@ -29,7 +29,6 @@ class Shortcode {
         add_shortcode( 'zipCode', array( $this, 'zipcode_shortcode' ) );
         add_shortcode( 'mailingAddress', array( $this, 'completemailingaddress_shortcode' ) );
         add_shortcode( 'facebookUrl', array( $this, 'facebookurl_shortcode' ) );
-        add_shortcode( 'googlePlusUrl', array( $this, 'googleplusurl_shortcode' ) );
         add_shortcode( 'linkedInUrl', array( $this, 'linkedinurl_shortcode' ) );
         add_shortcode( 'twitterUrl', array( $this, 'twitterurl_shortcode' ) );
     }
@@ -135,14 +134,6 @@ class Shortcode {
     public function facebookurl_shortcode( $atts ) {
         $settings = $this->get_settings();
         return ! empty( $settings['facebook_url'] ) ? esc_url( $settings['facebook_url'] ) : '';
-    }
-
-    /**
-     * Google Plus URL shortcode
-     */
-    public function googleplusurl_shortcode( $atts ) {
-        $settings = $this->get_settings();
-        return ! empty( $settings['google_plus_url'] ) ? esc_url( $settings['google_plus_url'] ) : '';
     }
 
     /**
