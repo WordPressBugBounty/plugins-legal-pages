@@ -3,7 +3,6 @@
 namespace WP_CLI\Bootstrap;
 
 use WP_CLI;
-use WP_CLI\Path;
 use WP_CLI\Utils;
 
 /**
@@ -36,17 +35,14 @@ final class LoadRequiredCommand implements BootstrapStep {
 			if ( ! file_exists( $path ) ) {
 				$context        = '';
 				$required_files = $runner()->get_required_files();
-				foreach ( [ 'system', 'global', 'project', 'runtime' ] as $scope ) {
-					if ( isset( $required_files[ $scope ] ) && in_array( $path, $required_files[ $scope ], true ) ) {
+				foreach ( [ 'global', 'project', 'runtime' ] as $scope ) {
+					if ( in_array( $path, $required_files[ $scope ], true ) ) {
 						switch ( $scope ) {
-							case 'system':
-								$context = ' (from system ' . Path::basename( (string) $runner()->get_system_config_path() ) . ')';
-								break;
 							case 'global':
-								$context = ' (from global ' . Path::basename( (string) $runner()->get_global_config_path() ) . ')';
+								$context = ' (from global ' . Utils\basename( $runner()->get_global_config_path() ) . ')';
 								break;
 							case 'project':
-								$context = ' (from project\'s ' . Path::basename( (string) $runner()->get_project_config_path() ) . ')';
+								$context = ' (from project\'s ' . Utils\basename( $runner()->get_project_config_path() ) . ')';
 								break;
 							case 'runtime':
 								$context = ' (from runtime argument)';
@@ -55,7 +51,7 @@ final class LoadRequiredCommand implements BootstrapStep {
 						break;
 					}
 				}
-				WP_CLI::error( sprintf( "Required file '%s' doesn't exist%s.", Path::basename( $path ), $context ) );
+				WP_CLI::error( sprintf( "Required file '%s' doesn't exist%s.", Utils\basename( $path ), $context ) );
 			}
 			Utils\load_file( $path );
 			WP_CLI::debug( 'Required file from config: ' . $path, 'bootstrap' );

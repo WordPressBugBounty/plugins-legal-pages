@@ -3,8 +3,8 @@
 namespace WP_CLI\Bootstrap;
 
 use WP_CLI\Autoloader;
-use WP_CLI\Path;
 use WP_CLI\RequestsLibrary;
+use WP_CLI\Utils;
 
 /**
  * Class IncludeRequestsAutoloader.
@@ -58,7 +58,7 @@ final class IncludeRequestsAutoloader implements BootstrapStep {
 			if ( is_bool( $alias_path ) || empty( $alias_path ) ) {
 				return $state;
 			}
-			if ( ! Path::is_absolute( $alias_path ) ) {
+			if ( ! Utils\is_path_absolute( $alias_path ) ) {
 				$alias_path = getcwd() . '/' . $alias_path;
 			}
 			$wp_root = rtrim( $alias_path, '/' );
@@ -93,7 +93,6 @@ final class IncludeRequestsAutoloader implements BootstrapStep {
 			}
 
 			if ( class_exists( '\\Requests' ) ) {
-				// @phpstan-ignore staticMethod.deprecatedClass
 				\Requests::register_autoloader();
 				$this->store_requests_meta( RequestsLibrary::CLASS_NAME_V1, self::FROM_WP_CORE );
 				return $state;
@@ -125,7 +124,7 @@ final class IncludeRequestsAutoloader implements BootstrapStep {
 	 * @param string $class_name The class name of the Requests integration.
 	 * @param string $source     The source of the Requests integration.
 	 */
-	private function store_requests_meta( $class_name, $source ): void {
+	private function store_requests_meta( $class_name, $source ) {
 		RequestsLibrary::set_version(
 			RequestsLibrary::CLASS_NAME_V2 === $class_name
 				? RequestsLibrary::VERSION_V2

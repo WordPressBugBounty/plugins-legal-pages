@@ -16,26 +16,16 @@ use cli\Memoize;
 
 /**
  * Represents an Argument or a value and provides several helpers related to parsing an argument list.
- *
- * @property-read bool $isLong
- * @property-read bool $isShort
- * @property-read bool $isArgument
- * @property-read bool $canExplode
- * @property-read array<int, string> $exploded
- * @property-read string $raw
- * @property-read bool $isValue
  */
 class Argument extends Memoize {
 	/**
 	 * The canonical name of this argument, used for aliasing.
 	 *
-	 * @var string
+	 * @param string
 	 */
 	public $key;
 
-	/** @var string */
 	private $_argument;
-	/** @var string */
 	private $_raw;
 
 	/**
@@ -131,7 +121,7 @@ class Argument extends Memoize {
 	 * Returns all but the first character of the argument, removing them from the
 	 * objects representation at the same time.
 	 *
-	 * @return array<int, string>
+	 * @return array
 	 */
 	public function exploded() {
 		$exploded = array();
@@ -140,7 +130,7 @@ class Argument extends Memoize {
 			array_push($exploded, $this->_argument[$i - 1]);
 		}
 
-		$this->_argument = (string) array_pop($exploded);
+		$this->_argument = array_pop($exploded);
 		$this->_raw      = '-' . $this->_argument;
 		return $exploded;
 	}

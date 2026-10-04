@@ -27,19 +27,19 @@ class CompositeCommand {
 	/**
 	 * Instantiate a new CompositeCommand
 	 *
-	 * @param RootCommand|CompositeCommand $parent_command Parent command (either Root or Composite)
-	 * @param string                       $name           Represents how command should be invoked
-	 * @param DocParser                    $docparser
+	 * @param mixed $parent Parent command (either Root or Composite)
+	 * @param string $name Represents how command should be invoked
+	 * @param DocParser $docparser
 	 */
-	public function __construct( $parent_command, $name, $docparser ) {
-		$this->parent = $parent_command;
+	public function __construct( $parent, $name, $docparser ) {
+		$this->parent = $parent;
 
 		$this->name = $name;
 
 		$this->shortdesc = $docparser->get_shortdesc();
 		$this->longdesc  = $docparser->get_longdesc();
 		$this->docparser = $docparser;
-		$this->hook      = $parent_command->get_hook();
+		$this->hook      = $parent->get_hook();
 
 		$when_to_invoke = $docparser->get_tag( 'when' );
 		if ( $when_to_invoke ) {
@@ -51,7 +51,7 @@ class CompositeCommand {
 	/**
 	 * Get the parent composite (or root) command
 	 *
-	 * @return RootCommand|CompositeCommand
+	 * @return mixed
 	 */
 	public function get_parent() {
 		return $this->parent;
@@ -88,7 +88,7 @@ class CompositeCommand {
 	/**
 	 * Composite commands always contain subcommands.
 	 *
-	 * @return bool
+	 * @return true
 	 */
 	public function can_have_subcommands() {
 		return true;
@@ -136,15 +136,6 @@ class CompositeCommand {
 	}
 
 	/**
-	 * Get the DocParser instance for this command.
-	 *
-	 * @return DocParser|null
-	 */
-	public function get_docparser() {
-		return $this->docparser;
-	}
-
-	/**
 	 * Set the short description for this composite command.
 	 *
 	 * @param string $shortdesc
@@ -187,7 +178,6 @@ class CompositeCommand {
 	/**
 	 * Get the usage for this composite command.
 	 *
-	 * @param string $prefix
 	 * @return string
 	 */
 	public function get_usage( $prefix ) {
@@ -212,10 +202,7 @@ class CompositeCommand {
 			$prefix = ( 0 === $i ) ? 'usage: ' : '   or: ';
 			++$i;
 
-			$disabled_reason = WP_CLI::get_runner()->get_command_disabled_reason( $subcommand );
-			if ( false !== $disabled_reason ) {
-				$suffix = $disabled_reason ? " (disabled: $disabled_reason)" : ' (disabled)';
-				WP_CLI::line( $subcommand->get_usage( $prefix ) . $suffix );
+			if ( WP_CLI::get_runner()->is_command_disabled( $subcommand ) ) {
 				continue;
 			}
 
@@ -330,7 +317,7 @@ class CompositeCommand {
 			}
 
 			// Check if global parameters synopsis should be displayed or not.
-			if ( 'true' !== Utils\get_env_or_config( 'WP_CLI_SUPPRESS_GLOBAL_PARAMS' ) ) {
+			if ( 'true' !== getenv( 'WP_CLI_SUPPRESS_GLOBAL_PARAMS' ) ) {
 				$binding['parameters'][]   = [
 					'synopsis' => $synopsis,
 					'desc'     => $details['desc'],

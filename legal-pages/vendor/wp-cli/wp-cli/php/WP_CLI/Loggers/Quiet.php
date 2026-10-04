@@ -2,6 +2,8 @@
 
 namespace WP_CLI\Loggers;
 
+use WP_CLI;
+
 /**
  * Quiet logger only logs errors.
  */
@@ -18,9 +20,8 @@ class Quiet extends Base {
 	 * Informational messages aren't logged.
 	 *
 	 * @param string $message Message to write.
-	 * @param bool   $newline Optional. Whether to append a newline to the end of the message. Default true.
 	 */
-	public function info( $message, $newline = true ) {
+	public function info( $message ) {
 		// Nothing.
 	}
 

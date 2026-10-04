@@ -5,6 +5,9 @@ namespace WP_CLI;
 use Mustangostang\Spyc;
 use SplFileInfo;
 
+use function WP_CLI\Utils\is_path_absolute;
+use function WP_CLI\Utils\normalize_path;
+
 /**
  * Handles file- and runtime-based configuration values.
  *
@@ -41,13 +44,6 @@ class Configurator {
 	private $aliases = [];
 
 	/**
-	 * Raw aliases without environment variable interpolation.
-	 *
-	 * @var array
-	 */
-	private $raw_aliases = [];
-
-	/**
 	 * Regex pattern used to define an alias.
 	 *
 	 * @var string
@@ -64,7 +60,6 @@ class Configurator {
 		'url',
 		'path',
 		'ssh',
-		'ssh-args',
 		'http',
 		'proxyjump',
 		'key',
@@ -91,7 +86,7 @@ class Configurator {
 		}
 
 		$env_files = getenv( 'WP_CLI_REQUIRE' )
-		? array_filter( array_map( 'trim', explode( ',', (string) getenv( 'WP_CLI_REQUIRE' ) ) ) )
+		? array_filter( array_map( 'trim', explode( ',', getenv( 'WP_CLI_REQUIRE' ) ) ) )
 		: [];
 
 		if ( ! empty( $env_files ) ) {
@@ -119,59 +114,6 @@ class Configurator {
 	}
 
 	/**
-	 * Add the given alias to the internal aliases array.
-	 *
-	 * @param string $key The alias name (with or without @ prefix).
-	 * @param array  $value The alias configuration.
-	 * @param string $yml_file_dir The directory of the YAML file for path resolution.
-	 * @return void
-	 */
-	private function add_alias( $key, $value, $yml_file_dir ) {
-		if ( preg_match( '#' . self::ALIAS_REGEX . '#', $key ) ) {
-			// Remove the @ character from the alias name
-			$key = substr( $key, 1 );
-		}
-
-		$this->aliases[ $key ]     = [];
-		$this->raw_aliases[ $key ] = [];
-		$is_alias                  = false;
-		foreach ( self::$alias_spec as $i ) {
-			if ( isset( $value[ $i ] ) ) {
-				// Store raw value before interpolation.
-				$this->raw_aliases[ $key ][ $i ] = $value[ $i ];
-
-				// Interpolate environment variables in alias values.
-				$value[ $i ] = self::interpolate_env_vars( $value[ $i ] );
-				if ( 'path' === $i && ! isset( $value['ssh'] ) ) {
-					self::absolutize( $value[ $i ], $yml_file_dir );
-					$value[ $i ] = Path::normalize( $value[ $i ] );
-				}
-				$this->aliases[ $key ][ $i ] = $value[ $i ];
-				$is_alias                    = true;
-			}
-		}
-
-		// If it's not an alias, it might be a group of aliases.
-		if ( ! $is_alias && is_array( $value ) ) {
-			/**
-			 * @var list<string> $value
-			 */
-			$alias_group = [];
-			foreach ( $value as $k ) {
-				if ( preg_match( '#' . self::ALIAS_REGEX . '#', $k ) ) {
-					// Remove the @ character from the alias name
-					$alias_group[] = substr( $k, 1 );
-				} elseif ( array_key_exists( $k, $this->aliases ) ) {
-					// Check if the alias has been properly declared before adding it to the group
-					$alias_group[] = $k;
-				}
-			}
-			$this->aliases[ $key ]     = $alias_group;
-			$this->raw_aliases[ $key ] = $alias_group;
-		}
-	}
-
-	/**
 	 * Get declared configuration values as an array.
 	 *
 	 * @return array
@@ -195,68 +137,30 @@ class Configurator {
 	 * @return array
 	 */
 	public function get_aliases() {
-		$runtime_aliases = $this->get_runtime_aliases( true );
-		if ( null !== $runtime_aliases ) {
-			return $runtime_aliases;
+		$runtime_alias = getenv( 'WP_CLI_RUNTIME_ALIAS' );
+		if ( false !== $runtime_alias ) {
+			$returned_aliases = [];
+			foreach ( json_decode( $runtime_alias, true ) as $key => $value ) {
+				if ( preg_match( '#' . self::ALIAS_REGEX . '#', $key ) ) {
+					$returned_aliases[ $key ] = [];
+					foreach ( self::$alias_spec as $i ) {
+						if ( isset( $value[ $i ] ) ) {
+							$returned_aliases[ $key ][ $i ] = $value[ $i ];
+						}
+					}
+				}
+			}
+			return $returned_aliases;
 		}
 
 		return $this->aliases;
 	}
 
 	/**
-	 * Get raw aliases without environment variable interpolation.
-	 *
-	 * @return array
-	 */
-	public function get_raw_aliases() {
-		$runtime_aliases = $this->get_runtime_aliases( false );
-		if ( null !== $runtime_aliases ) {
-			return $runtime_aliases;
-		}
-
-		return $this->raw_aliases;
-	}
-
-	/**
-	 * Get runtime aliases from environment variable.
-	 *
-	 * @param bool $interpolate Whether to interpolate environment variables.
-	 * @return array|null Returns aliases array if runtime alias is set, null otherwise.
-	 */
-	private function get_runtime_aliases( $interpolate ) {
-		$runtime_alias = getenv( 'WP_CLI_RUNTIME_ALIAS' );
-		if ( false === $runtime_alias ) {
-			return null;
-		}
-
-		$returned_aliases = [];
-
-		/**
-		 * @var string $key
-		 * @var array<string, string> $value
-		 */
-		foreach ( (array) json_decode( $runtime_alias, true ) as $key => $value ) {
-			if ( preg_match( '#' . self::ALIAS_REGEX . '#', $key ) ) {
-				$normalized_key                      = substr( $key, 1 );
-				$returned_aliases[ $normalized_key ] = [];
-				foreach ( self::$alias_spec as $i ) {
-					if ( isset( $value[ $i ] ) ) {
-						$returned_aliases[ $normalized_key ][ $i ] = $interpolate
-							? self::interpolate_env_vars( $value[ $i ] )
-							: $value[ $i ];
-					}
-				}
-			}
-		}
-
-		return $returned_aliases;
-	}
-
-	/**
 	 * Splits a list of arguments into positional, associative and config.
 	 *
 	 * @param array<string> $arguments
-	 * @return array{0: array<string>, 1: array<string, mixed>, 2: array<string, array<int, string>|int|string|true>}
+	 * @return array<array<string>>
 	 */
 	public function parse_args( $arguments ) {
 		list( $positional_args, $mixed_args, $global_assoc, $local_assoc ) = self::extract_assoc( $arguments );
@@ -275,34 +179,16 @@ class Configurator {
 		$assoc_args      = [];
 		$global_assoc    = [];
 		$local_assoc     = [];
-		$end_of_options  = false;
 
 		foreach ( $arguments as $arg ) {
 			$positional = null;
 			$assoc_arg  = null;
 
-			// Check for the `--` delimiter indicating end of options.
-			if ( '--' === $arg ) {
-				$end_of_options = true;
-				continue;
-			}
-
-			// After `--`, treat all arguments as positional.
-			if ( $end_of_options ) {
-				$positional = $arg;
-			} elseif ( preg_match( '|^--no-([^=]+)$|', $arg, $matches ) ) {
+			if ( preg_match( '|^--no-([^=]+)$|', $arg, $matches ) ) {
 				$assoc_arg = [ $matches[1], false ];
 			} elseif ( preg_match( '|^--([^=]+)$|', $arg, $matches ) ) {
 				$assoc_arg = [ $matches[1], true ];
 			} elseif ( preg_match( '|^--([^=]+)=(.*)|s', $arg, $matches ) ) {
-				$assoc_arg = [ $matches[1], $matches[2] ];
-			} elseif ( preg_match( '|^-([a-zA-Z])$|', $arg, $matches ) ) {
-				// Support single-dash single-letter short arguments (e.g., -w, -v)
-				// Note: Only single letters are supported to follow common CLI conventions
-				// Multi-character aliases should use double-dash (e.g., --debug not -debug)
-				$assoc_arg = [ $matches[1], true ];
-			} elseif ( preg_match( '|^-([a-zA-Z])=(.*)|s', $arg, $matches ) ) {
-				// Support single-dash single-letter short arguments with values (e.g., -n=5)
 				$assoc_arg = [ $matches[1], $matches[2] ];
 			} else {
 				$positional = $arg;
@@ -327,7 +213,7 @@ class Configurator {
 	 * Separate runtime parameters from command-specific parameters.
 	 *
 	 * @param array $mixed_args
-	 * @return array{0: array<string, mixed>, 1: array<string, array<int, string>|int|string|true>}
+	 * @return array
 	 */
 	private function unmix_assoc_args( $mixed_args, $global_assoc = [], $local_assoc = [] ) {
 		$assoc_args     = [];
@@ -335,45 +221,20 @@ class Configurator {
 
 		if ( getenv( 'WP_CLI_STRICT_ARGS_MODE' ) ) {
 			foreach ( $global_assoc as $tmp ) {
-				[ $key, $value ] = $tmp;
+				list( $key, $value ) = $tmp;
 				if ( isset( $this->spec[ $key ] ) && false !== $this->spec[ $key ]['runtime'] ) {
 					$this->assoc_arg_to_runtime_config( $key, $value, $runtime_config );
 				}
 			}
 			foreach ( $local_assoc as $tmp ) {
-				[ $key, $value ] = $tmp;
-				// Collect multiple values for the same key into an array, except for boolean flags
-				if ( isset( $assoc_args[ $key ] ) ) {
-					// Boolean flags (--flag or --no-flag) use last-wins behavior
-					if ( is_bool( $value ) ) {
-						$assoc_args[ $key ] = $value;
-					} else {
-						if ( ! is_array( $assoc_args[ $key ] ) ) {
-							$assoc_args[ $key ] = [ $assoc_args[ $key ] ];
-						}
-						$assoc_args[ $key ][] = $value;
-					}
-				} else {
-					$assoc_args[ $key ] = $value;
-				}
+				$assoc_args[ $tmp[0] ] = $tmp[1];
 			}
 		} else {
 			foreach ( $mixed_args as $tmp ) {
-				[ $key, $value ] = $tmp;
+				list( $key, $value ) = $tmp;
 
 				if ( isset( $this->spec[ $key ] ) && false !== $this->spec[ $key ]['runtime'] ) {
 					$this->assoc_arg_to_runtime_config( $key, $value, $runtime_config );
-				} elseif ( isset( $assoc_args[ $key ] ) ) {
-					// Collect multiple values for the same key into an array, except for boolean flags
-					// Boolean flags (--flag or --no-flag) use last-wins behavior
-					if ( is_bool( $value ) ) {
-						$assoc_args[ $key ] = $value;
-					} else {
-						if ( ! is_array( $assoc_args[ $key ] ) ) {
-							$assoc_args[ $key ] = [ $assoc_args[ $key ] ];
-						}
-						$assoc_args[ $key ][] = $value;
-					}
 				} else {
 					$assoc_args[ $key ] = $value;
 				}
@@ -407,20 +268,38 @@ class Configurator {
 	public function merge_yml( $path, $current_alias = null ) {
 		$yaml = self::load_yml( $path );
 		if ( ! empty( $yaml['_']['inherit'] ) ) {
-			$inherit_path = Path::is_absolute( $yaml['_']['inherit'] )
+			// Refactor with the WP-CLI `Path` class, once it's available.
+			// See: https://github.com/wp-cli/wp-cli/issues/5007
+			$inherit_path = is_path_absolute( $yaml['_']['inherit'] )
 				? $yaml['_']['inherit']
-				: ( new SplFileInfo( Path::normalize( dirname( $path ) . '/' . $yaml['_']['inherit'] ) ) )->getRealPath();
+				: ( new SplFileInfo( normalize_path( dirname( $path ) . '/' . $yaml['_']['inherit'] ) ) )->getRealPath();
 
 			$this->merge_yml( $inherit_path, $current_alias );
 		}
 		// Prepare the base path for absolutized alias paths.
-		$yml_file_dir = $path ? dirname( $path ) : '';
+		$yml_file_dir = $path ? dirname( $path ) : false;
 		foreach ( $yaml as $key => $value ) {
 			if ( preg_match( '#' . self::ALIAS_REGEX . '#', $key ) ) {
-				$this->add_alias( $key, $value, $yml_file_dir );
-			} elseif ( 'aliases' === $key ) {
-				foreach ( $value as $alias => $alias_config ) {
-					$this->add_alias( $alias, $alias_config, $yml_file_dir );
+				$this->aliases[ $key ] = [];
+				$is_alias              = false;
+				foreach ( self::$alias_spec as $i ) {
+					if ( isset( $value[ $i ] ) ) {
+						if ( 'path' === $i && ! isset( $value['ssh'] ) ) {
+							self::absolutize( $value[ $i ], $yml_file_dir );
+						}
+						$this->aliases[ $key ][ $i ] = $value[ $i ];
+						$is_alias                    = true;
+					}
+				}
+				// If it's not an alias, it might be a group of aliases.
+				if ( ! $is_alias && is_array( $value ) ) {
+					$alias_group = [];
+					foreach ( $value as $k ) {
+						if ( preg_match( '#' . self::ALIAS_REGEX . '#', $k ) ) {
+							$alias_group[] = $k;
+						}
+					}
+					$this->aliases[ $key ] = $alias_group;
 				}
 			} elseif ( ! isset( $this->spec[ $key ] ) || false === $this->spec[ $key ]['file'] ) {
 				if ( isset( $this->extra_config[ $key ] )
@@ -489,8 +368,7 @@ class Configurator {
 
 		if ( isset( $config['require'] ) ) {
 			self::arrayify( $config['require'] );
-			// @phpstan-ignore argument.type
-			$config['require'] = Utils\expand_globs( array_map( 'strval', $config['require'] ) );
+			$config['require'] = Utils\expand_globs( $config['require'] );
 			foreach ( $config['require'] as &$path ) {
 				self::absolutize( $path, $yml_file_dir );
 			}
@@ -520,8 +398,6 @@ class Configurator {
 	 * Conform a variable to an array.
 	 *
 	 * @param mixed $val A string or an array
-	 *
-	 * @param-out array<mixed> $val
 	 */
 	private static function arrayify( &$val ) {
 		$val = (array) $val;
@@ -534,37 +410,8 @@ class Configurator {
 	 * @param string $base Base path to prepend.
 	 */
 	private static function absolutize( &$path, $base ) {
-		if ( ! empty( $path ) ) {
-			$path = Path::expand_tilde( $path );
-			if ( ! Path::is_absolute( $path ) ) {
-				$path = $base . DIRECTORY_SEPARATOR . $path;
-			}
+		if ( ! empty( $path ) && ! Utils\is_path_absolute( $path ) ) {
+			$path = $base . DIRECTORY_SEPARATOR . $path;
 		}
-	}
-
-	/**
-	 * Interpolate environment variables in a string.
-	 *
-	 * Replaces ${env.VARIABLE_NAME} with the value of the VARIABLE_NAME environment variable.
-	 *
-	 * @param string $value The string value to interpolate.
-	 * @return string The interpolated string.
-	 */
-	private static function interpolate_env_vars( $value ) {
-		if ( ! is_string( $value ) ) {
-			return $value;
-		}
-
-		$result = preg_replace_callback(
-			'/\$\{env\.([A-Za-z0-9_]+)\}/',
-			function ( $matches ) {
-				$env_var = getenv( $matches[1] );
-				return false !== $env_var ? $env_var : $matches[0];
-			},
-			$value
-		);
-
-		// Ensure we always return a string, even if preg_replace_callback fails.
-		return is_string( $result ) ? $result : $value;
 	}
 }

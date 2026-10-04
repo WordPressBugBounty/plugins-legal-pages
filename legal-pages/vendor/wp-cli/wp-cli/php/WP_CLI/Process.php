@@ -19,7 +19,7 @@ class Process {
 	private $cwd;
 
 	/**
-	 * @var array|null Environment variables to set when running the command.
+	 * @var array Environment variables to set when running the command.
 	 */
 	private $env;
 
@@ -71,49 +71,16 @@ class Process {
 
 		$start_time = microtime( true );
 
-		/**
-		 * @var array<int, resource> $pipes
-		 */
 		$pipes = [];
-		if ( Utils\is_windows() ) {
-			// On Windows, leaving pipes open can cause hangs.
-			// Redirect output to files and close stdin.
-			$stdout_file = tempnam( sys_get_temp_dir(), 'behat-stdout-' );
-			$stderr_file = tempnam( sys_get_temp_dir(), 'behat-stderr-' );
-			$descriptors = [
-				0 => [ 'pipe', 'r' ],
-				1 => [ 'file', $stdout_file, 'a' ],
-				2 => [ 'file', $stderr_file, 'a' ],
-			];
-			$proc        = Utils\proc_open_compat( $this->command, $descriptors, $pipes, $this->cwd, $this->env );
-			if ( $proc && isset( $pipes[0] ) ) {
-				fclose( $pipes[0] );
-			}
-		} else {
-			$proc = Utils\proc_open_compat( $this->command, self::$descriptors, $pipes, $this->cwd, $this->env );
-			if ( $proc ) {
-				$stdout = stream_get_contents( $pipes[1] );
-				fclose( $pipes[1] );
-				$stderr = stream_get_contents( $pipes[2] );
-				fclose( $pipes[2] );
-			} else {
-				$stdout = '';
-				$stderr = '';
-			}
-		}
+		$proc  = Utils\proc_open_compat( $this->command, self::$descriptors, $pipes, $this->cwd, $this->env );
 
-		$return_code = $proc ? proc_close( $proc ) : -1;
+		$stdout = stream_get_contents( $pipes[1] );
+		fclose( $pipes[1] );
 
-		if ( Utils\is_windows() ) {
-			$stdout = (string) file_get_contents( $stdout_file );
-			$stderr = (string) file_get_contents( $stderr_file );
-			unlink( $stdout_file );
-			unlink( $stderr_file );
+		$stderr = stream_get_contents( $pipes[2] );
+		fclose( $pipes[2] );
 
-			// Normalize line endings.
-			$stdout = str_replace( "\r\n", "\n", $stdout );
-			$stderr = str_replace( "\r\n", "\n", $stderr );
-		}
+		$return_code = proc_close( $proc );
 
 		$run_time = microtime( true ) - $start_time;
 

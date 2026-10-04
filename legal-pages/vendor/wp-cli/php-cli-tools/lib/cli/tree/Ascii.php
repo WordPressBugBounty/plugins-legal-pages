@@ -18,7 +18,7 @@ namespace cli\tree;
 class Ascii extends Renderer {
 
     /**
-     * @param array<int|string, mixed> $tree
+     * @param array $tree
      * @return string
      */
     public function render(array $tree)

@@ -3,6 +3,7 @@
 namespace WP_CLI\Bootstrap;
 
 use WP_CLI;
+use WP_CLI\Utils;
 
 /**
  * Class CheckRoot.
@@ -21,9 +22,6 @@ class CheckRoot implements BootstrapStep {
 	 * @return BootstrapState Modified state to pass to the next step.
 	 */
 	public function process( BootstrapState $state ) {
-		/**
-		 * @var array{'allow-root'?: bool} $config
-		 */
 		$config = $state->getValue( 'config', [] );
 		if ( array_key_exists( 'allow-root', $config ) && true === $config['allow-root'] ) {
 			// They're aware of the risks and set a flag to allow root.
@@ -35,9 +33,6 @@ class CheckRoot implements BootstrapStep {
 			return $state;
 		}
 
-		/**
-		 * @var string[] $args
-		 */
 		$args = $state->getValue( 'arguments', [] );
 		if ( count( $args ) >= 2 && 'cli' === $args[0] && in_array( $args[1], [ 'update', 'info' ], true ) ) {
 			// Make it easier to update root-owned copies.
@@ -69,20 +64,7 @@ class CheckRoot implements BootstrapStep {
 			"run the following to become the respective user:\n" .
 			"\n" .
 			"    sudo -u USER -i -- wp <command>\n" .
-			"\n" .
-			"(omit -i when using a system user account)\n" .
-			"\n" .
-			"Note: When using 'sudo -i', the command is passed via the login " .
-			"shell's '-c' flag, which strips one layer of quotes. To correctly " .
-			'pass empty arguments or arguments with spaces, wrap them in an ' .
-			"extra set of quotes (e.g. single quotes inside double quotes):\n" .
-			"\n" .
-			"    sudo -u USER -i -- wp search-replace \"'old'\" \"''\" --path=/var/www/html\n" .
-			"\n" .
-			'The outer double quotes are consumed by the login shell, and the inner ' .
-			"single quotes are used only for grouping, so WP-CLI receives the intended\n" .
-			"arguments (including empty and space-containing ones) without the quote\n" .
-			"characters themselves.\n"
+			"\n"
 		);
 	}
 }

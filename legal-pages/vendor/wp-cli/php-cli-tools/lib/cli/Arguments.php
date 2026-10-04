@@ -19,23 +19,14 @@ use cli\arguments\Lexer;
 
 /**
  * Parses command line arguments.
- *
- * @implements \ArrayAccess<string, mixed>
  */
 class Arguments implements \ArrayAccess {
-	/** @var array<string, array<string, mixed>> */
 	protected $_flags = array();
-	/** @var array<string, array<string, mixed>> */
 	protected $_options = array();
-	/** @var bool */
 	protected $_strict = false;
-	/** @var array<int, string> */
 	protected $_input = array();
-	/** @var array<int, string> */
 	protected $_invalid = array();
-	/** @var array<string, mixed>|null */
 	protected $_parsed;
-	/** @var Lexer|null */
 	protected $_lexer;
 
 	/**
@@ -45,50 +36,37 @@ class Arguments implements \ArrayAccess {
 	 *
 	 * `'help'` is `true` by default, `'strict'` is false by default.
 	 *
-	 * @param  array<string, mixed>  $options  An array of options for this parser.
+	 * @param  array  $options  An array of options for this parser.
 	 */
 	public function __construct($options = array()) {
 		$options += array(
 			'strict' => false,
-			'input'  => isset( $_SERVER['argv'] ) && is_array( $_SERVER['argv'] ) ? array_slice( $_SERVER['argv'], 1 ) : array(),
+			'input'  => array_slice($_SERVER['argv'], 1)
 		);
 
-		$input = $options['input'];
-		if ( ! is_array( $input ) ) {
-			$input = array();
-		}
-		$this->_input = array_map( function( $item ) { return is_scalar( $item ) ? (string) $item : ''; }, $input );
-		$this->setStrict( ! empty( $options['strict'] ) );
+		$this->_input = $options['input'];
+		$this->setStrict($options['strict']);
 
-		if ( isset( $options['flags'] ) && is_array( $options['flags'] ) ) {
-			/** @var array<string, array<string, mixed>|string> $flags */
-			$flags = $options['flags'];
-			$this->addFlags( $flags );
+		if (isset($options['flags'])) {
+			$this->addFlags($options['flags']);
 		}
-		if ( isset( $options['options'] ) && is_array( $options['options'] ) ) {
-			/** @var array<string, array<string, mixed>|string> $opts */
-			$opts = $options['options'];
-			$this->addOptions( $opts );
+		if (isset($options['options'])) {
+			$this->addOptions($options['options']);
 		}
 	}
 
 	/**
 	 * Get the list of arguments found by the defined definitions.
 	 *
-	 * @return array<string, mixed>
+	 * @return array
 	 */
 	public function getArguments() {
 		if (!isset($this->_parsed)) {
 			$this->parse();
 		}
-		return $this->_parsed ?? [];
+		return $this->_parsed;
 	}
 
-	/**
-	 * Get the help screen.
-	 *
-	 * @return HelpScreen
-	 */
 	public function getHelpScreen() {
 		return new HelpScreen($this);
 	}
@@ -99,11 +77,7 @@ class Arguments implements \ArrayAccess {
 	 * @return string
 	 */
 	public function asJSON() {
-		$json = json_encode( $this->_parsed );
-		if ( false === $json ) {
-			throw new \RuntimeException( 'Failed to encode arguments as JSON' );
-		}
-		return $json;
+		return json_encode($this->_parsed);
 	}
 
 	/**
@@ -118,11 +92,7 @@ class Arguments implements \ArrayAccess {
 			$offset = $offset->key;
 		}
 
-		if ( ! is_string( $offset ) && ! is_int( $offset ) ) {
-			return false;
-		}
-
-		return array_key_exists($offset, $this->_parsed ?? []);
+		return array_key_exists($offset, $this->_parsed);
 	}
 
 	/**
@@ -137,15 +107,9 @@ class Arguments implements \ArrayAccess {
 			$offset = $offset->key;
 		}
 
-		if ( ! is_string( $offset ) && ! is_int( $offset ) ) {
-			return null;
-		}
-
 		if (isset($this->_parsed[$offset])) {
 			return $this->_parsed[$offset];
 		}
-
-		return null;
 	}
 
 	/**
@@ -160,11 +124,6 @@ class Arguments implements \ArrayAccess {
 			$offset = $offset->key;
 		}
 
-		if ( ! is_string( $offset ) && ! is_int( $offset ) ) {
-			return;
-		}
-
-		$offset = (string) $offset;
 		$this->_parsed[$offset] = $value;
 	}
 
@@ -179,10 +138,6 @@ class Arguments implements \ArrayAccess {
 			$offset = $offset->key;
 		}
 
-		if ( ! is_string( $offset ) && ! is_int( $offset ) ) {
-			return;
-		}
-
 		unset($this->_parsed[$offset]);
 	}
 
@@ -190,7 +145,7 @@ class Arguments implements \ArrayAccess {
 	 * Adds a flag (boolean argument) to the argument list.
 	 *
 	 * @param mixed  $flag  A string representing the flag, or an array of strings.
-	 * @param array<string, mixed>|string  $settings  An array of settings for this flag.
+	 * @param array  $settings  An array of settings for this flag.
 	 * @setting string  description  A description to be shown in --help.
 	 * @setting bool    default  The default value for this flag.
 	 * @setting bool    stackable  Whether the flag is repeatable to increase the value.
@@ -204,11 +159,6 @@ class Arguments implements \ArrayAccess {
 		if (is_array($flag)) {
 			$settings['aliases'] = $flag;
 			$flag = array_shift($settings['aliases']);
-		}
-		if ( is_scalar( $flag ) ) {
-			$flag = (string) $flag;
-		} else {
-			$flag = '';
 		}
 		if (isset($this->_flags[$flag])) {
 			$this->_warn('flag already exists: ' . $flag);
@@ -231,7 +181,7 @@ class Arguments implements \ArrayAccess {
 	 * primary flag character, and the values should be the settings array
 	 * used by {addFlag}.
 	 *
-	 * @param array<string, array<string, mixed>|string>  $flags  An array of flags to add
+	 * @param array  $flags  An array of flags to add
 	 * @return $this
 	 */
 	public function addFlags($flags) {
@@ -251,7 +201,7 @@ class Arguments implements \ArrayAccess {
 	 * Adds an option (string argument) to the argument list.
 	 *
 	 * @param mixed  $option  A string representing the option, or an array of strings.
-	 * @param array<string, mixed>|string  $settings  An array of settings for this option.
+	 * @param array  $settings  An array of settings for this option.
 	 * @setting string  description  A description to be shown in --help.
 	 * @setting bool    default  The default value for this option.
 	 * @setting array   aliases  Other ways to trigger this option.
@@ -264,11 +214,6 @@ class Arguments implements \ArrayAccess {
 		if (is_array($option)) {
 			$settings['aliases'] = $option;
 			$option = array_shift($settings['aliases']);
-		}
-		if ( is_scalar( $option ) ) {
-			$option = (string) $option;
-		} else {
-			$option = '';
 		}
 		if (isset($this->_options[$option])) {
 			$this->_warn('option already exists: ' . $option);
@@ -290,7 +235,7 @@ class Arguments implements \ArrayAccess {
 	 * primary option string, and the values should be the settings array
 	 * used by {addOption}.
 	 *
-	 * @param array<string, array<string, mixed>|string>  $options  An array of options to add
+	 * @param array  $options  An array of options to add
 	 * @return $this
 	 */
 	public function addOptions($options) {
@@ -324,7 +269,7 @@ class Arguments implements \ArrayAccess {
 	/**
 	 * Get the list of invalid arguments the parser found.
 	 *
-	 * @return array<int, string>
+	 * @return array
 	 */
 	public function getInvalidArguments() {
 		return $this->_invalid;
@@ -335,16 +280,12 @@ class Arguments implements \ArrayAccess {
 	 *
 	 * @param mixed  $flag  Either a string representing the flag or an
 	 *                      cli\arguments\Argument object.
-	 * @return array<string, mixed>|null
+	 * @return array
 	 */
 	public function getFlag($flag) {
 		if ($flag instanceOf Argument) {
 			$obj  = $flag;
-			$flag = $flag->value();
-		}
-
-		if ( ! is_string( $flag ) && ! is_int( $flag ) ) {
-			return null;
+			$flag = $flag->value;
 		}
 
 		if (isset($this->_flags[$flag])) {
@@ -361,24 +302,12 @@ class Arguments implements \ArrayAccess {
 				return $settings;
 			}
 		}
-
-		return null;
 	}
 
-	/**
-	 * Get all flags.
-	 *
-	 * @return array<string, array<string, mixed>>
-	 */
 	public function getFlags() {
 		return $this->_flags;
 	}
 
-	/**
-	 * Check if there are any flags defined.
-	 *
-	 * @return bool
-	 */
 	public function hasFlags() {
 		return !empty($this->_flags);
 	}
@@ -412,16 +341,12 @@ class Arguments implements \ArrayAccess {
 	 *
 	 * @param mixed  $option Either a string representing the option or an
 	 *                       cli\arguments\Argument object.
-	 * @return array<string, mixed>|null
+	 * @return array
 	 */
 	public function getOption($option) {
 		if ($option instanceOf Argument) {
 			$obj = $option;
-			$option = $option->value();
-		}
-
-		if ( ! is_string( $option ) && ! is_int( $option ) ) {
-			return null;
+			$option = $option->value;
 		}
 
 		if (isset($this->_options[$option])) {
@@ -437,24 +362,12 @@ class Arguments implements \ArrayAccess {
 				return $settings;
 			}
 		}
-
-		return null;
 	}
 
-	/**
-	 * Get all options.
-	 *
-	 * @return array<string, array<string, mixed>>
-	 */
 	public function getOptions() {
 		return $this->_options;
 	}
 
-	/**
-	 * Check if there are any options defined.
-	 *
-	 * @return bool
-	 */
 	public function hasOptions() {
 		return !empty($this->_options);
 	}
@@ -475,7 +388,7 @@ class Arguments implements \ArrayAccess {
 	 * will use either the first long name given or the first name in the list
 	 * if a long name is not given.
 	 *
-	 * @return void
+	 * @return array
 	 * @throws arguments\InvalidArguments
 	 */
 	public function parse() {
@@ -485,21 +398,15 @@ class Arguments implements \ArrayAccess {
 
 		$this->_applyDefaults();
 
-		if ($this->_lexer) {
-			foreach ($this->_lexer as $argument) {
-				if (null === $argument) {
-					continue;
-				}
-				if ($this->_parseFlag($argument)) {
-					continue;
-				}
-				if ($this->_parseOption($argument)) {
-					continue;
-				}
-
-				$raw = $argument->raw();
-				array_push($this->_invalid, is_scalar($raw) ? (string) $raw : '');
+		foreach ($this->_lexer as $argument) {
+			if ($this->_parseFlag($argument)) {
+				continue;
 			}
+			if ($this->_parseOption($argument)) {
+				continue;
+			}
+
+			array_push($this->_invalid, $argument->raw);
 		}
 
 		if ($this->_strict && !empty($this->_invalid)) {
@@ -511,8 +418,6 @@ class Arguments implements \ArrayAccess {
 	 * This applies the default values, if any, of all of the
 	 * flags and options, so that if there is a default value
 	 * it will be available.
-	 *
-	 * @return void
 	 */
 	private function _applyDefaults() {
 		foreach($this->_flags as $flag => $settings) {
@@ -527,22 +432,10 @@ class Arguments implements \ArrayAccess {
 		}
 	}
 
-	/**
-	 * Warn about something.
-	 *
-	 * @param string $message
-	 * @return void
-	 */
 	private function _warn($message) {
 		trigger_error('[' . __CLASS__ .'] ' . $message, E_USER_WARNING);
 	}
 
-	/**
-	 * Parse a flag.
-	 *
-	 * @param Argument $argument
-	 * @return bool
-	 */
 	private function _parseFlag($argument) {
 		if (!$this->isFlag($argument)) {
 			return false;
@@ -553,8 +446,7 @@ class Arguments implements \ArrayAccess {
 				$this[$argument->key] = 0;
 			}
 
-			$current = $this[$argument->key];
-			$this[$argument->key] = (is_int($current) ? $current : 0) + 1;
+			$this[$argument->key] += 1;
 		} else {
 			$this[$argument->key] = true;
 		}
@@ -562,18 +454,10 @@ class Arguments implements \ArrayAccess {
 		return true;
 	}
 
-	/**
-	 * Parse an option.
-	 *
-	 * @param Argument $option
-	 * @return bool
-	 */
 	private function _parseOption($option) {
 		if (!$this->isOption($option)) {
 			return false;
 		}
-
-		assert(null !== $this->_lexer);
 
 		// Peak ahead to make sure we get a value.
 		if ($this->_lexer->end() || !$this->_lexer->peek->isValue) {
@@ -593,20 +477,13 @@ class Arguments implements \ArrayAccess {
 		// Store as array and join to string after looping for values
 		$values = array();
 
-		$this->_lexer->next();
-
 		// Loop until we find a flag in peak-ahead
-		while ( $this->_lexer->valid() ) {
-			$value = $this->_lexer->current();
-			if ( null === $value ) {
-				break;
-			}
-			array_push( $values, $value->raw );
+		foreach ($this->_lexer as $value) {
+			array_push($values, $value->raw);
 
-			if ( ! $this->_lexer->end() && ! $this->_lexer->peek->isValue ) {
+			if (!$this->_lexer->end() && !$this->_lexer->peek->isValue) {
 				break;
 			}
-			$this->_lexer->next();
 		}
 
 		$this[$option->key] = join(' ', $values);

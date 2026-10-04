@@ -5,22 +5,19 @@ namespace WP_CLI\Exception;
 use OutOfBoundsException;
 use WP_CLI\Traverser\RecursiveDataStructureTraverser;
 
-/**
- * @template T
- */
 class NonExistentKeyException extends OutOfBoundsException {
-	/** @var RecursiveDataStructureTraverser<T> */
+	/** @var RecursiveDataStructureTraverser */
 	protected $traverser;
 
 	/**
-	 * @param RecursiveDataStructureTraverser<T> $traverser
+	 * @param RecursiveDataStructureTraverser $traverser
 	 */
 	public function set_traverser( $traverser ) {
 		$this->traverser = $traverser;
 	}
 
 	/**
-	 * @return RecursiveDataStructureTraverser<T>
+	 * @return RecursiveDataStructureTraverser
 	 */
 	public function get_traverser() {
 		return $this->traverser;

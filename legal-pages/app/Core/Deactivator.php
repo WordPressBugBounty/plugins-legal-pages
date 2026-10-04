@@ -59,5 +59,8 @@ class Deactivator {
 
         // Delete post meta for legal pages
         $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = 'is_adl_legal_page'" );
+
+        // Every user's dismissed admin notices
+        delete_metadata( 'user', 0, 'adl_lp_dismissed_notices', '', true );
     }
 }

@@ -32,8 +32,9 @@ final class IncludeFrameworkAutoloader implements BootstrapStep {
 		$autoloader = new Autoloader();
 
 		$mappings = [
-			'WP_CLI' => WP_CLI_ROOT . '/php/WP_CLI',
-			'cli'    => WP_CLI_VENDOR_DIR . '/wp-cli/php-cli-tools/lib/cli',
+			'WP_CLI'                   => WP_CLI_ROOT . '/php/WP_CLI',
+			'cli'                      => WP_CLI_VENDOR_DIR . '/wp-cli/php-cli-tools/lib/cli',
+			'Symfony\Component\Finder' => WP_CLI_VENDOR_DIR . '/symfony/finder/',
 		];
 
 		foreach ( $mappings as $namespace => $folder ) {
@@ -45,7 +46,7 @@ final class IncludeFrameworkAutoloader implements BootstrapStep {
 
 		include_once WP_CLI_VENDOR_DIR . '/wp-cli/mustangostang-spyc/Spyc.php';
 
-		$autoloader->register( true );
+		$autoloader->register();
 
 		return $state;
 	}

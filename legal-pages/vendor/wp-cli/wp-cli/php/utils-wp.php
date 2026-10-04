@@ -7,7 +7,6 @@ namespace WP_CLI\Utils;
 use ReflectionClass;
 use ReflectionParameter;
 use WP_CLI;
-use WP_CLI\Path;
 use WP_CLI\UpgraderSkin;
 
 /**
@@ -57,35 +56,31 @@ function wp_debug_mode() {
 
 		error_reporting( E_ALL & ~E_DEPRECATED );
 	} else {
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+		if ( WP_DEBUG ) {
 			error_reporting( E_ALL );
 
-			if ( defined( 'WP_DEBUG_DISPLAY' ) ) {
-				ini_set( 'display_errors', WP_DEBUG_DISPLAY ? 1 : 0 );
+			if ( WP_DEBUG_DISPLAY ) {
+				ini_set( 'display_errors', 1 );
+			} elseif ( null !== WP_DEBUG_DISPLAY ) {
+				ini_set( 'display_errors', 0 );
 			}
 
-			if ( defined( 'WP_DEBUG_LOG' ) ) {
-				// @phpstan-ignore cast.useless
-				if ( in_array( strtolower( (string) WP_DEBUG_LOG ), [ 'true', '1' ], true ) ) {
-					$log_path = WP_CONTENT_DIR . '/debug.log';
-					// @phpstan-ignore function.alreadyNarrowedType
-				} elseif ( is_string( WP_DEBUG_LOG ) ) {
-					$log_path = WP_DEBUG_LOG;
-				} else {
-					$log_path = false;
-				}
+			if ( in_array( strtolower( (string) WP_DEBUG_LOG ), [ 'true', '1' ], true ) ) {
+				$log_path = WP_CONTENT_DIR . '/debug.log';
+			} elseif ( is_string( WP_DEBUG_LOG ) ) {
+				$log_path = WP_DEBUG_LOG;
+			} else {
+				$log_path = false;
+			}
 
-				if ( false !== $log_path ) {
-					ini_set( 'log_errors', 1 );
-					ini_set( 'error_log', $log_path );
-				}
+			if ( false !== $log_path ) {
+				ini_set( 'log_errors', 1 );
+				ini_set( 'error_log', $log_path );
 			}
 		} else {
 			error_reporting( E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR | E_USER_WARNING | E_RECOVERABLE_ERROR );
 		}
 
-		// wp_doing_ajax() might not be available.
-		// @phpstan-ignore phpstanWP.wpConstant.fetch
 		if ( defined( 'XMLRPC_REQUEST' ) || defined( 'REST_REQUEST' ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			ini_set( 'display_errors', 0 );
 		}
@@ -116,6 +111,11 @@ function wp_die_handler( $message ) {
 
 	if ( $message instanceof \WP_Error ) {
 		$text_message = $message->get_error_message();
+		$error_data   = $message->get_error_data( 'internal_server_error' );
+		if ( ! empty( $error_data['error']['file'] )
+			&& false !== stripos( $error_data['error']['file'], 'themes/functions.php' ) ) {
+			$text_message = 'An unexpected functions.php file in the themes directory may have caused this internal server error.';
+		}
 	} else {
 		$text_message = $message;
 	}
@@ -153,6 +153,20 @@ function wp_clean_error_message( $message ) {
 }
 
 /**
+ * @param string $url
+ * @return string
+ */
+function wp_redirect_handler( $url ) {
+	WP_CLI::warning( 'Some code is trying to do a URL redirect. Backtrace:' );
+
+	ob_start();
+	debug_print_backtrace();
+	fwrite( STDERR, ob_get_clean() );
+
+	return $url;
+}
+
+/**
  * @param string $since Version number.
  * @param string $path File to include.
  * @return void
@@ -164,16 +178,14 @@ function maybe_require( $since, $path ) {
 }
 
 /**
- * @template T of \WP_Upgrader
  *
- * @param class-string<T>   $class_name Class name.
- * @param bool              $insecure Optional. Default false.
- * @param \WP_Upgrader_Skin $skin. Optional. Upgrader skin. Default \WP_CLI\UpgraderSkin.
+ * @param class-string $class_name
+ * @param bool         $insecure
  *
- * @return T Upgrader instance.
+ * @return \WP_Upgrader Upgrader instance.
  * @throws \ReflectionException
  */
-function get_upgrader( $class_name, $insecure = false, $skin = null ) {
+function get_upgrader( $class_name, $insecure = false ) {
 	if ( ! class_exists( '\WP_Upgrader' ) ) {
 		if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' ) ) {
 			include ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
@@ -202,22 +214,10 @@ function get_upgrader( $class_name, $insecure = false, $skin = null ) {
 	}
 
 	if ( $uses_insecure_flag ) {
-		/**
-		 * @var T $result
-		 */
-		// TODO: Introduce custom upgrader interface supporting two arguments.
-		// @phpstan-ignore arguments.count
-		$result = new $class_name( $skin ?: new UpgraderSkin(), $insecure );
-
-		return $result;
+		return new $class_name( new UpgraderSkin(), $insecure );
+	} else {
+		return new $class_name( new UpgraderSkin() );
 	}
-
-	/**
-	 * @var T $result
-	 */
-	$result = new $class_name( $skin ?: new UpgraderSkin() );
-
-	return $result;
 }
 
 /**
@@ -228,7 +228,7 @@ function get_upgrader( $class_name, $insecure = false, $skin = null ) {
  */
 function get_plugin_name( $basename ) {
 	if ( false === strpos( $basename, '/' ) ) {
-		$name = Path::basename( $basename, '.php' );
+		$name = basename( $basename, '.php' );
 	} else {
 		$name = dirname( $basename );
 	}
@@ -264,7 +264,7 @@ function is_plugin_skipped( $file ) {
  * @return string
  */
 function get_theme_name( $path ) {
-	return Path::basename( $path );
+	return basename( $path );
 }
 
 /**
@@ -370,35 +370,12 @@ function wp_get_cache_type() {
 		} elseif ( isset( $wp_object_cache->lcache ) && $wp_object_cache->lcache instanceof \LCache\Integrated ) {
 			$message = 'WP LCache';
 
-			// Test for WP-Stash (https://github.com/inpsyde/WP-Stash)
-		} elseif ( class_exists( 'Inpsyde\WpStash\WpStash' ) ) {
-			try {
-				$wp_stash = \Inpsyde\WpStash\WpStash::instance();
-				if ( is_object( $wp_stash ) && method_exists( $wp_stash, 'driver' ) ) {
-					$driver = $wp_stash->driver();
-					if ( is_object( $driver ) ) {
-						$message = 'WP-Stash (' . get_class( $driver ) . ')';
-					} else {
-						$message = 'WP-Stash';
-					}
-				} else {
-					$message = 'WP-Stash';
-				}
-			} catch ( \Throwable $e ) {
-				// If WP-Stash fails to initialize, we can't determine the driver
-				$message = 'WP-Stash';
-			}
 		} elseif ( function_exists( 'w3_instance' ) ) {
 			$config = w3_instance( 'W3_Config' );
 
 			if ( $config->get_boolean( 'objectcache.enabled' ) ) {
 				$message = 'W3TC ' . $config->get_string( 'objectcache.engine' );
 			}
-		}
-
-		// If still unknown, provide the class name for debugging
-		if ( 'Unknown' === $message && is_object( $wp_object_cache ) ) {
-			$message = 'Unknown: ' . get_class( $wp_object_cache );
 		}
 	} else {
 		$message = 'Default';
@@ -437,20 +414,16 @@ function wp_clear_object_cache() {
 	}
 
 	// The following are Memcached (Redux) plugin specific (see https://core.trac.wordpress.org/ticket/31463).
-	// @phpstan-ignore property.notFound
 	if ( isset( $wp_object_cache->group_ops ) ) {
 		$wp_object_cache->group_ops = [];
 	}
-	// @phpstan-ignore property.notFound
 	if ( isset( $wp_object_cache->stats ) ) {
 		$wp_object_cache->stats = [];
 	}
-	// @phpstan-ignore property.notFound
 	if ( isset( $wp_object_cache->memcache_debug ) ) {
 		$wp_object_cache->memcache_debug = [];
 	}
 	// Used by `WP_Object_Cache` also.
-	// @phpstan-ignore property.notFound
 	if ( isset( $wp_object_cache->cache ) ) {
 		$wp_object_cache->cache = [];
 	}
@@ -461,8 +434,8 @@ function wp_clear_object_cache() {
  *
  * Interprets common command-line options into a resolved set of table names.
  *
- * @param array<string>              $args Provided table names, or tables with wildcards.
- * @param array<string, bool|string> $assoc_args Optional flags for groups of tables (e.g. --network)
+ * @param array<string>         $args Provided table names, or tables with wildcards.
+ * @param array<string, string> $assoc_args Optional flags for groups of tables (e.g. --network)
  * @return array<string>
  */
 function wp_get_table_names( $args, $assoc_args = [] ) {
@@ -519,7 +492,6 @@ function wp_get_table_names( $args, $assoc_args = [] ) {
 		}
 
 		// The global_terms_enabled() function has been deprecated with WP 6.1+.
-		// @phpstan-ignore function.deprecated
 		if ( wp_version_compare( '6.1', '>=' ) || ! global_terms_enabled() ) { // phpcs:ignore WordPress.WP.DeprecatedFunctions.global_terms_enabledFound
 			// Only include sitecategories when it's actually enabled.
 			$wp_tables = array_values( array_diff( $wp_tables, [ $wpdb->sitecategories ] ) );
@@ -529,16 +501,10 @@ function wp_get_table_names( $args, $assoc_args = [] ) {
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- uses esc_sql_ident() and $wpdb->_escape().
 		$tables = $wpdb->get_col( sprintf( "SHOW TABLES WHERE %s IN ('%s')", esc_sql_ident( 'Tables_in_' . $wpdb->dbname ), implode( "', '", $wpdb->_escape( $wp_tables ) ) ) );
 
-		// Filter tables after the query for improved SQLite compatibility.
-		// See https://github.com/WordPress/sqlite-database-integration/issues/319.
-		if ( 'sqlite' === get_db_type() ) {
-			$tables = array_values( array_intersect( $tables, $wp_tables ) );
-		}
-
 		if ( get_flag_value( $assoc_args, 'base-tables-only' ) || get_flag_value( $assoc_args, 'views-only' ) ) {
 			// Apply Views restriction args if needed.
 			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Query is prepared, see above.
-			$views_query_tables = $wpdb->get_col( $tables_sql, 0 ); // @phpstan-ignore variable.undefined
+			$views_query_tables = $wpdb->get_col( $tables_sql, 0 );
 			$tables             = array_intersect( $tables, $views_query_tables );
 		}
 	}
@@ -585,7 +551,7 @@ function strip_tags( $string ) {
 		return \wp_strip_all_tags( $string );
 	}
 
-	$string = (string) preg_replace(
+	$string = preg_replace(
 		'@<(script|style)[^>]*?>.*?</\\1>@si',
 		'',
 		$string

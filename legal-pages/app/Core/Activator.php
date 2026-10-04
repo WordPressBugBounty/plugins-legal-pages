@@ -68,6 +68,14 @@ class Activator {
 
         self::insert_free_templates( $template_table_name );
         self::insert_pro_templates( $template_table_name );
+
+        self::add_cookie_list_to_templates( $template_table_name );
+
+        // Fresh install (no version recorded yet) — flag a one-time redirect to the Setup Wizard.
+        if ( ! get_option( 'adl_lp_plugin_version' ) ) {
+            set_transient( 'adl_lp_do_setup_wizard_redirect', 1, 30 );
+        }
+
         update_option( 'adl_lp_plugin_version', LEGAL_PAGES_VERSION );
 
         flush_rewrite_rules();
@@ -331,6 +339,63 @@ class Activator {
         delete_option( 'adl_free_templates_inserted' );
         delete_option( 'adl_pro_templates_inserted' );
         update_option( 'adl_templates_migrated', true );
+    }
+
+    /**
+     * Add the [legal_pages_cookie_list] shortcode (new in 1.7.0) to the cookie
+     * templates already stored in the table. Template rows are only seeded
+     * once, so installs from before 1.7.0 keep the old content otherwise.
+     *
+     * Only inserts the shortcode when it's missing, so user edits to these
+     * templates are preserved. Legal pages already created are not touched.
+     *
+     * @param string $table_name Table name
+     * @return void
+     */
+    private static function add_cookie_list_to_templates( $table_name ) {
+        global $wpdb;
+
+        if ( get_option( 'adl_lp_cookie_list_template_migration_done' ) ) {
+            return;
+        }
+
+        $shortcode = '[legal_pages_cookie_list]';
+
+        // Template name => text the shortcode goes after (as in the template file).
+        $targets = array(
+            'Cookie Privacy Policy' => 'We use cookies to understand and save your preferences for future visits.',
+            'GDPR Cookie Policy'    => '',
+        );
+
+        foreach ( $targets as $name => $anchor ) {
+            $row = $wpdb->get_row(
+                $wpdb->prepare( "SELECT id, content FROM {$table_name} WHERE name = %s", $name ),
+                ARRAY_A
+            );
+
+            if ( ! $row || false !== strpos( $row['content'], $shortcode ) ) {
+                continue;
+            }
+
+            $position = $anchor ? strpos( $row['content'], $anchor ) : false;
+
+            if ( false !== $position ) {
+                $position += strlen( $anchor );
+                $content   = substr( $row['content'], 0, $position ) . "\n\n" . $shortcode . substr( $row['content'], $position );
+            } else {
+                $content = rtrim( $row['content'] ) . "\n" . $shortcode . "\n";
+            }
+
+            $wpdb->update(
+                $table_name,
+                array( 'content' => $content ),
+                array( 'id' => $row['id'] ),
+                array( '%s' ),
+                array( '%d' )
+            );
+        }
+
+        update_option( 'adl_lp_cookie_list_template_migration_done', true );
     }
 
     /**

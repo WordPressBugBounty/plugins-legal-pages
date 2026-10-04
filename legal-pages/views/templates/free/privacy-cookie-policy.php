@@ -25,6 +25,8 @@ Cookies are small files that a site or its service provider transfers to your co
 
 We use cookies to understand and save your preferences for future visits.
 
+[legal_pages_cookie_list]
+
 Online Privacy Policy Only
 This online privacy policy applies only to information collected through our website and not to information collected offline.
 

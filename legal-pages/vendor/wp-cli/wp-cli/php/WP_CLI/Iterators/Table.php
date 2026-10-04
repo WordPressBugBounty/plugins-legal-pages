@@ -78,19 +78,13 @@ class Table extends Query {
 			$conditions = [];
 			foreach ( $where as $key => $value ) {
 				if ( is_array( $value ) ) {
-					/**
-					 * @var array<string> $value
-					 * @var string $values
-					 */
-					$values       = esc_sql( implode( ',', $value ) );
-					$conditions[] = $key . ' IN (' . $values . ')';
+					$conditions[] = $key . ' IN (' . esc_sql( implode( ',', $value ) ) . ')';
 				} elseif ( is_numeric( $key ) ) {
 					$conditions[] = $value;
 				} else {
 					$conditions[] = $key . $wpdb->prepare( ' = %s', $value );
 				}
 			}
-			/** @var array<string> $conditions */
 			$where = implode( ' AND ', $conditions );
 		}
 		return $where;

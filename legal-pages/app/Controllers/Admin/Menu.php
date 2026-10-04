@@ -18,12 +18,34 @@ class Menu {
     public function __construct() {
         $this->icon_url = LEGAL_PAGES_URL . 'assets/images/icons/';
         $this->action( 'admin_menu', [ $this, 'register_menus' ] );
+        $this->action( 'admin_init', [ $this, 'maybe_redirect_to_setup_wizard' ] );
         $this->filter( 'plugin_action_links_' . plugin_basename( LEGAL_PAGES_FILE ), [ $this, 'add_plugin_action_links' ] );
     }
 
     /**
-     * Prepend an "Upgrade to Pro" link to the plugin's action links
-     * on the Plugins list page (next to Activate/Deactivate/Delete).
+     * Redirect to the Setup Wizard once, right after a fresh install.
+     * `Core\Activator::activate()` sets the transient this checks.
+     *
+     * @return void
+     */
+    public function maybe_redirect_to_setup_wizard() {
+        if ( ! get_transient( 'adl_lp_do_setup_wizard_redirect' ) ) {
+            return;
+        }
+
+        delete_transient( 'adl_lp_do_setup_wizard_redirect' );
+
+        if ( wp_doing_ajax() || isset( $_GET['activate-multi'] ) || ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        wp_safe_redirect( admin_url( 'admin.php?page=adl-legal-pages#/setup-wizard' ) );
+        exit;
+    }
+
+    /**
+     * Prepend "Setup Wizard" and (when unlicensed) "Upgrade to Pro" links to the
+     * plugin's action links on the Plugins list page (next to Activate/Deactivate/Delete).
      *
      * @param string[] $links
      * @return string[]
@@ -40,6 +62,14 @@ class Menu {
 
             array_unshift( $links, $upgrade_link );
         }
+
+        $wizard_link = sprintf(
+            '<a href="%1$s">%2$s</a>',
+            esc_url( admin_url( 'admin.php?page=adl-legal-pages#/setup-wizard' ) ),
+            esc_html__( 'Setup Wizard', 'legal-pages' )
+        );
+
+        array_unshift( $links, $wizard_link );
 
         return $links;
     }

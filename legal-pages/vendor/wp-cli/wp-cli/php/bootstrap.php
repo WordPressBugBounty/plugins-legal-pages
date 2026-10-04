@@ -17,20 +17,20 @@ function get_bootstrap_steps() {
 	return [
 		Bootstrap\DeclareFallbackFunctions::class,
 		Bootstrap\LoadUtilityFunctions::class,
+		Bootstrap\LoadDispatcher::class,
 		Bootstrap\DeclareMainClass::class,
 		Bootstrap\DeclareAbstractBaseCommand::class,
 		Bootstrap\IncludeFrameworkAutoloader::class,
 		Bootstrap\ConfigureRunner::class,
 		Bootstrap\InitializeColorization::class,
 		Bootstrap\InitializeLogger::class,
-		Bootstrap\RegisterShutdownHandler::class,
 		Bootstrap\CheckRoot::class,
 		Bootstrap\IncludeRequestsAutoloader::class,
 		Bootstrap\DefineProtectedCommands::class,
 		Bootstrap\LoadExecCommand::class,
 		Bootstrap\LoadRequiredCommand::class,
-		Bootstrap\IncludeFallbackAutoloader::class,
 		Bootstrap\IncludePackageAutoloader::class,
+		Bootstrap\IncludeFallbackAutoloader::class,
 		Bootstrap\RegisterFrameworkCommands::class,
 		Bootstrap\RegisterDeferredCommands::class,
 		Bootstrap\InitializeContexts::class,
@@ -80,9 +80,6 @@ function bootstrap() {
 			\WP_CLI::debug( "Processing bootstrap step: {$step}", 'bootstrap' );
 		}
 
-		/**
-		 * @var BootstrapStep $step_instance
-		 */
 		$step_instance = new $step();
 		$state         = $step_instance->process( $state );
 	}

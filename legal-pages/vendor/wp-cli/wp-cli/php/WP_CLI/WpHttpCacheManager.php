@@ -12,7 +12,7 @@ use WP_CLI;
 class WpHttpCacheManager {
 
 	/**
-	 * @var array<string, array{key:string, ttl: int|null}> map whitelisted urls to keys and ttls
+	 * @var array<string, array{key:string, ttl:int}> map whitelisted urls to keys and ttls
 	 */
 	protected $whitelist = [];
 
@@ -20,14 +20,6 @@ class WpHttpCacheManager {
 	 * @var FileCache
 	 */
 	protected $cache;
-
-	/**
-	 * Minimum valid archive file size in bytes.
-	 *
-	 * This threshold (20 bytes) roughly corresponds to the smallest possible
-	 * valid ZIP or TAR.GZ header, ensuring we skip obviously invalid or empty downloads.
-	 */
-	private const MIN_VALID_ARCHIVE_SIZE = 20;
 
 	/**
 	 * @param FileCache $cache
@@ -76,8 +68,8 @@ class WpHttpCacheManager {
 	/**
 	 * cache wp http api downloads
 	 *
-	 * @param array  $response
-	 * @param array  $args
+	 * @param array $response
+	 * @param array $args
 	 * @param string $url
 	 * @return array
 	 */
@@ -91,66 +83,12 @@ class WpHttpCacheManager {
 			return $response;
 		}
 		// check if download was successful
-		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-			return $response;
-		}
-		// Validate before caching.
-		if ( ! $this->validate_downloaded_file( $response['filename'], $url ) ) {
-			WP_CLI::warning( "Invalid or corrupt file from {$url}, skipping cache." );
+		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
 			return $response;
 		}
 		// cache downloaded file
 		$this->cache->import( $this->whitelist[ $url ]['key'], $response['filename'] );
 		return $response;
-	}
-
-	/**
-	 * Validate downloaded file before adding to cache.
-	 *
-	 * @param string $file Path to the downloaded file.
-	 * @param string $url  Source URL.
-	 * @return bool True if file is valid, false otherwise.
-	 */
-	private function validate_downloaded_file( $file, $url ) {
-		if ( ! is_readable( $file ) ) {
-			return false;
-		}
-
-		$size = filesize( $file );
-		if ( false === $size || $size < self::MIN_VALID_ARCHIVE_SIZE ) {
-			return false;
-		}
-
-		$ext  = strtolower( pathinfo( (string) wp_parse_url( $url, PHP_URL_PATH ), PATHINFO_EXTENSION ) );
-		$mime = function_exists( 'mime_content_type' ) ? mime_content_type( $file ) : '';
-
-		if ( ( 'zip' === $ext || 'application/zip' === $mime ) && class_exists( '\ZipArchive' ) ) {
-			$zip    = new \ZipArchive();
-			$result = $zip->open( $file );
-			if ( true !== $result ) {
-				return false;
-			}
-			// Optional deeper check: ensure we can read file list.
-			if ( 0 === $zip->numFiles ) { //phpcs:ignore
-				$zip->close();
-				return false;
-			}
-			$zip->close();
-		}
-
-		if ( ( preg_match( '/\.tar\.gz$/i', $url ) || 'application/gzip' === $mime ) && class_exists( '\PharData' ) ) {
-			try {
-				$phar = new \PharData( $file );
-				// Accessing the file list ensures it can be read.
-				if ( empty( iterator_to_array( $phar ) ) ) {
-					return false;
-				}
-			} catch ( \Exception $e ) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	/**
@@ -163,7 +101,7 @@ class WpHttpCacheManager {
 	 * @param int    $ttl
 	 */
 	public function whitelist_package( $url, $group, $slug, $version, $ttl = null ) {
-		$ext = pathinfo( (string) Utils\parse_url( $url, PHP_URL_PATH ), PATHINFO_EXTENSION );
+		$ext = pathinfo( Utils\parse_url( $url, PHP_URL_PATH ), PATHINFO_EXTENSION );
 		$key = "$group/$slug-$version.$ext";
 		$this->whitelist_url( $url, $key, $ttl );
 		wp_update_plugins();

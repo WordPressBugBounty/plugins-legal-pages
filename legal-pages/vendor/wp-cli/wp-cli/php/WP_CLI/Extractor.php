@@ -58,7 +58,7 @@ class Extractor {
 		$res = $zip->open( $zipfile );
 
 		if ( true === $res ) {
-			$name    = Path::basename( $zipfile );
+			$name    = Utils\basename( $zipfile );
 			$tempdir = Utils\get_temp_dir()
 						. uniqid( 'wp-cli-extract-zipfile-', true )
 						. "-{$name}";
@@ -98,7 +98,7 @@ class Extractor {
 		if ( class_exists( 'PharData' ) ) {
 			try {
 				$phar    = new PharData( $tarball );
-				$name    = Path::basename( $tarball );
+				$name    = Utils\basename( $tarball );
 				$tempdir = Utils\get_temp_dir()
 							. uniqid( 'wp-cli-extract-tarball-', true )
 							. "-{$name}";
@@ -121,15 +121,16 @@ class Extractor {
 			}
 		}
 
-		$tarball_absolute = realpath( $tarball );
-		if ( ! $tarball_absolute ) {
-			throw new Exception( "Invalid tarball '{$tarball}'." );
+		// Ensure relative paths cannot be misinterpreted as hostnames.
+		// Prepending `./` will force tar to interpret it as a filesystem path.
+		if ( self::path_is_relative( $tarball ) ) {
+			$tarball = "./{$tarball}";
 		}
-		$tarball = $tarball_absolute;
 
-		if ( ! is_readable( $tarball )
+		if ( ! file_exists( $tarball )
+			|| ! is_readable( $tarball )
 			|| filesize( $tarball ) <= 0 ) {
-			throw new Exception( "Invalid tarball '{$tarball}'." );
+			throw new Exception( "Invalid zip file '{$tarball}'." );
 		}
 
 		// Note: directory must exist for tar --directory to work.
@@ -178,12 +179,9 @@ class Extractor {
 			mkdir( $dest, 0777, true );
 		}
 
-		/**
-		 * @var \SplFileInfo $item
-		 */
 		foreach ( $iterator as $item ) {
 
-			$dest_path = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathname();
+			$dest_path = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
 
 			if ( $item->isDir() ) {
 				if ( ! is_dir( $dest_path ) ) {
@@ -195,7 +193,7 @@ class Extractor {
 				copy( $item, $dest_path );
 			} else {
 				$error = 1;
-				WP_CLI::warning( "Unable to copy '" . $iterator->getSubPathname() . "' to current directory." );
+				WP_CLI::warning( "Unable to copy '" . $iterator->getSubPathName() . "' to current directory." );
 			}
 		}
 
@@ -219,27 +217,14 @@ class Extractor {
 			RecursiveIteratorIterator::CHILD_FIRST
 		);
 
-		$base_dir = realpath( $dir );
-		if ( false === $base_dir ) {
-			return;
-		}
-		$base_dir = rtrim( $base_dir, DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR;
-
-		/**
-		 * @var \SplFileInfo $fileinfo
-		 */
 		foreach ( $files as $fileinfo ) {
-			$todo      = $fileinfo->isDir() ? 'rmdir' : 'unlink';
-			$path      = $fileinfo->getPathname();
-			$real_path = $fileinfo->getRealPath();
-
-			if ( ! $real_path || 0 !== strpos( $real_path, $base_dir ) ) {
+			$todo = $fileinfo->isDir() ? 'rmdir' : 'unlink';
+			$path = $fileinfo->getRealPath();
+			if ( 0 !== strpos( $path, $fileinfo->getRealPath() ) ) {
 				WP_CLI::warning(
 					"Temporary file or folder to be removed was found outside of temporary folder, aborting removal: '{$path}'"
 				);
-				continue;
 			}
-
 			$todo( $path );
 		}
 		rmdir( $dir );
@@ -345,9 +330,48 @@ class Extractor {
 					sprintf(
 						"Failed to create directory '%s': %s.",
 						$dir,
-						$error ? $error['message'] : 'Unknown error'
+						$error['message']
 					)
 				);
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check whether a path is relative-
+	 *
+	 * @param string $path Path to check.
+	 * @return bool Whether the path is relative.
+	 */
+	private static function path_is_relative( $path ) {
+		if ( '' === $path ) {
+			return true;
+		}
+
+		// Strip scheme.
+		$scheme_position = strpos( $path, '://' );
+		if ( false !== $scheme_position ) {
+			$path = substr( $path, $scheme_position + 3 );
+		}
+
+		// UNIX root "/" or "\" (Windows style).
+		if ( '/' === $path[0] || '\\' === $path[0] ) {
+			return false;
+		}
+
+		// Windows root.
+		if ( strlen( $path ) > 1 && ctype_alpha( $path[0] ) && ':' === $path[1] ) {
+
+			// Special case: only drive letter, like "C:".
+			if ( 2 === strlen( $path ) ) {
+				return false;
+			}
+
+			// Regular Windows path starting with drive letter, like "C:/ or "C:\".
+			if ( '/' === $path[2] || '\\' === $path[2] ) {
 				return false;
 			}
 		}

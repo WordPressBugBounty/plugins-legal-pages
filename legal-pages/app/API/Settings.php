@@ -32,6 +32,34 @@ class Settings {
         return new WP_Error( 'failed_to_save', 'Failed to save disclaimer acceptance', [ 'status' => 500 ] );
     }
 
+    public function complete_setup_wizard( \WP_REST_Request $request ) {
+
+        $updated = SettingsModel::complete_setup_wizard();
+
+        if ( $updated !== false ) {
+            return new WP_REST_Response( [
+                'success' => true,
+                'message' => __( 'Setup wizard completed.', 'legal-pages' ),
+                'data'    => [ 'completed' => true ],
+            ], 200 );
+        }
+
+        return new WP_Error( 'failed_to_save', __( 'Failed to save setup wizard completion.', 'legal-pages' ), [ 'status' => 500 ] );
+    }
+
+    public function dismiss_notice( \WP_REST_Request $request ) {
+        $dismissed = SettingsModel::dismiss_notice( $request->get_param( 'notice' ) );
+
+        if ( is_wp_error( $dismissed ) ) {
+            return $dismissed;
+        }
+
+        return new WP_REST_Response( [
+            'success' => true,
+            'data'    => [ 'dismissed_notices' => $dismissed ],
+        ], 200 );
+    }
+
     public function save_settings( \WP_REST_Request $request ) {
         $params = $request->get_json_params();
 
@@ -200,6 +228,27 @@ class Settings {
         return new WP_REST_Response( [
             'success' => true,
             'message' => __( 'Legal page created successfully.', 'legal-pages' ),
+            'data'    => $result,
+        ], 200 );
+    }
+
+    /**
+     * Get a single legal page, for editing
+     *
+     * @param \WP_REST_Request $request
+     * @return WP_REST_Response|WP_Error
+     */
+    public function get_legal_page( \WP_REST_Request $request ) {
+        $page_id = $request->get_param( 'id' );
+
+        $result = SettingsModel::get_legal_page_by_id( $page_id );
+
+        if ( is_wp_error( $result ) ) {
+            return $result;
+        }
+
+        return new WP_REST_Response( [
+            'success' => true,
             'data'    => $result,
         ], 200 );
     }

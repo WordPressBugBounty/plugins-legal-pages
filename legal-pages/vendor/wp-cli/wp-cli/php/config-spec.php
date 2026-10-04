@@ -19,14 +19,6 @@ return [
 		'desc'    => 'Perform operation against a remote server over SSH (or a container using scheme of "docker", "docker-compose", "docker-compose-run", "vagrant").',
 	],
 
-	'ssh-args'          => [
-		'runtime'  => '=<args>',
-		'file'     => '<args>',
-		'desc'     => 'Pass additional arguments to SSH (or other tools specified by --ssh scheme).',
-		'multiple' => true,
-		'default'  => [],
-	],
-
 	'http'              => [
 		'runtime' => '=<http>',
 		'file'    => '<http>',
@@ -84,15 +76,14 @@ return [
 	'context'           => [
 		'runtime' => '=<context>',
 		'file'    => '<context>',
-		'default' => 'auto',
+		'default' => 'cli',
 		'desc'    => 'Load WordPress in a given context.',
 	],
 
 	'disabled_commands' => [
-		'file'     => '<list>',
-		'default'  => [],
-		'multiple' => true,
-		'desc'     => '(Sub)commands to disable.',
+		'file'    => '<list>',
+		'default' => [],
+		'desc'    => '(Sub)commands to disable.',
 	],
 
 	'color'             => [
@@ -136,21 +127,6 @@ return [
 		'file'    => false, # Explicit. Just in case the default changes.
 		'runtime' => '',
 		'hidden'  => true,
-	],
-
-	'alias'             => [
-		'runtime'  => '=<name>',
-		'file'     => '<name>',
-		'desc'     => 'Name of the alias to use. Aliases can reference local WordPress installations or remote SSH connections. Aliases are defined in the wp-cli.yml file.',
-		'multiple' => false,
-		'default'  => '',
-	],
-
-	'assume-https'      => [
-		'runtime' => '',
-		'file'    => '<bool>',
-		'default' => false,
-		'desc'    => 'Set $_SERVER[\'HTTPS\'] to make WordPress treat the site as HTTPS. Use when WordPress is behind an HTTPS proxy or load balancer.',
 	],
 
 ];

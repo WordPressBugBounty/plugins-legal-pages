@@ -21,12 +21,9 @@ final class LaunchRunner implements BootstrapStep {
 	public function process( BootstrapState $state ) {
 		$runner = new RunnerInstance();
 
-		/**
-		 * @var \WP_CLI\ContextManager $context_manager
-		 */
-		$context_manager = $state->getValue( 'context_manager' );
-
-		$runner()->register_context_manager( $context_manager );
+		$runner()->register_context_manager(
+			$state->getValue( 'context_manager' )
+		);
 
 		$runner()->start();
 

@@ -3,7 +3,6 @@
 use Composer\Semver\Comparator;
 use WP_CLI\Completions;
 use WP_CLI\Formatter;
-use WP_CLI\Path;
 use WP_CLI\Process;
 use WP_CLI\Utils;
 
@@ -32,17 +31,8 @@ use WP_CLI\Utils;
  *     Success: Cache cleared.
  *
  * @when before_wp_load
- *
- * @phpstan-type GitHubRelease object{tag_name: string, assets: array<object{browser_download_url: string}>}
- *
- * @phpstan-type UpdateOffer array{version: string, update_type: string, package_url: string, status: string, requires_php: string}
  */
 class CLI_Command extends WP_CLI_Command {
-
-	/**
-	 * Memory limit threshold for warnings (512M in bytes).
-	 */
-	private const MEMORY_LIMIT_WARNING_THRESHOLD = 536870912;
 
 	private function command_to_array( $command ) {
 		$dump = [
@@ -51,11 +41,6 @@ class CLI_Command extends WP_CLI_Command {
 			'longdesc'    => $command->get_longdesc(),
 			'hook'        => $command->get_hook(),
 		];
-
-		$alias = $command->get_alias();
-		if ( $alias ) {
-			$dump['alias'] = $alias;
-		}
 
 		foreach ( $command->get_subcommands() as $subcommand ) {
 			$dump['subcommands'][] = $this->command_to_array( $subcommand );
@@ -90,7 +75,6 @@ class CLI_Command extends WP_CLI_Command {
 	 * * Shell information.
 	 * * PHP binary used.
 	 * * PHP binary version.
-	 * * PHP memory limit.
 	 * * php.ini configuration file used (which is typically different than web).
 	 * * WP-CLI root dir: where WP-CLI is installed (if non-Phar install).
 	 * * WP-CLI global config: where the global config YAML file is located.
@@ -119,25 +103,25 @@ class CLI_Command extends WP_CLI_Command {
 	 *     Shell:   /usr/bin/zsh
 	 *     PHP binary:  /usr/bin/php
 	 *     PHP version: 7.1.12-1+ubuntu16.04.1+deb.sury.org+1
-	 *     PHP memory limit: 512M
 	 *     php.ini used:    /etc/php/7.1/cli/php.ini
 	 *     WP-CLI root dir:    phar://wp-cli.phar
 	 *     WP-CLI packages dir:    /home/person/.wp-cli/packages/
 	 *     WP-CLI global config:
 	 *     WP-CLI project config:
 	 *     WP-CLI version: 1.5.0
-	 *
-	 * @param string[]              $args       Positional arguments. Unused.
-	 * @param array{format: string} $assoc_args Associative arguments.
 	 */
-	public function info( $args, $assoc_args ) {
-		$system_os = sprintf(
-			'%s %s %s %s',
-			php_uname( 's' ),
-			php_uname( 'r' ),
-			php_uname( 'v' ),
-			php_uname( 'm' )
-		);
+	public function info( $_, $assoc_args ) {
+		// php_uname() $mode argument was only added with PHP 7.0+. Fall back to
+		// entire string for older versions.
+		$system_os = PHP_MAJOR_VERSION < 7
+			? php_uname()
+			: sprintf(
+				'%s %s %s %s',
+				php_uname( 's' ),
+				php_uname( 'r' ),
+				php_uname( 'v' ),
+				php_uname( 'm' )
+			);
 
 		$shell = getenv( 'SHELL' );
 		if ( ! $shell && Utils\is_windows() ) {
@@ -153,15 +137,12 @@ class CLI_Command extends WP_CLI_Command {
 			$packages_dir = null;
 		}
 
-		$memory_limit = ini_get( 'memory_limit' );
-
 		if ( Utils\get_flag_value( $assoc_args, 'format' ) === 'json' ) {
 			$info = [
 				'system_os'                => $system_os,
 				'shell'                    => $shell,
 				'php_binary_path'          => $php_bin,
 				'php_version'              => PHP_VERSION,
-				'php_memory_limit'         => $memory_limit,
 				'php_ini_used'             => get_cfg_var( 'cfg_file_path' ),
 				'mysql_binary_path'        => Utils\get_mysql_binary_path(),
 				'mysql_version'            => Utils\get_mysql_version(),
@@ -169,25 +150,20 @@ class CLI_Command extends WP_CLI_Command {
 				'wp_cli_dir_path'          => WP_CLI_ROOT,
 				'wp_cli_vendor_path'       => WP_CLI_VENDOR_DIR,
 				'wp_cli_phar_path'         => defined( 'WP_CLI_PHAR_PATH' ) ? WP_CLI_PHAR_PATH : '',
-				'wp_cli_packages_dir_path' => $packages_dir ? Path::normalize( $packages_dir ) : null,
-				'wp_cli_cache_dir_path'    => Path::normalize( Utils\get_cache_dir() ),
-				'global_config_path'       => Path::normalize( (string) $runner->global_config_path ),
-				'project_config_path'      => Path::normalize( (string) $runner->project_config_path ),
+				'wp_cli_packages_dir_path' => $packages_dir,
+				'wp_cli_cache_dir_path'    => Utils\get_cache_dir(),
+				'global_config_path'       => $runner->global_config_path,
+				'project_config_path'      => $runner->project_config_path,
 				'wp_cli_version'           => WP_CLI_VERSION,
 			];
 
-			WP_CLI::line( (string) json_encode( $info ) );
+			WP_CLI::line( json_encode( $info ) );
 		} else {
-			/**
-			 * @var string $cfg_file_path
-			 */
-			$cfg_file_path = get_cfg_var( 'cfg_file_path' );
 			WP_CLI::line( "OS:\t" . $system_os );
 			WP_CLI::line( "Shell:\t" . $shell );
 			WP_CLI::line( "PHP binary:\t" . $php_bin );
 			WP_CLI::line( "PHP version:\t" . PHP_VERSION );
-			WP_CLI::line( "PHP memory limit:\t" . $memory_limit );
-			WP_CLI::line( "php.ini used:\t" . $cfg_file_path );
+			WP_CLI::line( "php.ini used:\t" . get_cfg_var( 'cfg_file_path' ) );
 			WP_CLI::line( "MySQL binary:\t" . Utils\get_mysql_binary_path() );
 			WP_CLI::line( "MySQL version:\t" . Utils\get_mysql_version() );
 			WP_CLI::line( "SQL modes:\t" . implode( ',', Utils\get_sql_modes() ) );
@@ -200,77 +176,6 @@ class CLI_Command extends WP_CLI_Command {
 			WP_CLI::line( "WP-CLI project config:\t" . $runner->project_config_path );
 			WP_CLI::line( "WP-CLI version:\t" . WP_CLI_VERSION );
 		}
-
-		// Emit a warning if the memory limit is set to a low value.
-		$this->check_memory_limit( $memory_limit );
-	}
-
-	/**
-	 * Checks if the PHP memory limit is too low and emits a warning if needed.
-	 *
-	 * @param string $memory_limit The current memory limit value from ini_get().
-	 */
-	private function check_memory_limit( $memory_limit ) {
-		// If memory limit is -1 (unlimited), no warning needed.
-		if ( '-1' === $memory_limit ) {
-			return;
-		}
-
-		// Convert memory limit string (e.g., "256M", "1G") to bytes.
-		$limit_bytes = $this->convert_to_bytes( $memory_limit );
-
-		// Warn if limit is below 512M.
-		// This is a reasonable threshold for CLI operations.
-		if ( $limit_bytes > 0 && $limit_bytes < self::MEMORY_LIMIT_WARNING_THRESHOLD ) {
-			WP_CLI::warning(
-				sprintf(
-					'PHP memory limit is set to %s. This may be too low for some WP-CLI operations. Consider increasing it to at least 512M or setting it to -1 (unlimited) for CLI usage.',
-					$memory_limit
-				)
-			);
-		}
-	}
-
-	/**
-	 * Converts a memory limit string to bytes.
-	 *
-	 * @param string $value The memory limit value (e.g., "256M", "1G", "512K", "2.5G").
-	 * @return int The value in bytes, or -1 if unlimited.
-	 */
-	private function convert_to_bytes( $value ) {
-		$value = trim( $value );
-
-		if ( '-1' === $value ) {
-			return -1;
-		}
-
-		// Handle empty string or invalid values.
-		if ( empty( $value ) ) {
-			return 0;
-		}
-
-		$last = strtolower( $value[ strlen( $value ) - 1 ] );
-
-		// Extract numeric value before converting.
-		if ( ! is_numeric( $last ) ) {
-			$numeric_value = (float) substr( $value, 0, -1 );
-		} else {
-			$numeric_value = (float) $value;
-			$last          = '';
-		}
-
-		switch ( $last ) {
-			case 'g':
-				$numeric_value *= 1024;
-				// Fall through.
-			case 'm':
-				$numeric_value *= 1024;
-				// Fall through.
-			case 'k':
-				$numeric_value *= 1024;
-		}
-
-		return (int) $numeric_value;
 	}
 
 	/**
@@ -278,13 +183,6 @@ class CLI_Command extends WP_CLI_Command {
 	 *
 	 * Queries the GitHub releases API. Returns available versions if there are
 	 * updates available, or success message if using the latest release.
-	 *
-	 * Unauthenticated requests to the GitHub API are rate limited to 60 per hour
-	 * per IP address. If you are experiencing rate limit issues, you can generate
-	 * a GitHub personal access token and set the GITHUB_TOKEN environment variable
-	 * before running this command. Authenticated requests have a higher rate limit
-	 * of 5,000 per hour. The token only needs public repository read access (no
-	 * specific scopes required for public data).
 	 *
 	 * ## OPTIONS
 	 *
@@ -329,16 +227,9 @@ class CLI_Command extends WP_CLI_Command {
 	 *     | 0.24.1  | patch       | https://github.com/wp-cli/wp-cli/releases/download/v0.24.1/wp-cli-0.24.1.phar |
 	 *     +---------+-------------+-------------------------------------------------------------------------------+
 	 *
-	 *     # Check for update using a GitHub token to increase rate limit.
-	 *     $ GITHUB_TOKEN=ghp_... wp cli check-update
-	 *     Success: WP-CLI is at the latest version.
-	 *
 	 * @subcommand check-update
-	 *
-	 * @param string[] $args Positional arguments. Unused.
-	 * @param array{patch?: bool, minor?: bool, major?: bool, field?: string, fields?: string, format: string} $assoc_args Associative arguments.
 	 */
-	public function check_update( $args, $assoc_args ) {
+	public function check_update( $_, $assoc_args ) {
 		$updates = $this->get_updates( $assoc_args );
 
 		if ( $updates ) {
@@ -367,13 +258,6 @@ class CLI_Command extends WP_CLI_Command {
 	 * environments.
 	 *
 	 * Only works for the Phar installation mechanism.
-	 *
-	 * Unauthenticated requests to the GitHub API are rate limited to 60 per hour
-	 * per IP address. If you are experiencing rate limit issues, you can generate
-	 * a GitHub personal access token and set the GITHUB_TOKEN environment variable
-	 * before running this command. Authenticated requests have a higher rate limit
-	 * of 5,000 per hour. The token only needs public repository read access (no
-	 * specific scopes required for public data).
 	 *
 	 * ## OPTIONS
 	 *
@@ -406,28 +290,13 @@ class CLI_Command extends WP_CLI_Command {
 	 *     Downloading from https://github.com/wp-cli/wp-cli/releases/download/v0.24.1/wp-cli-0.24.1.phar...
 	 *     New version works. Proceeding to replace.
 	 *     Success: Updated WP-CLI to 0.24.1.
-	 *
-	 *     # Update CLI using a GitHub token to increase rate limit.
-	 *     $ GITHUB_TOKEN=ghp_... wp cli update
-	 *     You are currently using WP-CLI version 0.24.0. Would you like to update to 0.24.1? [y/n] y
-	 *     Downloading from https://github.com/wp-cli/wp-cli/releases/download/v0.24.1/wp-cli-0.24.1.phar...
-	 *     New version works. Proceeding to replace.
-	 *     Success: Updated WP-CLI to 0.24.1.
-	 *
-	 * @param string[] $args Positional arguments. Unused.
-	 * @param array{patch?: bool, minor?: bool, major?: bool, stable?: bool, nightly?: bool, yes?: bool, insecure?: bool} $assoc_args Associative arguments.
 	 */
-	public function update( $args, $assoc_args ) {
-		if ( ! Path::inside_phar() ) {
+	public function update( $_, $assoc_args ) {
+		if ( ! Utils\inside_phar() ) {
 			WP_CLI::error( 'You can only self-update Phar files.' );
 		}
 
-		/**
-		 * @var string[] $argv
-		 */
-		$argv = $_SERVER['argv'];
-
-		$old_phar = (string) realpath( $argv[0] );
+		$old_phar = realpath( $_SERVER['argv'][0] );
 
 		if ( ! is_writable( $old_phar ) ) {
 			WP_CLI::error( sprintf( '%s is not writable by current user.', $old_phar ) );
@@ -449,9 +318,6 @@ class CLI_Command extends WP_CLI_Command {
 
 			$updates = $this->get_updates( $assoc_args );
 
-			/**
-			 * @phpstan-var UpdateOffer|null $newest
-			 */
 			$newest = $this->array_find(
 				$updates,
 				static function ( $update ) {
@@ -490,7 +356,7 @@ class CLI_Command extends WP_CLI_Command {
 		$this->validate_hashes( $temp, $sha512_url, $md5_url );
 
 		$allow_root = WP_CLI::get_runner()->config['allow-root'] ? '--allow-root' : '';
-		$php_binary = escapeshellarg( Utils\get_php_binary() );
+		$php_binary = Utils\get_php_binary();
 		$process    = Process::create( "{$php_binary} $temp --info {$allow_root}" );
 		$result     = $process->run();
 		if ( 0 !== $result->return_code || false === stripos( $result->stdout, 'WP-CLI version' ) ) {
@@ -528,9 +394,10 @@ class CLI_Command extends WP_CLI_Command {
 	 * @param string $sha512_url URL to sha512 hash.
 	 * @param string $md5_url    URL to md5 hash.
 	 *
+	 * @return void
 	 * @throws \WP_CLI\ExitException
 	 */
-	private function validate_hashes( $file, $sha512_url, $md5_url ): void {
+	private function validate_hashes( $file, $sha512_url, $md5_url ) {
 		$algos = [
 			'sha512' => $sha512_url,
 			'md5'    => $md5_url,
@@ -538,7 +405,7 @@ class CLI_Command extends WP_CLI_Command {
 
 		foreach ( $algos as $algo => $url ) {
 			$response = Utils\http_request( 'GET', $url );
-			if ( '20' !== substr( (string) $response->status_code, 0, 2 ) ) {
+			if ( '20' !== substr( $response->status_code, 0, 2 ) ) {
 				WP_CLI::log( "Couldn't access $algo hash for release (HTTP code {$response->status_code})." );
 				continue;
 			}
@@ -580,21 +447,10 @@ class CLI_Command extends WP_CLI_Command {
 		$response = Utils\http_request( 'GET', $url, null, $headers, $options );
 
 		if ( ! $response->success || 200 !== $response->status_code ) {
-			$error_message = sprintf( 'Failed to get latest version (HTTP code %d).', $response->status_code );
-			if ( 403 === $response->status_code ) {
-				$error_message .= ' This is due to GitHub API rate limiting.';
-				if ( false === $github_token ) {
-					$error_message .= ' Try using a GITHUB_TOKEN environment variable to authenticate with GitHub and get a higher rate limit.';
-					$error_message .= ' See https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting for more information.';
-				}
-			}
-			WP_CLI::error( $error_message );
+			WP_CLI::error( sprintf( 'Failed to get latest version (HTTP code %d).', $response->status_code ) );
 		}
 
-		/**
-		 * @phpstan-var GitHubRelease[] $release_data
-		 */
-		$release_data = json_decode( $response->body, false );
+		$release_data = json_decode( $response->body );
 
 		$updates = [
 			'major' => false,
@@ -623,13 +479,7 @@ class CLI_Command extends WP_CLI_Command {
 				continue;
 			}
 
-			$package_url = null;
-
-			/**
-			 * WP-CLI manifest.json data.
-			 *
-			 * @var object{requires_php?: string}|null $manifest_data
-			 */
+			$package_url   = null;
 			$manifest_data = null;
 
 			foreach ( $release->assets as $asset ) {
@@ -646,12 +496,7 @@ class CLI_Command extends WP_CLI_Command {
 					$response = Utils\http_request( 'GET', $asset->browser_download_url, null, $headers, $options );
 
 					if ( $response->success ) {
-						/**
-						 * WP-CLI manifest.json data.
-						 *
-						 * @var object{requires_php?: string}|null $manifest_data
-						 */
-						$manifest_data = json_decode( $response->body, false );
+						$manifest_data = json_decode( $response->body );
 					}
 				}
 			}
@@ -710,11 +555,6 @@ class CLI_Command extends WP_CLI_Command {
 				$response = Utils\http_request( 'GET', 'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli-nightly.manifest.json', null, $headers, $options );
 
 				if ( $response->success ) {
-					/**
-					 * WP-CLI manifest.json data.
-					 *
-					 * @var object{requires_php?: string}|null $manifest_data
-					 */
 					$manifest_data = json_decode( $response->body );
 				}
 
@@ -727,7 +567,7 @@ class CLI_Command extends WP_CLI_Command {
 						'version'      => $nightly_version,
 						'update_type'  => 'nightly',
 						'package_url'  => 'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli-nightly.phar',
-						'status'       => 'unavailable',
+						'status'       => 'unvailable',
 						'requires_php' => $manifest_data->requires_php,
 					];
 				} else {

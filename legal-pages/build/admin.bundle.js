@@ -419,6 +419,132 @@ var ConfirmationModal = function ConfirmationModal(_ref) {
 
 /***/ },
 
+/***/ "./spa/admin/src/components/common/CookieScanNotice.jsx"
+/*!**************************************************************!*\
+  !*** ./spa/admin/src/components/common/CookieScanNotice.jsx ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+;
+
+var NOTICE_ID = 'cookie_scan';
+var CookieIcon = function CookieIcon() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+    width: "20",
+    height: "20",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "#7C3BED",
+    strokeWidth: "1.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": "true",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+      d: "M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+      d: "M8.5 8.5v.01M16 15.5v.01M12 12v.01M11 17v.01M7 14v.01"
+    })]
+  });
+};
+var CloseIcon = function CloseIcon() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    "aria-hidden": "true",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+      d: "M18 6 6 18M6 6l12 12"
+    })
+  });
+};
+var isDismissed = function isDismissed() {
+  var _LEGAL_PAGES;
+  return (((_LEGAL_PAGES = LEGAL_PAGES) === null || _LEGAL_PAGES === void 0 ? void 0 : _LEGAL_PAGES.dismissed_notices) || []).includes(NOTICE_ID);
+};
+
+/**
+ * Top-of-page notice pointing free users to the Cookie Bar screen's scanner.
+ * Hidden once Legal Pages Pro is licensed (`cookie_pro`), while an older Pro is
+ * active (its Cookie Bar screen asks for a Pro update instead), and after the
+ * current user closes it (stored in user meta via POST /notices/cookie_scan/dismiss).
+ * `maxWidth` should match the page's content cards ('' for full-width pages).
+ */
+var CookieScanNotice = function CookieScanNotice(_ref) {
+  var _LEGAL_PAGES2, _LEGAL_PAGES3;
+  var _ref$className = _ref.className,
+    className = _ref$className === void 0 ? '' : _ref$className,
+    _ref$maxWidth = _ref.maxWidth,
+    maxWidth = _ref$maxWidth === void 0 ? 'max-w-[1150px]' : _ref$maxWidth;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(isDismissed),
+    _useState2 = _slicedToArray(_useState, 2),
+    dismissed = _useState2[0],
+    setDismissed = _useState2[1];
+  if (dismissed || (_LEGAL_PAGES2 = LEGAL_PAGES) !== null && _LEGAL_PAGES2 !== void 0 && _LEGAL_PAGES2.cookie_pro || (_LEGAL_PAGES3 = LEGAL_PAGES) !== null && _LEGAL_PAGES3 !== void 0 && _LEGAL_PAGES3.cookie_legacy_pro) {
+    return null;
+  }
+  var dismiss = function dismiss() {
+    setDismissed(true);
+    // The localized object outlives hash navigation, so other screens see it too.
+    LEGAL_PAGES.dismissed_notices = [].concat(_toConsumableArray(LEGAL_PAGES.dismissed_notices || []), [NOTICE_ID]);
+    fetch("".concat(LEGAL_PAGES.apiUrl, "/notices/").concat(NOTICE_ID, "/dismiss"), {
+      method: 'POST',
+      headers: {
+        'X-WP-Nonce': LEGAL_PAGES.nonce
+      }
+    }).catch(function () {});
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: "px-8 pt-6 ".concat(className),
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "relative flex ".concat(maxWidth, " flex-col gap-3 rounded-2xl border border-indigo-100 bg-[#7C3BED0D] py-4 pl-5 pr-12 sm:flex-row sm:items-center sm:justify-between"),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "flex items-center gap-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          className: "flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#7C3BED1A]",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(CookieIcon, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "!m-0 !text-sm !font-medium !text-[#17171C]",
+          children: "You can now scan your site to find out which cookie notices you need to display."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
+        href: "#/pro-features/cookie-bar",
+        className: "inline-flex shrink-0 items-center justify-center rounded-xl bg-[#7C3BED] px-5 py-2.5 text-sm !font-bold !text-white no-underline shadow-[0px_4px_14px_-2px_#7C3BED40] transition hover:bg-indigo-700",
+        children: "Scan Now"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        type: "button",
+        onClick: dismiss,
+        "aria-label": "Dismiss this notice",
+        className: "absolute right-3 top-3 flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg border-0 bg-transparent text-[#6F6F7B] transition hover:bg-[#7C3BED1A] hover:text-[#17171C] sm:top-1/2 sm:-translate-y-1/2",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(CloseIcon, {})
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CookieScanNotice);
+
+/***/ },
+
 /***/ "./spa/admin/src/components/common/FormCard.jsx"
 /*!******************************************************!*\
   !*** ./spa/admin/src/components/common/FormCard.jsx ***!
@@ -443,7 +569,7 @@ function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i 
 function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (-1 !== e.indexOf(n)) continue; t[n] = r[n]; } return t; }
 ;
 
-var FormCard = function FormCard(_ref) {
+var FormCard = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().forwardRef(function (_ref, ref) {
   var children = _ref.children,
     _ref$className = _ref.className,
     className = _ref$className === void 0 ? "" : _ref$className,
@@ -453,11 +579,12 @@ var FormCard = function FormCard(_ref) {
   // Common styles for all cards/inputs in your plugin
   var baseClasses = "w-full !bg-white border !border-[#E4E4E780] !rounded-xl !shadow-[0px_4px_6px_-4px_#00000014,0px_10px_15px_-3px_#00000014] transition-all p-6";
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Component, _objectSpread(_objectSpread({
+    ref: ref,
     className: "".concat(baseClasses, " ").concat(className)
   }, props), {}, {
     children: children
   }));
-};
+});
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormCard);
 
 /***/ },
@@ -1063,41 +1190,132 @@ var ProFeatureLock = function ProFeatureLock(_ref) {
     title = _ref.title,
     description = _ref.description,
     _ref$ctaLabel = _ref.ctaLabel,
-    ctaLabel = _ref$ctaLabel === void 0 ? 'View Pricing Plans' : _ref$ctaLabel,
+    ctaLabel = _ref$ctaLabel === void 0 ? 'Upgrade to Pro' : _ref$ctaLabel,
     _ref$ctaHref = _ref.ctaHref,
     ctaHref = _ref$ctaHref === void 0 ? 'https://legalpagespro.com/?utm_source=lite-plugin#pricing' : _ref$ctaHref,
+    _ref$overlay = _ref.overlay,
+    overlay = _ref$overlay === void 0 ? 'center' : _ref$overlay,
     children = _ref.children;
   if (!active) {
     return children;
   }
+  var sticky = overlay === 'sticky';
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "relative max-w-[1150px]",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       "aria-hidden": "true",
       className: "pointer-events-none select-none blur-[8px] opacity-50",
       children: children
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 px-4 text-center",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(LockCircleIcon, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "max-w-[420px]",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
-          className: "!mb-2 !text-[18px] !font-bold !text-[#17171C]",
-          children: title
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-          className: "!text-sm !text-[#6F6F7B]",
-          children: description
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "absolute inset-0 z-10 flex flex-col items-center ".concat(sticky ? 'justify-start pt-12' : 'justify-center', " px-4 text-center"),
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "flex flex-col items-center gap-4 ".concat(sticky ? 'sticky top-[30vh]' : ''),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(LockCircleIcon, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "max-w-[420px]",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h4", {
+            className: "!mb-2 !text-[18px] !font-bold !text-[#17171C]",
+            children: title
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+            className: "!text-sm !text-[#6F6F7B]",
+            children: description
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
+          href: ctaHref,
+          target: "_blank",
+          rel: "noopener noreferrer",
+          className: "inline-flex items-center gap-2 rounded-xl bg-[#7C3BED] px-6 py-3 text-sm font-semibold !text-white no-underline shadow-[0px_4px_14px_-2px_#7C3BED40] transition hover:bg-indigo-700",
+          children: [ctaLabel, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(ArrowIcon, {})]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
-        href: ctaHref,
-        target: "_blank",
-        rel: "noopener noreferrer",
-        className: "inline-flex items-center gap-2 rounded-xl bg-[#7C3BED] px-6 py-3 text-sm font-semibold !text-white no-underline shadow-[0px_4px_14px_-2px_#7C3BED40] transition hover:bg-indigo-700",
-        children: [ctaLabel, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(ArrowIcon, {})]
-      })]
+      })
     })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProFeatureLock);
+
+/***/ },
+
+/***/ "./spa/admin/src/components/common/ProFeatureModal.jsx"
+/*!*************************************************************!*\
+  !*** ./spa/admin/src/components/common/ProFeatureModal.jsx ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   LockIcon: () => (/* binding */ LockIcon),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ProFeaturePopover__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProFeaturePopover */ "./spa/admin/src/components/common/ProFeaturePopover.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+var LockIcon = function LockIcon(_ref) {
+  var _ref$className = _ref.className,
+    className = _ref$className === void 0 ? 'h-3.5 w-3.5' : _ref$className;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("svg", {
+    className: className,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    "aria-hidden": "true",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("rect", {
+      x: "4",
+      y: "10",
+      width: "16",
+      height: "10",
+      rx: "2",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
+      d: "M7 10V7a5 5 0 0110 0v3",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    })]
+  });
+};
+
+/**
+ * Centered "this is a Pro feature" dialog for locked controls on a screen that
+ * is otherwise usable (see Cookie Bar). Closes on backdrop click or Escape.
+ */
+var ProFeatureModal = function ProFeatureModal(_ref2) {
+  var isOpen = _ref2.isOpen,
+    onClose = _ref2.onClose,
+    title = _ref2.title,
+    description = _ref2.description;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!isOpen) {
+      return undefined;
+    }
+    var onKey = function onKey(e) {
+      return e.key === 'Escape' && onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    return function () {
+      return document.removeEventListener('keydown', onKey);
+    };
+  }, [isOpen, onClose]);
+  if (!isOpen) {
+    return null;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    className: "fixed inset-0 z-[100000] flex items-center justify-center bg-black/40 px-4",
+    role: "dialog",
+    "aria-modal": "true",
+    onClick: onClose,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_ProFeaturePopover__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      title: title,
+      description: description,
+      onClose: onClose,
+      className: "w-[360px]"
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProFeatureModal);
 
 /***/ },
 
@@ -1163,7 +1381,7 @@ var ProFeaturePopover = function ProFeaturePopover(_ref) {
     description = _ref.description,
     onClose = _ref.onClose,
     _ref$ctaLabel = _ref.ctaLabel,
-    ctaLabel = _ref$ctaLabel === void 0 ? 'View Pricing Plans' : _ref$ctaLabel,
+    ctaLabel = _ref$ctaLabel === void 0 ? 'Upgrade to Pro' : _ref$ctaLabel,
     _ref$ctaHref = _ref.ctaHref,
     ctaHref = _ref$ctaHref === void 0 ? 'https://legalpagespro.com/?utm_source=lite-plugin#pricing' : _ref$ctaHref,
     _ref$className = _ref.className,
@@ -1198,6 +1416,97 @@ var ProFeaturePopover = function ProFeaturePopover(_ref) {
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProFeaturePopover);
+
+/***/ },
+
+/***/ "./spa/admin/src/components/common/ProFeaturePoster.jsx"
+/*!**************************************************************!*\
+  !*** ./spa/admin/src/components/common/ProFeaturePoster.jsx ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+var UpgradeArrowIcon = function UpgradeArrowIcon() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+    className: "h-4 w-4",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    stroke: "currentColor",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      strokeWidth: 2,
+      d: "M13 7l5 5m0 0l-5 5m5-5H6"
+    })
+  });
+};
+var CheckBadgeIcon = function CheckBadgeIcon() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+    className: "flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#7C3BED] text-white",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+      className: "h-2.5 w-2.5",
+      fill: "none",
+      viewBox: "0 0 24 24",
+      stroke: "currentColor",
+      strokeWidth: 3,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+        strokeLinecap: "round",
+        strokeLinejoin: "round",
+        d: "M5 13l4 4L19 7"
+      })
+    })
+  });
+};
+
+/**
+ * Vertical "upgrade" card for a page's side column — the tall counterpart of
+ * `ProFeatureBanner`. Stickiness is up to the caller (see Cookie Bar Settings).
+ */
+var ProFeaturePoster = function ProFeaturePoster(_ref) {
+  var title = _ref.title,
+    description = _ref.description,
+    _ref$ctaLabel = _ref.ctaLabel,
+    ctaLabel = _ref$ctaLabel === void 0 ? 'Upgrade to Pro' : _ref$ctaLabel,
+    _ref$ctaHref = _ref.ctaHref,
+    ctaHref = _ref$ctaHref === void 0 ? 'https://legalpagespro.com/?utm_source=lite-plugin#pricing' : _ref$ctaHref,
+    _ref$showUnlockNote = _ref.showUnlockNote,
+    showUnlockNote = _ref$showUnlockNote === void 0 ? true : _ref$showUnlockNote,
+    _ref$className = _ref.className,
+    className = _ref$className === void 0 ? '' : _ref$className;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "flex flex-col items-center gap-4 rounded-2xl border border-indigo-100 bg-[linear-gradient(160deg,rgba(124,59,237,0.08)_0%,rgba(124,59,237,0.16)_100%)] p-6 text-center shadow-[0px_1px_2px_0px_#0000000D] ".concat(className),
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+      className: "flex h-14 w-14 items-center justify-center rounded-full bg-[#7C3BED1A] text-3xl",
+      children: "\uD83D\uDC51"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+        className: "!mb-2 !text-[17px] !font-semibold !leading-snug !text-[#17171C]",
+        children: title
+      }), description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+        className: "!text-sm !text-[#6F6F7B]",
+        children: description
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
+      href: ctaHref,
+      target: "_blank",
+      rel: "noopener noreferrer",
+      className: "inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#7C3BED] px-5 py-3 text-sm font-semibold !text-white no-underline shadow-[0px_4px_14px_-2px_#7C3BED40] transition hover:bg-indigo-700",
+      children: [ctaLabel, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(UpgradeArrowIcon, {})]
+    }), showUnlockNote && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+      className: "-mt-1 inline-flex items-center gap-1.5 text-xs font-medium text-[#7C3BED]",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(CheckBadgeIcon, {}), "Unlock all premium features"]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProFeaturePoster);
 
 /***/ },
 
@@ -3104,7 +3413,8 @@ var ChooseTemplate = function ChooseTemplate(_ref) {
     isProActive = _ref.isProActive,
     handleTemplateClick = _ref.handleTemplateClick,
     loading = _ref.loading,
-    selectedTemplateId = _ref.selectedTemplateId;
+    selectedTemplateId = _ref.selectedTemplateId,
+    templateListRef = _ref.templateListRef;
   var getTemplateIcon = function getTemplateIcon(templateName) {
     var name = templateName.toLowerCase();
     if (name.includes('terms') || name.includes('tos')) {
@@ -3151,6 +3461,7 @@ var ChooseTemplate = function ChooseTemplate(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "w-full space-y-4",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_components_common_FormCard__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      ref: templateListRef,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "lgb-content-title",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_1__.ChooseTemplateIcon, {}), "Choose a Template"]
@@ -3315,9 +3626,10 @@ __webpack_require__.r(__webpack_exports__);
 function TextEditor(_ref) {
   var content = _ref.content,
     onChange = _ref.onChange,
-    handleMediaUpload = _ref.handleMediaUpload;
+    handleMediaUpload = _ref.handleMediaUpload,
+    _ref$editorId = _ref.editorId,
+    editorId = _ref$editorId === void 0 ? "legal-pages-classic-editor" : _ref$editorId;
   var editorRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  var editorId = "legal-pages-classic-editor";
   var isInitialized = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
   var isUpdatingFromProp = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
 
@@ -4508,6 +4820,379 @@ var AddNewPopup = function AddNewPopup() {
 
 /***/ },
 
+/***/ "./spa/admin/src/pages/AllPages/components/EditLegalPage.jsx"
+/*!*******************************************************************!*\
+  !*** ./spa/admin/src/pages/AllPages/components/EditLegalPage.jsx ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
+/* harmony import */ var _components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/common/MainPageLayout */ "./spa/admin/src/components/common/MainPageLayout.jsx");
+/* harmony import */ var _components_common_FormCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/common/FormCard */ "./spa/admin/src/components/common/FormCard.jsx");
+/* harmony import */ var _AddNewPage_components_Texteditor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../AddNewPage/components/Texteditor */ "./spa/admin/src/pages/AddNewPage/components/Texteditor.jsx");
+/* harmony import */ var _AddNewPage_components_AllShortCodes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../AddNewPage/components/AllShortCodes */ "./spa/admin/src/pages/AddNewPage/components/AllShortCodes.jsx");
+/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+;
+
+
+
+
+
+
+
+var EDITOR_ID = 'legal-pages-edit-page-editor';
+var EditLegalPage = function EditLegalPage(_ref) {
+  var pageId = _ref.pageId;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState2 = _slicedToArray(_useState, 2),
+    title = _useState2[0],
+    setTitle = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState4 = _slicedToArray(_useState3, 2),
+    content = _useState4[0],
+    setContent = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState6 = _slicedToArray(_useState5, 2),
+    shortcodes = _useState6[0],
+    setShortcodes = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState8 = _slicedToArray(_useState7, 2),
+    loading = _useState8[0],
+    setLoading = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState0 = _slicedToArray(_useState9, 2),
+    saving = _useState0[0],
+    setSaving = _useState0[1];
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState10 = _slicedToArray(_useState1, 2),
+    notFound = _useState10[0],
+    setNotFound = _useState10[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetchPage();
+    fetchShortcodes();
+  }, [pageId]);
+  var fetchPage = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      var response, result, _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            setLoading(true);
+            _context.p = 1;
+            _context.n = 2;
+            return fetch("".concat(LEGAL_PAGES.apiUrl, "/legal-page/").concat(pageId), {
+              headers: {
+                'X-WP-Nonce': LEGAL_PAGES.nonce
+              }
+            });
+          case 2:
+            response = _context.v;
+            _context.n = 3;
+            return response.json();
+          case 3:
+            result = _context.v;
+            if (result.success) {
+              setTitle(result.data.title || '');
+              setContent(result.data.content || '');
+            } else {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to load legal page');
+              setNotFound(true);
+            }
+            _context.n = 5;
+            break;
+          case 4:
+            _context.p = 4;
+            _t = _context.v;
+            console.error('Error fetching legal page:', _t);
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('An error occurred while loading the page');
+            setNotFound(true);
+          case 5:
+            _context.p = 5;
+            setLoading(false);
+            return _context.f(5);
+          case 6:
+            return _context.a(2);
+        }
+      }, _callee, null, [[1, 4, 5, 6]]);
+    }));
+    return function fetchPage() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+  var fetchShortcodes = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var response, result, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            _context2.p = 0;
+            _context2.n = 1;
+            return fetch("".concat(LEGAL_PAGES.apiUrl, "/shortcodes"), {
+              headers: {
+                'X-WP-Nonce': LEGAL_PAGES.nonce
+              }
+            });
+          case 1:
+            response = _context2.v;
+            _context2.n = 2;
+            return response.json();
+          case 2:
+            result = _context2.v;
+            if (result.success) {
+              setShortcodes(result.data || {});
+            }
+            _context2.n = 4;
+            break;
+          case 3:
+            _context2.p = 3;
+            _t2 = _context2.v;
+            console.error('Error fetching shortcodes:', _t2);
+          case 4:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[0, 3]]);
+    }));
+    return function fetchShortcodes() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+  var handleEditorChange = function handleEditorChange(newContent) {
+    setContent(newContent);
+  };
+  var fallbackCopy = function fallbackCopy(text) {
+    var textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Shortcode copied!');
+    } catch (err) {
+      _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to copy');
+    }
+    document.body.removeChild(textArea);
+  };
+  var copyShortcode = function copyShortcode(shortcode) {
+    var placeholder = "[".concat(shortcode, "]");
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(placeholder).then(function () {
+        return _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Shortcode copied!');
+      }).catch(function () {
+        return fallbackCopy(placeholder);
+      });
+    } else {
+      fallbackCopy(placeholder);
+    }
+  };
+  var handleMediaUpload = function handleMediaUpload() {
+    if (typeof wp === 'undefined' || typeof wp.media === 'undefined') {
+      console.error('WordPress media library is not available');
+      _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Media library is not available');
+      return;
+    }
+    var frame = wp.media({
+      title: 'Select Image',
+      button: {
+        text: 'Use selected image'
+      },
+      multiple: false
+    });
+    frame.on('select', function () {
+      var attachment = frame.state().get('selection').first().toJSON();
+      var imgHtml = "<img src=\"".concat(attachment.url, "\" alt=\"").concat(attachment.alt || attachment.title, "\" style=\"max-width:100%;\">");
+      var editor = window.tinymce.get(EDITOR_ID);
+      if (editor) editor.insertContent(imgHtml);
+    });
+    frame.open();
+  };
+  var handleUpdate = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      var response, result, _t3;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            if (title.trim()) {
+              _context3.n = 1;
+              break;
+            }
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Please enter a page title');
+            return _context3.a(2);
+          case 1:
+            if (content.trim()) {
+              _context3.n = 2;
+              break;
+            }
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Page content cannot be empty');
+            return _context3.a(2);
+          case 2:
+            setSaving(true);
+            _context3.p = 3;
+            _context3.n = 4;
+            return fetch("".concat(LEGAL_PAGES.apiUrl, "/legal-page"), {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': LEGAL_PAGES.nonce
+              },
+              body: JSON.stringify({
+                id: pageId,
+                title: title,
+                content: content
+              })
+            });
+          case 4:
+            response = _context3.v;
+            _context3.n = 5;
+            return response.json();
+          case 5:
+            result = _context3.v;
+            if (result.success) {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Legal page updated successfully!');
+              setTimeout(function () {
+                window.location.hash = '/all-legal-pages';
+              }, 1000);
+            } else {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to update legal page');
+            }
+            _context3.n = 7;
+            break;
+          case 6:
+            _context3.p = 6;
+            _t3 = _context3.v;
+            console.error('Error updating legal page:', _t3);
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('An error occurred while updating');
+          case 7:
+            _context3.p = 7;
+            setSaving(false);
+            return _context3.f(7);
+          case 8:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[3, 6, 7, 8]]);
+    }));
+    return function handleUpdate() {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+  var handleCancel = function handleCancel() {
+    window.location.hash = '/all-legal-pages';
+  };
+  if (loading) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      title: "Edit Legal Page",
+      description: "Loading page...",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "space-y-3 mt-4",
+        children: _toConsumableArray(Array(5)).map(function (_, index) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "h-14 bg-gray-100 rounded-xl animate-pulse"
+          }, index);
+        })
+      })
+    });
+  }
+  if (notFound) {
+    return null;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    title: "Edit Legal Page",
+    description: "Update this legal page's title and content",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      className: "mb-6",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
+        onClick: handleCancel,
+        className: "inline-flex items-center gap-2 px-4 py-2 text-[#6F6F7B] hover:text-[#17171C] transition-colors",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("svg", {
+          className: "w-5 h-5",
+          fill: "none",
+          stroke: "currentColor",
+          viewBox: "0 0 24 24",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("path", {
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            strokeWidth: 2,
+            d: "M10 19l-7-7m0 0l7-7m-7 7h18"
+          })
+        }), "Back to Legal Pages"]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "grid grid-cols-1 lg:grid-cols-3 gap-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "lg:col-span-2 space-y-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_FormCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          as: "input",
+          type: "text",
+          value: title,
+          onChange: function onChange(e) {
+            return setTitle(e.target.value);
+          },
+          placeholder: "Enter page title...",
+          className: "!py-10 !px-6 !text-lg text-[#17171C] outline-none focus:ring-2 focus:ring-[#17171C]/5 focus:border-[#17171C]"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_FormCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          className: "mt-6 overflow-hidden",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "p-2",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_AddNewPage_components_Texteditor__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              content: content,
+              onChange: handleEditorChange,
+              handleMediaUpload: handleMediaUpload,
+              editorId: EDITOR_ID
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "flex items-center gap-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
+            onClick: handleUpdate,
+            disabled: saving,
+            className: "\n                inline-flex items-center gap-2 px-8 py-[14px] cursor-pointer rounded-xl font-semibold text-white transition shadow-[0px_4px_14px_-2px_#7C3BED40]\n                ".concat(saving ? 'bg-indigo-400 cursor-not-allowed' : 'bg-lgp-color', "\n              "),
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_6__.SaveButtonIcon, {}), saving ? 'Updating...' : 'Update Page']
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+            onClick: handleCancel,
+            disabled: saving,
+            className: "px-6 py-[14px] cursor-pointer border border-[#E4E4E7] text-[#6F6F7B] rounded-xl font-semibold hover:border-[#17171C] hover:text-[#17171C] transition-all disabled:opacity-50",
+            children: "Cancel"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "lg:col-span-1",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_FormCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_AddNewPage_components_AllShortCodes__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            shortcodes: shortcodes,
+            copyShortcode: copyShortcode,
+            loading: loading
+          })
+        })
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditLegalPage);
+
+/***/ },
+
 /***/ "./spa/admin/src/pages/AllPages/components/Legalpagestable.jsx"
 /*!*********************************************************************!*\
   !*** ./spa/admin/src/pages/AllPages/components/Legalpagestable.jsx ***!
@@ -4755,27 +5440,24 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 var TableRow = function TableRow(_ref) {
   var page = _ref.page,
     onDelete = _ref.onDelete;
-  console.log("page", page);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     copiedShortcode = _useState2[0],
     setCopiedShortcode = _useState2[1];
-  var copyShortcode = function copyShortcode(shortcode) {
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    copiedUrl = _useState4[0],
+    setCopiedUrl = _useState4[1];
+  var copyToClipboard = function copyToClipboard(text, onSuccess) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(shortcode).then(function () {
-        _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Shortcode copied!');
-        setCopiedShortcode(true);
-        setTimeout(function () {
-          return setCopiedShortcode(false);
-        }, 2000);
-      }).catch(function () {
-        return fallbackCopy(shortcode);
+      navigator.clipboard.writeText(text).then(onSuccess).catch(function () {
+        return fallbackCopy(text, onSuccess);
       });
     } else {
-      fallbackCopy(shortcode);
+      fallbackCopy(text, onSuccess);
     }
   };
-  var fallbackCopy = function fallbackCopy(text) {
+  var fallbackCopy = function fallbackCopy(text, onSuccess) {
     var textArea = document.createElement('textarea');
     textArea.value = text;
     textArea.style.position = 'fixed';
@@ -4784,15 +5466,29 @@ var TableRow = function TableRow(_ref) {
     textArea.select();
     try {
       document.execCommand('copy');
+      onSuccess();
+    } catch (err) {
+      _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to copy');
+    }
+    document.body.removeChild(textArea);
+  };
+  var copyShortcode = function copyShortcode(shortcode) {
+    copyToClipboard(shortcode, function () {
       _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Shortcode copied!');
       setCopiedShortcode(true);
       setTimeout(function () {
         return setCopiedShortcode(false);
       }, 2000);
-    } catch (err) {
-      _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to copy');
-    }
-    document.body.removeChild(textArea);
+    });
+  };
+  var copyUrl = function copyUrl(url) {
+    copyToClipboard(url, function () {
+      _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Page URL copied!');
+      setCopiedUrl(true);
+      setTimeout(function () {
+        return setCopiedUrl(false);
+      }, 2000);
+    });
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
     className: "h-[68px] border-b border-[#E4E4E7] hover:bg-gray-50 transition-colors",
@@ -4804,15 +5500,34 @@ var TableRow = function TableRow(_ref) {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
       className: "py-4 px-4",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "flex items-center gap-2",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+        type: "button",
+        onClick: function onClick() {
+          return copyUrl(page.view_url);
+        },
+        title: copiedUrl ? 'URL copied!' : "Copy URL: ".concat(page.view_url),
+        className: "flex items-center gap-2 text-left group cursor-pointer",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "w-10 h-10 bg-[#7C3BED]/10 rounded-xl flex items-center justify-center flex-shrink-0",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_2__.LegalPageIcon, {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "text-sm font-semibold text-[#17171C]",
-            children: page.title
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "text-sm font-semibold text-[#17171C] group-hover:text-[#7C3BED] flex items-center gap-1.5",
+            children: [page.title, copiedUrl ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
+              className: "w-3.5 h-3.5 text-[#7C3BED]",
+              fill: "none",
+              stroke: "currentColor",
+              viewBox: "0 0 24 24",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 2,
+                d: "M5 13l4 4L19 7"
+              })
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "opacity-0 group-hover:opacity-100 transition-opacity",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_2__.CopyClipboardIcon, {})
+            })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "text-xs text-[#6F6F7B]",
             children: page.subtitle || 'Legal Page'
@@ -4864,10 +5579,11 @@ var TableRow = function TableRow(_ref) {
           className: "p-2 text-[#6F6F7B] cursor-pointer hover:text-[#7C3BED] hover:bg-[#7C3BED]/5 rounded-xl transition-colors",
           title: "View page",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_2__.ViewIcon, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
-          href: page.edit_url,
-          target: "_blank",
-          rel: "noopener noreferrer",
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          type: "button",
+          onClick: function onClick() {
+            window.location.hash = "/edit-legal-page/".concat(page.id);
+          },
           className: "p-2 text-[#6F6F7B] cursor-pointer hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-colors",
           title: "Edit page",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_2__.EditIcon, {})
@@ -4901,15 +5617,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/common/MainPageLayout */ "./spa/admin/src/components/common/MainPageLayout.jsx");
-/* harmony import */ var _components_common_FormCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/common/FormCard */ "./spa/admin/src/components/common/FormCard.jsx");
-/* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
-/* harmony import */ var _components_common_Pagination__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/common/Pagination */ "./spa/admin/src/components/common/Pagination/index.jsx");
-/* harmony import */ var _components_common_ConfirmationModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/common/ConfirmationModal */ "./spa/admin/src/components/common/ConfirmationModal.jsx");
-/* harmony import */ var _components_Searchbar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Searchbar */ "./spa/admin/src/pages/AllPages/components/Searchbar.jsx");
-/* harmony import */ var _components_Statustabs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Statustabs */ "./spa/admin/src/pages/AllPages/components/Statustabs.jsx");
-/* harmony import */ var _components_Legalpagestable__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Legalpagestable */ "./spa/admin/src/pages/AllPages/components/Legalpagestable.jsx");
-/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_common_CookieScanNotice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/common/CookieScanNotice */ "./spa/admin/src/components/common/CookieScanNotice.jsx");
+/* harmony import */ var _components_common_FormCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/common/FormCard */ "./spa/admin/src/components/common/FormCard.jsx");
+/* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
+/* harmony import */ var _components_common_Pagination__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/common/Pagination */ "./spa/admin/src/components/common/Pagination/index.jsx");
+/* harmony import */ var _components_common_ConfirmationModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../components/common/ConfirmationModal */ "./spa/admin/src/components/common/ConfirmationModal.jsx");
+/* harmony import */ var _components_Searchbar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Searchbar */ "./spa/admin/src/pages/AllPages/components/Searchbar.jsx");
+/* harmony import */ var _components_Statustabs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Statustabs */ "./spa/admin/src/pages/AllPages/components/Statustabs.jsx");
+/* harmony import */ var _components_Legalpagestable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Legalpagestable */ "./spa/admin/src/pages/AllPages/components/Legalpagestable.jsx");
+/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -4921,6 +5638,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 ;
+
 
 
 
@@ -5018,7 +5736,7 @@ var AllPages = function AllPages(_ref) {
                 setCounts(result.data.counts);
               }
             } else {
-              _components_common_Toast__WEBPACK_IMPORTED_MODULE_4__.Toast.error('Failed to load pages');
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_5__.Toast.error('Failed to load pages');
               setPages([]);
             }
             _context.n = 5;
@@ -5027,7 +5745,7 @@ var AllPages = function AllPages(_ref) {
             _context.p = 4;
             _t = _context.v;
             console.error('Error fetching pages:', _t);
-            _components_common_Toast__WEBPACK_IMPORTED_MODULE_4__.Toast.error('An error occurred while loading pages');
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_5__.Toast.error('An error occurred while loading pages');
             setPages([]);
           case 5:
             _context.p = 5;
@@ -5089,7 +5807,7 @@ var AllPages = function AllPages(_ref) {
           case 2:
             result = _context2.v;
             if (result.success) {
-              _components_common_Toast__WEBPACK_IMPORTED_MODULE_4__.Toast.success('Page deleted successfully!');
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_5__.Toast.success('Page deleted successfully!');
               setDeleteModal({
                 isOpen: false,
                 pageId: null,
@@ -5097,7 +5815,7 @@ var AllPages = function AllPages(_ref) {
               });
               fetchPages(activeTab, page, searchQuery); // Refresh the list
             } else {
-              _components_common_Toast__WEBPACK_IMPORTED_MODULE_4__.Toast.error('Failed to delete page');
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_5__.Toast.error('Failed to delete page');
             }
             _context2.n = 4;
             break;
@@ -5105,7 +5823,7 @@ var AllPages = function AllPages(_ref) {
             _context2.p = 3;
             _t2 = _context2.v;
             console.error('Error deleting page:', _t2);
-            _components_common_Toast__WEBPACK_IMPORTED_MODULE_4__.Toast.error('An error occurred while deleting');
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_5__.Toast.error('An error occurred while deleting');
           case 4:
             return _context2.a(2);
         }
@@ -5131,46 +5849,50 @@ var AllPages = function AllPages(_ref) {
       adl_legal_pages__modal(false);
     }, 500);
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    title: "All Legal Pages",
-    description: "Manage all your created legal pages",
-    button: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("button", {
-      className: "adl-add-button",
-      onClick: handleAddNewPage,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_10__.AddLegalPageIcon, {}), "Add New Page"]
-    }),
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_components_common_FormCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      className: "min-h-screen",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
-        className: "flex items-center gap-4 justify-start",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Searchbar__WEBPACK_IMPORTED_MODULE_7__["default"], {
-          onSearch: handleSearch
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Statustabs__WEBPACK_IMPORTED_MODULE_8__["default"], {
-          activeTab: activeTab,
-          counts: counts,
-          onTabChange: handleTabChange
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_common_CookieScanNotice__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      maxWidth: ""
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      title: "All Legal Pages",
+      description: "Manage all your created legal pages",
+      button: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("button", {
+        className: "adl-add-button",
+        onClick: handleAddNewPage,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_11__.AddLegalPageIcon, {}), "Add New Page"]
+      }),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_components_common_FormCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        className: "min-h-screen",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+          className: "flex items-center gap-4 justify-start",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Searchbar__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            onSearch: handleSearch
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Statustabs__WEBPACK_IMPORTED_MODULE_9__["default"], {
+            activeTab: activeTab,
+            counts: counts,
+            onTabChange: handleTabChange
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Legalpagestable__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          pages: pages,
+          loading: loading,
+          onDelete: handleDeleteClick
+        }), !loading && totalPages > 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+          className: "mt-6",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_common_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            baseSlug: "all-legal-pages",
+            current: page,
+            total: totalPages
+          })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_Legalpagestable__WEBPACK_IMPORTED_MODULE_9__["default"], {
-        pages: pages,
-        loading: loading,
-        onDelete: handleDeleteClick
-      }), !loading && totalPages > 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
-        className: "mt-6",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_common_Pagination__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          baseSlug: "all-legal-pages",
-          current: page,
-          total: totalPages
-        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_common_ConfirmationModal__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        isOpen: deleteModal.isOpen,
+        onClose: handleDeleteCancel,
+        onConfirm: handleDeleteConfirm,
+        title: "Delete Page",
+        message: "Are you sure you want to delete \"".concat(deleteModal.pageTitle, "\"?"),
+        confirmText: "Delete",
+        cancelText: "Cancel",
+        loading: false
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_common_ConfirmationModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
-      isOpen: deleteModal.isOpen,
-      onClose: handleDeleteCancel,
-      onConfirm: handleDeleteConfirm,
-      title: "Delete Page",
-      message: "Are you sure you want to delete \"".concat(deleteModal.pageTitle, "\"?"),
-      confirmText: "Delete",
-      cancelText: "Cancel",
-      loading: false
     })]
   });
 };
@@ -5852,7 +6574,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -5867,48 +6590,48 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 ;
 
-// Modal component
 
+var EMPTY_FORM = {
+  name: '',
+  regex: '',
+  category: 'marketing'
+};
+
+// Modal component
 var AddServiceModal = function AddServiceModal(_ref) {
   var isOpen = _ref.isOpen,
     onClose = _ref.onClose,
     onSave = _ref.onSave;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      name: '',
-      regex: ''
-    }),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(EMPTY_FORM),
     _useState2 = _slicedToArray(_useState, 2),
     form = _useState2[0],
     setForm = _useState2[1];
   if (!isOpen) return null;
   var handleSave = function handleSave() {
     if (!form.name.trim() || !form.regex.trim()) {
-      Toast.error('Service name and regex are required.');
+      _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Service name and regex are required.');
       return;
     }
     onSave(form);
-    setForm({
-      name: '',
-      regex: ''
-    });
+    setForm(EMPTY_FORM);
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "fixed inset-0 z-50 flex items-center justify-center",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "absolute inset-0 bg-black/40",
       onClick: onClose
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-6 z-10",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
         className: "text-lg font-bold text-[#17171C] mb-6",
         children: "Add a new service"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "space-y-4 mb-6",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
             className: "block text-sm font-medium text-[#17171C] mb-1",
             children: "Service Name"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
             type: "text",
             value: form.name,
             onChange: function onChange(e) {
@@ -5921,11 +6644,11 @@ var AddServiceModal = function AddServiceModal(_ref) {
             className: "w-full border-0 border-b border-[#E4E4E7] px-0 py-2 text-sm outline-none focus:border-[#7C3BED] bg-transparent",
             placeholder: "e.g. Google Analytics"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
             className: "block text-sm font-medium text-[#17171C] mb-1",
             children: "ReGex"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
             type: "text",
             value: form.regex,
             onChange: function onChange(e) {
@@ -5938,21 +6661,49 @@ var AddServiceModal = function AddServiceModal(_ref) {
             className: "w-full border-0 border-b border-[#E4E4E7] px-0 py-2 text-sm font-mono outline-none focus:border-[#7C3BED] bg-transparent",
             placeholder: "e.g. google-analytics\\\\.com\\\\/analytics\\\\.js"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+            className: "block text-sm font-medium text-[#17171C] mb-1",
+            children: "Consent Category"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("select", {
+            value: form.category,
+            onChange: function onChange(e) {
+              return setForm(function (p) {
+                return _objectSpread(_objectSpread({}, p), {}, {
+                  category: e.target.value
+                });
+              });
+            },
+            className: "w-full !border-0 !border-b !border-[#E4E4E7] !rounded-none !px-0 py-2 text-sm bg-transparent",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("option", {
+              value: "preferences",
+              children: "Preferences"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("option", {
+              value: "statistics",
+              children: "Statistics"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("option", {
+              value: "marketing",
+              children: "Marketing"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+            className: "mt-1 text-xs text-[#6F6F7B]",
+            children: "The service loads only after the visitor accepts this category."
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: "bg-[#FFFBEB] border border-[#FDE68A] rounded-xl p-4",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
             className: "text-sm text-[#92400E]",
             children: "Caution! You may run into issues if you aren't sure about the process and make sure to test the settings on a test environment before going live."
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "flex items-center justify-end gap-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
           type: "button",
           onClick: onClose,
           className: "px-5 py-2 cursor-pointer text-sm font-semibold text-[#6F6F7B] border border-[#E4E4E7] rounded-lg hover:bg-gray-50 transition",
           children: "Cancel"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
           type: "button",
           onClick: handleSave,
           className: "px-5 py-2 cursor-pointer text-sm font-semibold text-white bg-[#7C3BED] rounded-lg hover:bg-indigo-700 transition",
@@ -5974,6 +6725,7 @@ var AddServiceModal = function AddServiceModal(_ref) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SERVICE_CATEGORIES: () => (/* binding */ SERVICE_CATEGORIES),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -5984,15 +6736,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_common_ConfirmationModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../components/common/ConfirmationModal */ "./spa/admin/src/components/common/ConfirmationModal.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
-function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -6074,6 +6826,18 @@ var DEFAULT_SERVICES = [{
   name: 'YouTube',
   regex: 'youtube\\.com\\/embed'
 }];
+
+// Consent category a blocked service waits for (see Cookie_Model::SERVICE_CATEGORIES for defaults).
+var SERVICE_CATEGORIES = [{
+  value: 'preferences',
+  label: 'Preferences'
+}, {
+  value: 'statistics',
+  label: 'Statistics'
+}, {
+  value: 'marketing',
+  label: 'Marketing'
+}];
 var AvailableServicesTab = function AvailableServicesTab() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(DEFAULT_SERVICES),
     _useState2 = _slicedToArray(_useState, 2),
@@ -6134,11 +6898,21 @@ var AvailableServicesTab = function AvailableServicesTab() {
       return _ref.apply(this, arguments);
     };
   }();
+  var updateCategory = function updateCategory(id, category) {
+    return setServices(function (prev) {
+      return prev.map(function (s) {
+        return s.id === id ? _objectSpread(_objectSpread({}, s), {}, {
+          category: category
+        }) : s;
+      });
+    });
+  };
   var handleAddService = function handleAddService(newService) {
     var added = {
       id: Date.now(),
       name: newService.name.trim(),
-      regex: newService.regex.trim()
+      regex: newService.regex.trim(),
+      category: newService.category || 'marketing'
     };
     setServices(function (prev) {
       return [].concat(_toConsumableArray(prev), [added]);
@@ -6260,6 +7034,9 @@ var AvailableServicesTab = function AvailableServicesTab() {
                 className: "text-left px-4 py-3 font-semibold text-[#17171C]",
                 children: "Identifier Regex"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                className: "text-left px-4 py-3 font-semibold text-[#17171C] w-40",
+                children: "Category"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                 className: "px-4 py-3 w-12"
               })]
             })
@@ -6274,6 +7051,21 @@ var AvailableServicesTab = function AvailableServicesTab() {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
                   className: "px-4 py-3 text-[#6F6F7B] font-mono text-xs break-all align-top",
                   children: svc.regex
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                  className: "px-4 py-3 align-top",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
+                    value: svc.category || 'marketing',
+                    onChange: function onChange(e) {
+                      return updateCategory(svc.id, e.target.value);
+                    },
+                    className: "!rounded-lg !border !border-[#E4E4E7] !py-1 !pl-2 !pr-7 !text-xs",
+                    children: SERVICE_CATEGORIES.map(function (c) {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+                        value: c.value,
+                        children: c.label
+                      }, c.value);
+                    })
+                  })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
                   className: "px-4 py-3 align-top",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
@@ -7077,6 +7869,880 @@ var ConsentSelect = function ConsentSelect(_ref) {
 
 /***/ },
 
+/***/ "./spa/admin/src/pages/CookieBar/components/CookieScanner/ScanPanel.jsx"
+/*!******************************************************************************!*\
+  !*** ./spa/admin/src/pages/CookieBar/components/CookieScanner/ScanPanel.jsx ***!
+  \******************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CATEGORY_OPTIONS: () => (/* binding */ CATEGORY_OPTIONS),
+/* harmony export */   ScanIcon: () => (/* binding */ ScanIcon),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_common_SectionCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../components/common/SectionCard */ "./spa/admin/src/components/common/SectionCard.jsx");
+/* harmony import */ var _components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../components/common/ProFeatureModal */ "./spa/admin/src/components/common/ProFeatureModal.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+var CATEGORY_OPTIONS = [{
+  value: 'functional',
+  label: 'Functional'
+}, {
+  value: 'preferences',
+  label: 'Preferences'
+}, {
+  value: 'statistics',
+  label: 'Statistics'
+}, {
+  value: 'marketing',
+  label: 'Marketing'
+}, {
+  value: 'unclassified',
+  label: 'Unclassified'
+}];
+
+// `!` because WP admin's own `select` styles otherwise win.
+var CATEGORY_STYLES = {
+  functional: '!bg-emerald-50 !text-emerald-700',
+  preferences: '!bg-sky-50 !text-sky-700',
+  statistics: '!bg-amber-50 !text-amber-700',
+  marketing: '!bg-rose-50 !text-rose-700',
+  unclassified: '!bg-gray-100 !text-gray-600'
+};
+var STORAGE_LABELS = {
+  cookie: 'Cookie',
+  localstorage: 'Local storage',
+  sessionstorage: 'Session storage'
+};
+var ScanIcon = function ScanIcon() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("svg", {
+    width: "20",
+    height: "20",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "#7C3BED",
+    strokeWidth: "1.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
+      d: "M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("circle", {
+      cx: "11",
+      cy: "11",
+      r: "4"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
+      d: "m17 17-3.2-3.2"
+    })]
+  });
+};
+var secondaryBtn = 'inline-flex cursor-pointer items-center justify-center rounded-xl border border-[#E4E4E7] bg-white px-3.5 py-[11px] text-sm font-medium text-[#17171C] transition hover:bg-[#FAFAFA] disabled:cursor-not-allowed disabled:opacity-50';
+// `!font-bold`: WP admin's button styles otherwise override the weight.
+var primaryBtn = 'inline-flex min-w-[140px] cursor-pointer items-center justify-center rounded-xl bg-[#7C3BED] px-10 py-3 text-sm !font-bold text-white shadow-[0px_4px_14px_-2px_#7C3BED40] transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-indigo-400';
+var noop = function noop() {};
+
+/**
+ * Presentational scan panel (state lives in CookieScanner). With `locked`, the
+ * Pro controls stay visible but call `onLocked(feature)` instead of acting.
+ */
+var ScanPanel = function ScanPanel(_ref) {
+  var _ref$postTypes = _ref.postTypes,
+    postTypes = _ref$postTypes === void 0 ? [] : _ref$postTypes,
+    _ref$selectedTypes = _ref.selectedTypes,
+    selectedTypes = _ref$selectedTypes === void 0 ? [] : _ref$selectedTypes,
+    onToggleType = _ref.onToggleType,
+    _ref$state = _ref.state,
+    state = _ref$state === void 0 ? {} : _ref$state,
+    _ref$cookies = _ref.cookies,
+    cookies = _ref$cookies === void 0 ? [] : _ref$cookies,
+    _ref$scanning = _ref.scanning,
+    scanning = _ref$scanning === void 0 ? false : _ref$scanning,
+    _ref$syncing = _ref.syncing,
+    syncing = _ref$syncing === void 0 ? false : _ref$syncing,
+    onScan = _ref.onScan,
+    onStop = _ref.onStop,
+    onClear = _ref.onClear,
+    onSync = _ref.onSync,
+    onUpdateCookie = _ref.onUpdateCookie,
+    iframeRef = _ref.iframeRef,
+    _ref$locked = _ref.locked,
+    locked = _ref$locked === void 0 ? false : _ref$locked,
+    _ref$onLocked = _ref.onLocked,
+    onLocked = _ref$onLocked === void 0 ? noop : _ref$onLocked;
+  var detectedServices = Object.keys(state.detected_services || {});
+  var activeCookies = cookies.filter(function (c) {
+    return !c.ignored;
+  });
+  var progress = state.progress || 0;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    title: "Website Cookie Scan",
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(ScanIcon, {}),
+    maxHeight: "",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "space-y-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+        className: "!text-sm !text-[#6F6F7B]",
+        children: ["Scan your pages for first-party cookies, local/session storage, and known third-party scripts. Found cookies are described automatically using ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("strong", {
+          children: "cookiedatabase.org"
+        }), " (only cookie names are sent), so you can list them in your cookie policy and assign them to consent categories. Changing a cookie's category by hand stops Sync from overwriting it."]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+          className: "block text-sm font-medium text-[#17171C] mb-3",
+          children: "Post types to scan"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "flex flex-wrap gap-x-6 gap-y-2",
+          children: postTypes.map(function (type) {
+            return type.locked ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+              type: "button",
+              className: "inline-flex cursor-pointer items-center gap-2 text-sm text-[#A1A1AA]",
+              onClick: function onClick() {
+                return onLocked('post_types');
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "checkbox",
+                className: "!m-0 pointer-events-none",
+                checked: false,
+                disabled: true,
+                readOnly: true,
+                tabIndex: -1
+              }), type.label, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-[#7C3BED]",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_2__.LockIcon, {})
+              })]
+            }, type.value) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
+              className: "inline-flex cursor-pointer items-center gap-2 text-sm text-[#17171C]",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "checkbox",
+                className: "!m-0",
+                checked: selectedTypes.includes(type.value),
+                disabled: scanning,
+                onChange: function onChange() {
+                  return onToggleType(type.value);
+                }
+              }), type.label]
+            }, type.value);
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "!mt-2 !text-xs !text-[#6F6F7B]",
+          children: "The homepage and WooCommerce shop pages are always included. Up to 5 recent items per post type are scanned."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "rounded-xl bg-[#F4F4F580] p-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "flex flex-wrap items-center justify-between gap-2 text-sm",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            className: "font-medium text-[#17171C]",
+            children: scanning ? "Scanning ".concat(state.processed || 0, " of ").concat(state.total || 0, " pages\u2026") : state.finished_at ? "Last scan: ".concat(state.finished_at) : 'No scan has run yet.'
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+            className: "text-[#6F6F7B]",
+            children: [activeCookies.length, " cookies \xB7 ", detectedServices.length, " services detected"]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "mt-3 h-2 w-full overflow-hidden rounded-full bg-[#E4E4E7]",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "h-full rounded-full bg-[#7C3BED] transition-all duration-500",
+            style: {
+              width: "".concat(progress, "%")
+            }
+          })
+        }), scanning && state.current_url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "!mt-2 !text-xs !text-[#6F6F7B] truncate",
+          children: state.current_url
+        }), !scanning && state.sync_error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+          className: "!mt-2 !text-xs !text-red-600",
+          children: ["cookiedatabase.org: ", state.sync_error]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex flex-wrap gap-3",
+        children: [scanning ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          type: "button",
+          className: primaryBtn,
+          onClick: onStop,
+          children: "Stop Scan"
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          type: "button",
+          className: primaryBtn,
+          onClick: onScan,
+          disabled: selectedTypes.length === 0 && postTypes.length > 0,
+          children: "Scan"
+        }), locked ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+            type: "button",
+            className: "".concat(secondaryBtn, " gap-2"),
+            onClick: function onClick() {
+              return onLocked('sync');
+            },
+            disabled: scanning,
+            children: ["Sync with cookiedatabase.org", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "text-[#7C3BED]",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_2__.LockIcon, {})
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+            type: "button",
+            className: "".concat(secondaryBtn, " gap-2"),
+            onClick: function onClick() {
+              return onLocked('clear');
+            },
+            disabled: scanning,
+            children: ["Clear Cookies", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "text-[#7C3BED]",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_2__.LockIcon, {})
+            })]
+          })]
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            type: "button",
+            className: secondaryBtn,
+            onClick: onSync,
+            disabled: scanning || syncing || cookies.length === 0,
+            children: syncing ? 'Syncing…' : 'Sync with cookiedatabase.org'
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            type: "button",
+            className: secondaryBtn,
+            onClick: onClear,
+            disabled: scanning || cookies.length === 0,
+            children: "Clear Cookies"
+          })]
+        })]
+      }), detectedServices.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+          className: "block text-sm font-medium text-[#17171C] mb-2",
+          children: "Detected services"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "flex flex-wrap gap-2",
+          children: detectedServices.map(function (name) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "rounded-full bg-[#7C3BED1A] px-3 py-1 text-xs font-medium text-[#7C3BED]",
+              children: name
+            }, name);
+          })
+        })]
+      }), cookies.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "border border-[#E4E4E7] rounded-xl overflow-hidden",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "max-h-[420px] overflow-auto",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+            className: "w-full text-sm",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                className: "bg-[#FAFAFA] border-b border-[#E4E4E7]",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  className: "text-left px-4 py-3 font-semibold text-[#17171C]",
+                  children: "Name"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  className: "text-left px-4 py-3 font-semibold text-[#17171C]",
+                  children: "Service"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  className: "text-left px-4 py-3 font-semibold text-[#17171C] w-40",
+                  children: "Category"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  className: "text-left px-4 py-3 font-semibold text-[#17171C]",
+                  children: "Retention"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  className: "text-left px-4 py-3 font-semibold text-[#17171C]",
+                  children: "Purpose"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+                  className: "px-4 py-3 w-20"
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
+              className: "divide-y divide-[#E4E4E7]",
+              children: cookies.map(function (cookie) {
+                var _CATEGORY_OPTIONS$fin;
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                  className: "transition hover:bg-[#FAFAFA] ".concat(cookie.ignored ? 'opacity-50' : ''),
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                    className: "px-4 py-3 align-top",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                      className: "font-mono text-xs text-[#17171C] break-all",
+                      children: cookie.name
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                      className: "text-xs text-[#6F6F7B]",
+                      children: STORAGE_LABELS[cookie.storage] || cookie.storage
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                    className: "px-4 py-3 align-top text-[#17171C]",
+                    children: cookie.service || '—'
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                    className: "px-4 py-3 align-top",
+                    children: [locked ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                      type: "button",
+                      title: "Changing the category is a Pro feature",
+                      onClick: function onClick() {
+                        return onLocked('category');
+                      },
+                      className: "inline-flex cursor-pointer items-center gap-1.5 rounded-lg py-1 px-2 text-xs font-medium ".concat(CATEGORY_STYLES[cookie.category] || ''),
+                      children: [((_CATEGORY_OPTIONS$fin = CATEGORY_OPTIONS.find(function (opt) {
+                        return opt.value === cookie.category;
+                      })) === null || _CATEGORY_OPTIONS$fin === void 0 ? void 0 : _CATEGORY_OPTIONS$fin.label) || cookie.category, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_2__.LockIcon, {
+                        className: "h-3 w-3"
+                      })]
+                    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("select", {
+                      value: cookie.category,
+                      onChange: function onChange(e) {
+                        return onUpdateCookie(cookie.id, {
+                          category: e.target.value
+                        });
+                      },
+                      className: "!rounded-lg !border-0 !py-1 !pl-2 !pr-7 !text-xs font-medium ".concat(CATEGORY_STYLES[cookie.category] || ''),
+                      children: CATEGORY_OPTIONS.map(function (opt) {
+                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                          value: opt.value,
+                          children: opt.label
+                        }, opt.value);
+                      })
+                    }), cookie.auto_sync === false && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                      className: "mt-1 text-[11px] text-[#6F6F7B]",
+                      children: ["Set manually \xB7", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                        type: "button",
+                        className: "cursor-pointer text-[#7C3BED] hover:underline",
+                        title: "Let Sync update this cookie from cookiedatabase.org again",
+                        onClick: function onClick() {
+                          return locked ? onLocked('category') : onUpdateCookie(cookie.id, {
+                            auto_sync: true
+                          });
+                        },
+                        children: "Resume sync"
+                      })]
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                    className: "px-4 py-3 align-top text-[#6F6F7B]",
+                    children: cookie.retention || '—'
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                    className: "px-4 py-3 align-top text-[#6F6F7B]",
+                    children: cookie.purpose || (cookie.synced && !cookie.service ? 'Not in cookiedatabase.org' : '—')
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                    className: "px-4 py-3 align-top text-right",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                      type: "button",
+                      className: "inline-flex cursor-pointer items-center gap-1 text-xs font-medium text-[#7C3BED] hover:underline",
+                      onClick: function onClick() {
+                        return locked ? onLocked('ignore') : onUpdateCookie(cookie.id, {
+                          ignored: !cookie.ignored
+                        });
+                      },
+                      children: [cookie.ignored ? 'Restore' : 'Ignore', locked && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_2__.LockIcon, {
+                        className: "h-3 w-3"
+                      })]
+                    })
+                  })]
+                }, cookie.id);
+              })
+            })]
+          })
+        })
+      }), cookies.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+        className: "!text-xs !text-[#6F6F7B]",
+        children: ["Add ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("code", {
+          className: "rounded bg-[#7C3BED1A] px-1.5 py-0.5 text-[#7C3BED]",
+          children: "[legal_pages_cookie_list]"
+        }), " to your cookie policy page to show these cookies by category (ignored ones are left out). New pages created from the GDPR Cookie Policy or Cookie Privacy Policy templates include it already."]
+      }), locked && !scanning && state.finished_at && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+        className: "!m-0 flex items-center gap-2 rounded-xl border border-[#7C3BED33] bg-[#7C3BED0F] px-4 py-3 !text-sm !font-medium !text-[#17171C]",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          "aria-hidden": "true",
+          children: "\uD83D\uDC51"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+          children: ["Your site requires these cookie banners.", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+            href: "https://legalpagespro.com/?utm_source=lite-plugin#pricing",
+            target: "_blank",
+            rel: "noopener noreferrer",
+            className: "!font-semibold !text-[#7C3BED] hover:underline",
+            children: "Upgrade now"
+          }), ' ', "to add them automatically."]
+        })]
+      }), iframeRef && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("iframe", {
+        ref: iframeRef,
+        title: "Cookie scan",
+        className: "hidden",
+        "aria-hidden": "true"
+      })]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ScanPanel);
+
+/***/ },
+
+/***/ "./spa/admin/src/pages/CookieBar/components/CookieScanner/index.jsx"
+/*!**************************************************************************!*\
+  !*** ./spa/admin/src/pages/CookieBar/components/CookieScanner/index.jsx ***!
+  \**************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
+/* harmony import */ var _components_common_ConfirmationModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../components/common/ConfirmationModal */ "./spa/admin/src/components/common/ConfirmationModal.jsx");
+/* harmony import */ var _components_common_Skeleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../components/common/Skeleton */ "./spa/admin/src/components/common/Skeleton.jsx");
+/* harmony import */ var _components_common_SectionCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../components/common/SectionCard */ "./spa/admin/src/components/common/SectionCard.jsx");
+/* harmony import */ var _ScanPanel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ScanPanel */ "./spa/admin/src/pages/CookieBar/components/CookieScanner/ScanPanel.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+;
+
+
+
+
+
+
+// Max time to wait for a scanned page's collector to report before moving on.
+
+var PAGE_TIMEOUT_MS = 20000;
+var api = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(path) {
+    var _ref2,
+      _ref2$method,
+      method,
+      body,
+      res,
+      json,
+      _args = arguments;
+    return _regenerator().w(function (_context) {
+      while (1) switch (_context.n) {
+        case 0:
+          _ref2 = _args.length > 1 && _args[1] !== undefined ? _args[1] : {}, _ref2$method = _ref2.method, method = _ref2$method === void 0 ? 'GET' : _ref2$method, body = _ref2.body;
+          _context.n = 1;
+          return fetch("".concat(LEGAL_PAGES.apiUrl).concat(path), {
+            method: method,
+            headers: _objectSpread({
+              'X-WP-Nonce': LEGAL_PAGES.nonce
+            }, body ? {
+              'Content-Type': 'application/json'
+            } : {}),
+            body: body ? JSON.stringify(body) : undefined
+          });
+        case 1:
+          res = _context.v;
+          _context.n = 2;
+          return res.json();
+        case 2:
+          json = _context.v;
+          if (res.ok) {
+            _context.n = 3;
+            break;
+          }
+          throw new Error((json === null || json === void 0 ? void 0 : json.message) || "Request failed (".concat(res.status, ")"));
+        case 3:
+          return _context.a(2, json);
+      }
+    }, _callee);
+  }));
+  return function api(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+var CookieScanner = function CookieScanner(_ref3) {
+  var _ref3$locked = _ref3.locked,
+    locked = _ref3$locked === void 0 ? false : _ref3$locked,
+    _ref3$onLocked = _ref3.onLocked,
+    onLocked = _ref3$onLocked === void 0 ? function () {} : _ref3$onLocked;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState2 = _slicedToArray(_useState, 2),
+    loading = _useState2[0],
+    setLoading = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState4 = _slicedToArray(_useState3, 2),
+    state = _useState4[0],
+    setState = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState6 = _slicedToArray(_useState5, 2),
+    cookies = _useState6[0],
+    setCookies = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState8 = _slicedToArray(_useState7, 2),
+    postTypes = _useState8[0],
+    setPostTypes = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState0 = _slicedToArray(_useState9, 2),
+    selectedTypes = _useState0[0],
+    setSelectedTypes = _useState0[1];
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState10 = _slicedToArray(_useState1, 2),
+    scanning = _useState10[0],
+    setScanning = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    syncing = _useState12[0],
+    setSyncing = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState14 = _slicedToArray(_useState13, 2),
+    confirmClear = _useState14[0],
+    setConfirmClear = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState16 = _slicedToArray(_useState15, 2),
+    clearing = _useState16[0],
+    setClearing = _useState16[1];
+  var iframeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var stopRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  var load = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var _yield$api, data;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.n) {
+          case 0:
+            _context2.n = 1;
+            return api('/cookie-scan');
+          case 1:
+            _yield$api = _context2.v;
+            data = _yield$api.data;
+            setState(data.state);
+            setCookies(data.cookies);
+            setPostTypes(data.post_types);
+            return _context2.a(2, data);
+        }
+      }, _callee2);
+    }));
+    return function load() {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    load().then(function (data) {
+      // Only types the server allows (without Pro: posts and pages).
+      var allowed = data.post_types.filter(function (t) {
+        return !t.locked;
+      }).map(function (t) {
+        return t.value;
+      });
+      var saved = (data.state.post_types || []).filter(function (t) {
+        return allowed.includes(t);
+      });
+      setSelectedTypes(saved.length ? saved : allowed.filter(function (t) {
+        return ['post', 'page'].includes(t);
+      }));
+    }).catch(function () {
+      return _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to load cookie scan data.');
+    }).finally(function () {
+      return setLoading(false);
+    });
+    return function () {
+      stopRef.current = true;
+    };
+  }, []);
+
+  // Load one page in the hidden iframe and resolve once its collector reports (or times out).
+  var scanPage = function scanPage(url) {
+    return new Promise(function (resolve) {
+      var iframe = iframeRef.current;
+      var timer;
+      var onMessage = function onMessage(event) {
+        var _event$data;
+        if (event.source === (iframe === null || iframe === void 0 ? void 0 : iframe.contentWindow) && ((_event$data = event.data) === null || _event$data === void 0 ? void 0 : _event$data.type) === 'lp-cookie-scan-reported') {
+          finish();
+        }
+      };
+      var finish = function finish() {
+        clearTimeout(timer);
+        window.removeEventListener('message', onMessage);
+        resolve();
+      };
+      window.addEventListener('message', onMessage);
+      timer = setTimeout(finish, PAGE_TIMEOUT_MS);
+      iframe.src = url;
+    });
+  };
+  var handleScan = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      var start, _yield$api2, data, _t;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            stopRef.current = false;
+            setScanning(true);
+            _context3.p = 1;
+            _context3.n = 2;
+            return api('/cookie-scan/start', {
+              method: 'POST',
+              body: {
+                post_types: selectedTypes
+              }
+            });
+          case 2:
+            start = _context3.v;
+            setState(start.data);
+          case 3:
+            if (stopRef.current) {
+              _context3.n = 7;
+              break;
+            }
+            _context3.n = 4;
+            return api('/cookie-scan/next', {
+              method: 'POST'
+            });
+          case 4:
+            _yield$api2 = _context3.v;
+            data = _yield$api2.data;
+            setState(data.state);
+            if (!data.done) {
+              _context3.n = 5;
+              break;
+            }
+            return _context3.a(3, 7);
+          case 5:
+            _context3.n = 6;
+            return scanPage(data.url);
+          case 6:
+            _context3.n = 3;
+            break;
+          case 7:
+            if (iframeRef.current) {
+              iframeRef.current.src = 'about:blank';
+            }
+            _context3.n = 8;
+            return load();
+          case 8:
+            if (!stopRef.current) {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Cookie scan complete.');
+            }
+            _context3.n = 10;
+            break;
+          case 9:
+            _context3.p = 9;
+            _t = _context3.v;
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error(_t.message || 'Cookie scan failed.');
+          case 10:
+            _context3.p = 10;
+            setScanning(false);
+            return _context3.f(10);
+          case 11:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[1, 9, 10, 11]]);
+    }));
+    return function handleScan() {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+  var handleStop = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var _yield$api3, data, _t2;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
+          case 0:
+            stopRef.current = true;
+            _context4.p = 1;
+            _context4.n = 2;
+            return api('/cookie-scan/stop', {
+              method: 'POST'
+            });
+          case 2:
+            _yield$api3 = _context4.v;
+            data = _yield$api3.data;
+            setState(data);
+            _context4.n = 4;
+            break;
+          case 3:
+            _context4.p = 3;
+            _t2 = _context4.v;
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to stop the scan.');
+          case 4:
+            return _context4.a(2);
+        }
+      }, _callee4, null, [[1, 3]]);
+    }));
+    return function handleStop() {
+      return _ref6.apply(this, arguments);
+    };
+  }();
+  var handleSync = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+      var res, _t3;
+      return _regenerator().w(function (_context5) {
+        while (1) switch (_context5.p = _context5.n) {
+          case 0:
+            setSyncing(true);
+            _context5.p = 1;
+            _context5.n = 2;
+            return api('/cookie-scan/sync', {
+              method: 'POST'
+            });
+          case 2:
+            res = _context5.v;
+            setState(res.data.state);
+            setCookies(res.data.cookies);
+            if (res.success) {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success("Updated ".concat(res.data.synced, " cookies from cookiedatabase.org."));
+            } else {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error(res.message || 'Sync failed.');
+            }
+            _context5.n = 4;
+            break;
+          case 3:
+            _context5.p = 3;
+            _t3 = _context5.v;
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error(_t3.message || 'Sync failed.');
+          case 4:
+            _context5.p = 4;
+            setSyncing(false);
+            return _context5.f(4);
+          case 5:
+            return _context5.a(2);
+        }
+      }, _callee5, null, [[1, 3, 4, 5]]);
+    }));
+    return function handleSync() {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+  var handleClear = /*#__PURE__*/function () {
+    var _ref8 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+      var _yield$api4, data, _t4;
+      return _regenerator().w(function (_context6) {
+        while (1) switch (_context6.p = _context6.n) {
+          case 0:
+            setClearing(true);
+            _context6.p = 1;
+            _context6.n = 2;
+            return api('/cookie-scan/cookies', {
+              method: 'DELETE'
+            });
+          case 2:
+            _yield$api4 = _context6.v;
+            data = _yield$api4.data;
+            setState(data.state);
+            setCookies(data.cookies);
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Cookies cleared.');
+            _context6.n = 4;
+            break;
+          case 3:
+            _context6.p = 3;
+            _t4 = _context6.v;
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to clear cookies.');
+          case 4:
+            _context6.p = 4;
+            setClearing(false);
+            setConfirmClear(false);
+            return _context6.f(4);
+          case 5:
+            return _context6.a(2);
+        }
+      }, _callee6, null, [[1, 3, 4, 5]]);
+    }));
+    return function handleClear() {
+      return _ref8.apply(this, arguments);
+    };
+  }();
+  var handleUpdateCookie = /*#__PURE__*/function () {
+    var _ref9 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(id, changes) {
+      var previous, _yield$api5, data, _t5;
+      return _regenerator().w(function (_context7) {
+        while (1) switch (_context7.p = _context7.n) {
+          case 0:
+            previous = cookies;
+            setCookies(function (list) {
+              return list.map(function (c) {
+                return c.id === id ? _objectSpread(_objectSpread({}, c), changes) : c;
+              });
+            });
+            _context7.p = 1;
+            _context7.n = 2;
+            return api("/cookie-scan/cookie/".concat(id), {
+              method: 'PUT',
+              body: changes
+            });
+          case 2:
+            _yield$api5 = _context7.v;
+            data = _yield$api5.data;
+            setCookies(function (list) {
+              return list.map(function (c) {
+                return c.id === id ? data : c;
+              });
+            });
+            _context7.n = 4;
+            break;
+          case 3:
+            _context7.p = 3;
+            _t5 = _context7.v;
+            setCookies(previous);
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to update cookie.');
+          case 4:
+            return _context7.a(2);
+        }
+      }, _callee7, null, [[1, 3]]);
+    }));
+    return function handleUpdateCookie(_x2, _x3) {
+      return _ref9.apply(this, arguments);
+    };
+  }();
+  var toggleType = function toggleType(value) {
+    return setSelectedTypes(function (list) {
+      return list.includes(value) ? list.filter(function (v) {
+        return v !== value;
+      }) : [].concat(_toConsumableArray(list), [value]);
+    });
+  };
+  if (loading) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      title: "Website Cookie Scan",
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ScanPanel__WEBPACK_IMPORTED_MODULE_5__.ScanIcon, {}),
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_Skeleton__WEBPACK_IMPORTED_MODULE_3__["default"], {})
+    });
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ScanPanel__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      postTypes: postTypes,
+      selectedTypes: selectedTypes,
+      onToggleType: toggleType,
+      state: state,
+      cookies: cookies,
+      scanning: scanning,
+      syncing: syncing,
+      onScan: handleScan,
+      onStop: handleStop,
+      onClear: function onClear() {
+        return setConfirmClear(true);
+      },
+      locked: locked,
+      onLocked: onLocked,
+      onSync: handleSync,
+      onUpdateCookie: handleUpdateCookie,
+      iframeRef: iframeRef
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_ConfirmationModal__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      isOpen: confirmClear,
+      onClose: function onClose() {
+        return setConfirmClear(false);
+      },
+      onConfirm: handleClear,
+      title: "Clear all scanned cookies?",
+      message: "This removes every cookie found by previous scans, including categories you changed by hand. Run a new scan to find them again.",
+      confirmText: "Clear Cookies",
+      isLoading: clearing
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CookieScanner);
+
+/***/ },
+
 /***/ "./spa/admin/src/pages/CookieBar/components/GCookieSettings/index.jsx"
 /*!****************************************************************************!*\
   !*** ./spa/admin/src/pages/CookieBar/components/GCookieSettings/index.jsx ***!
@@ -7097,17 +8763,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PositionPreview__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../PositionPreview */ "./spa/admin/src/pages/CookieBar/components/PositionPreview.jsx");
 /* harmony import */ var _ColorField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../ColorField */ "./spa/admin/src/pages/CookieBar/components/ColorField.jsx");
 /* harmony import */ var _components_common_Skeleton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../components/common/Skeleton */ "./spa/admin/src/components/common/Skeleton.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../components/common/ProFeatureModal */ "./spa/admin/src/components/common/ProFeatureModal.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -7115,6 +8786,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 ;
+
 
 
 
@@ -7172,9 +8844,81 @@ var POSITIONS = [{
     align: 'right'
   }]
 }];
-var GCookieSettings = function GCookieSettings(_ref) {
-  var isLoading = _ref.isLoading,
-    setIsLoading = _ref.setIsLoading;
+var CATEGORIES = [{
+  value: 'functional',
+  label: 'Functional',
+  description: 'Needed for the site to work, e.g. login and consent choices.',
+  locked: true
+}, {
+  value: 'preferences',
+  label: 'Preferences',
+  description: 'Remember choices such as language or region.'
+}, {
+  value: 'statistics',
+  label: 'Statistics',
+  description: 'Analytics that show how visitors use the site.'
+}, {
+  value: 'marketing',
+  label: 'Marketing',
+  description: 'Ads and tracking across websites.'
+}];
+var ProTitle = function ProTitle(_ref) {
+  var title = _ref.title,
+    locked = _ref.locked;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
+    className: "inline-flex items-center gap-2",
+    children: [title, locked && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
+      className: "inline-flex items-center gap-1 rounded-full bg-[#7C3BED1A] px-2 py-0.5 text-[11px] font-semibold text-[#7C3BED]",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_9__.LockIcon, {
+        className: "h-3 w-3"
+      }), " Pro"]
+    })]
+  });
+};
+
+/**
+ * Without `locked` renders children as-is. With it, shows them dimmed and
+ * inert (showing the defaults) under a click catcher that opens the Pro modal
+ * for `feature`.
+ */
+var ProArea = function ProArea(_ref2) {
+  var locked = _ref2.locked,
+    onLocked = _ref2.onLocked,
+    _ref2$feature = _ref2.feature,
+    feature = _ref2$feature === void 0 ? 'customize' : _ref2$feature,
+    children = _ref2.children;
+  if (!locked) {
+    return children;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+    className: "relative",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+      "aria-hidden": "true",
+      className: "pointer-events-none select-none opacity-60",
+      children: children
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
+      type: "button",
+      "aria-label": "Pro feature",
+      className: "absolute inset-0 z-10 cursor-pointer bg-transparent",
+      onClick: function onClick() {
+        return onLocked(feature);
+      }
+    })]
+  });
+};
+
+/**
+ * The consent banner is a Legal Pages Pro feature. `locked` (no Pro, or no valid
+ * license): every section shows the defaults dimmed and opens the Pro modal, and
+ * there is nothing to save.
+ */
+var GCookieSettings = function GCookieSettings(_ref3) {
+  var isLoading = _ref3.isLoading,
+    setIsLoading = _ref3.setIsLoading,
+    _ref3$locked = _ref3.locked,
+    locked = _ref3$locked === void 0 ? false : _ref3$locked,
+    _ref3$onLocked = _ref3.onLocked,
+    onLocked = _ref3$onLocked === void 0 ? function () {} : _ref3$onLocked;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     saving = _useState2[0],
@@ -7192,16 +8936,32 @@ var GCookieSettings = function GCookieSettings(_ref) {
       cookie_message_bg: '#1f2937',
       cookie_message_color: '#ffffff',
       cookie_button_bg: '#7c3aed',
-      cookie_button_text_color: '#ffffff'
+      cookie_button_text_color: '#ffffff',
+      cookie_title: '',
+      cookie_preferences_button: '',
+      cookie_save_button: '',
+      cookie_manage_button: '',
+      cookie_categories: ['preferences', 'statistics', 'marketing'],
+      show_manage_button: true,
+      google_consent_mode: false
     }),
     _useState4 = _slicedToArray(_useState3, 2),
     formData = _useState4[0],
     setFormData = _useState4[1];
+  var toggleCategory = function toggleCategory(value) {
+    return setFormData(function (prev) {
+      return _objectSpread(_objectSpread({}, prev), {}, {
+        cookie_categories: prev.cookie_categories.includes(value) ? prev.cookie_categories.filter(function (c) {
+          return c !== value;
+        }) : [].concat(_toConsumableArray(prev.cookie_categories), [value])
+      });
+    });
+  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     fetchSettings();
   }, []);
   var fetchSettings = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+    var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
       var response, result, _t;
       return _regenerator().w(function (_context) {
         while (1) switch (_context.p = _context.n) {
@@ -7241,7 +9001,7 @@ var GCookieSettings = function GCookieSettings(_ref) {
       }, _callee, null, [[1, 4, 5, 6]]);
     }));
     return function fetchSettings() {
-      return _ref2.apply(this, arguments);
+      return _ref4.apply(this, arguments);
     };
   }();
   var handleInputChange = function handleInputChange(e) {
@@ -7253,7 +9013,7 @@ var GCookieSettings = function GCookieSettings(_ref) {
     });
   };
   var handleSubmit = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
+    var _ref5 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
       var response, result, _t2;
       return _regenerator().w(function (_context2) {
         while (1) switch (_context2.p = _context2.n) {
@@ -7300,150 +9060,279 @@ var GCookieSettings = function GCookieSettings(_ref) {
       }, _callee2, null, [[1, 4, 5, 6]]);
     }));
     return function handleSubmit(_x) {
-      return _ref3.apply(this, arguments);
+      return _ref5.apply(this, arguments);
     };
   }();
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("form", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("form", {
     onSubmit: handleSubmit,
     noValidate: true,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "space-y-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        title: "EU Cookie Compliance",
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.CookieComplianceIcon, {}),
-        children: isLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_Skeleton__WEBPACK_IMPORTED_MODULE_8__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ProTitle, {
+          title: "EU Cookie Compliance",
+          locked: locked
+        }),
+        maxHeight: "",
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.CookieComplianceIcon, {}),
+        children: isLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_Skeleton__WEBPACK_IMPORTED_MODULE_8__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "space-y-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-            className: "bg-[#F4F4F580] p-2 rounded-xl",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__["default"], {
-              label: "Show EU Cookie Alert",
-              description: "Display cookie consent notification to users",
-              name: "show_cookie_warning",
-              checked: formData.show_cookie_warning,
-              onChange: function onChange(name, value) {
-                return setFormData(function (prev) {
-                  return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, name, value));
-                });
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-            className: "bg-[#F4F4F580] p-2 rounded-xl",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__["default"], {
-              label: "Auto-reload After Consent",
-              description: "Reload the page after user accepts cookie",
-              name: "auto_reload",
-              checked: formData.auto_reload,
-              onChange: function onChange(name, value) {
-                return setFormData(function (prev) {
-                  return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, name, value));
-                });
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-              className: "block text-sm font-medium text-[#17171C] mb-3",
-              children: "Cookie Bar Position"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-              className: "grid grid-cols-3 gap-3",
-              children: POSITIONS.map(function (pos) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_PositionPreview__WEBPACK_IMPORTED_MODULE_6__["default"], {
-                  config: pos,
-                  selected: formData.cookie_display_position,
-                  onSelect: function onSelect(val) {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ProArea, {
+            locked: locked,
+            onLocked: onLocked,
+            feature: "banner",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+              className: "space-y-6",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                className: "bg-[#F4F4F580] p-2 rounded-xl",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                  label: "Show EU Cookie Alert",
+                  description: "Display cookie consent notification to users",
+                  name: "show_cookie_warning",
+                  checked: formData.show_cookie_warning,
+                  onChange: function onChange(name, value) {
                     return setFormData(function (prev) {
-                      return _objectSpread(_objectSpread({}, prev), {}, {
-                        cookie_display_position: val
-                      });
+                      return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, name, value));
                     });
                   }
-                }, pos.value);
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                className: "bg-[#F4F4F580] p-2 rounded-xl",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                  label: "Auto-reload After Consent",
+                  description: "Reload the page after user accepts cookie",
+                  name: "auto_reload",
+                  checked: formData.auto_reload,
+                  onChange: function onChange(name, value) {
+                    return setFormData(function (prev) {
+                      return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, name, value));
+                    });
+                  }
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                className: "bg-[#F4F4F580] p-2 rounded-xl",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                  label: "Show Manage Consent Button",
+                  description: "Floating button that lets visitors change their choice later. You can also use the [legal_pages_manage_consent] shortcode.",
+                  name: "show_manage_button",
+                  checked: formData.show_manage_button,
+                  onChange: function onChange(name, value) {
+                    return setFormData(function (prev) {
+                      return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, name, value));
+                    });
+                  }
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                className: "bg-[#F4F4F580] p-2 rounded-xl",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                  label: "Google Consent Mode v2",
+                  description: "Tell Google tags (Analytics, Ads, Tag Manager) which categories the visitor accepted",
+                  name: "google_consent_mode",
+                  checked: formData.google_consent_mode,
+                  onChange: function onChange(name, value) {
+                    return setFormData(function (prev) {
+                      return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, name, value));
+                    });
+                  }
+                })
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ProArea, {
+            locked: locked,
+            onLocked: onLocked,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
+                className: "block text-sm font-medium text-[#17171C] mb-3",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ProTitle, {
+                  title: "Cookie Bar Position",
+                  locked: locked
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                className: "grid grid-cols-3 gap-3",
+                children: POSITIONS.map(function (pos) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_PositionPreview__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                    config: pos,
+                    selected: formData.cookie_display_position,
+                    onSelect: function onSelect(val) {
+                      return setFormData(function (prev) {
+                        return _objectSpread(_objectSpread({}, prev), {}, {
+                          cookie_display_position: val
+                        });
+                      });
+                    }
+                  }, pos.value);
+                })
+              })]
+            })
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ProTitle, {
+          title: "Consent Categories",
+          locked: locked
+        }),
+        maxHeight: "",
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.CookieComplianceIcon, {}),
+        children: isLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_Skeleton__WEBPACK_IMPORTED_MODULE_8__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ProArea, {
+          locked: locked,
+          onLocked: onLocked,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "space-y-3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+              className: "!text-sm !text-[#6F6F7B]",
+              children: "Categories visitors can switch on in \"View preferences\". Blocked services only load once their category is accepted \u2014 set each service's category under Block Services \u2192 Available Services."
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+              className: "grid grid-cols-1 md:grid-cols-2 gap-3",
+              children: CATEGORIES.map(function (cat) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("label", {
+                  className: "flex items-start gap-3 rounded-xl border border-[#E4E4E7] p-3 ".concat(cat.locked ? 'bg-[#F4F4F580]' : 'cursor-pointer hover:border-[#7C3BED]'),
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("input", {
+                    type: "checkbox",
+                    className: "!mt-1",
+                    checked: cat.locked || formData.cookie_categories.includes(cat.value),
+                    disabled: cat.locked,
+                    onChange: function onChange() {
+                      return toggleCategory(cat.value);
+                    }
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
+                      className: "block text-sm font-medium text-[#17171C]",
+                      children: [cat.label, cat.locked && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+                        className: "ml-2 text-xs font-normal text-[#6F6F7B]",
+                        children: "Always active"
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+                      className: "block text-xs text-[#6F6F7B]",
+                      children: cat.description
+                    })]
+                  })]
+                }, cat.value);
               })
             })]
-          })]
+          })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        title: "Customization",
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.CustomizationIcon, {}),
-        children: isLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_Skeleton__WEBPACK_IMPORTED_MODULE_8__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-          className: "space-y-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-            className: "grid grid-cols-1 md:grid-cols-2 gap-4",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_InputField__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              label: "Cookie Policy Link",
-              name: "cookie_policy_link",
-              value: formData.cookie_policy_link,
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ProTitle, {
+          title: "Customization",
+          locked: locked
+        }),
+        maxHeight: "",
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.CustomizationIcon, {}),
+        children: isLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_Skeleton__WEBPACK_IMPORTED_MODULE_8__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ProArea, {
+          locked: locked,
+          onLocked: onLocked,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "space-y-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_InputField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              label: "Banner Title",
+              name: "cookie_title",
+              value: formData.cookie_title,
               onChange: handleInputChange,
-              placeholder: "https://www.cookiesandyou.com/"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_InputField__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              label: "Learn More Link Text",
-              name: "learn_more_link_text",
-              value: formData.learn_more_link_text,
-              onChange: handleInputChange,
-              placeholder: "Learn more"
+              placeholder: "Manage Consent"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+              className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_InputField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                label: "Cookie Policy Link",
+                name: "cookie_policy_link",
+                value: formData.cookie_policy_link,
+                onChange: handleInputChange,
+                placeholder: "https://www.cookiesandyou.com/"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_InputField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                label: "Learn More Link Text",
+                name: "learn_more_link_text",
+                value: formData.learn_more_link_text,
+                onChange: handleInputChange,
+                placeholder: "Learn more"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
+                className: "block text-sm font-medium text-[#17171C] mb-1.5",
+                children: "Cookie Message"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("textarea", {
+                name: "cookie_message",
+                value: formData.cookie_message,
+                onChange: handleInputChange,
+                rows: 3,
+                placeholder: "This website uses cookies to ensure you get the best experience on our website.",
+                className: "h-[80px] w-full !rounded-xl border !border-[#E4E4E7] px-4 text-sm text-[#17171C] focus:!border-[#17171C] focus:!shadow-none focus:!ring-0 outline-none"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+              className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_InputField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                label: "Deny Button Text",
+                name: "cookie_deny_button",
+                value: formData.cookie_deny_button,
+                onChange: handleInputChange,
+                placeholder: "Deny"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_InputField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                label: "Accept Button Text",
+                name: "cookie_accept_button",
+                value: formData.cookie_accept_button,
+                onChange: handleInputChange,
+                placeholder: "Accept"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_InputField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                label: "View Preferences Button Text",
+                name: "cookie_preferences_button",
+                value: formData.cookie_preferences_button,
+                onChange: handleInputChange,
+                placeholder: "View preferences"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_InputField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                label: "Save Preferences Button Text",
+                name: "cookie_save_button",
+                value: formData.cookie_save_button,
+                onChange: handleInputChange,
+                placeholder: "Save preferences"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_InputField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                label: "Manage Consent Button Text",
+                name: "cookie_manage_button",
+                value: formData.cookie_manage_button,
+                onChange: handleInputChange,
+                placeholder: "Manage consent"
+              })]
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-              className: "block text-sm font-medium text-[#17171C] mb-1.5",
-              children: "Cookie Message"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("textarea", {
-              name: "cookie_message",
-              value: formData.cookie_message,
-              onChange: handleInputChange,
-              rows: 3,
-              placeholder: "This website uses cookies to ensure you get the best experience on our website.",
-              className: "h-[80px] w-full !rounded-xl border !border-[#E4E4E7] px-4 text-sm text-[#17171C] focus:!border-[#17171C] focus:!shadow-none focus:!ring-0 outline-none"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-            className: "grid grid-cols-1 md:grid-cols-2 gap-4",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_InputField__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              label: "Deny Button Text",
-              name: "cookie_deny_button",
-              value: formData.cookie_deny_button,
-              onChange: handleInputChange,
-              placeholder: "Deny"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_InputField__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              label: "Accept Button Text",
-              name: "cookie_accept_button",
-              value: formData.cookie_accept_button,
-              onChange: handleInputChange,
-              placeholder: "Accept"
-            })]
-          })]
+          })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        title: "Colors",
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.ColorPaletteIcon, {}),
-        children: isLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_common_Skeleton__WEBPACK_IMPORTED_MODULE_8__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-          className: "grid grid-cols-2 md:grid-cols-4 gap-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_ColorField__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            label: "Banner Background",
-            name: "cookie_message_bg",
-            value: formData.cookie_message_bg,
-            onChange: handleInputChange
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_ColorField__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            label: "Banner Text Color",
-            name: "cookie_message_color",
-            value: formData.cookie_message_color,
-            onChange: handleInputChange
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_ColorField__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            label: "Button Background",
-            name: "cookie_button_bg",
-            value: formData.cookie_button_bg,
-            onChange: handleInputChange
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_ColorField__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            label: "Button Text Color",
-            name: "cookie_button_text_color",
-            value: formData.cookie_button_text_color,
-            onChange: handleInputChange
-          })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ProTitle, {
+          title: "Colors",
+          locked: locked
+        }),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.ColorPaletteIcon, {}),
+        children: isLoading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_Skeleton__WEBPACK_IMPORTED_MODULE_8__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(ProArea, {
+          locked: locked,
+          onLocked: onLocked,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "grid grid-cols-2 md:grid-cols-4 gap-4",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ColorField__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              label: "Banner Background",
+              name: "cookie_message_bg",
+              value: formData.cookie_message_bg,
+              onChange: handleInputChange
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ColorField__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              label: "Banner Text Color",
+              name: "cookie_message_color",
+              value: formData.cookie_message_color,
+              onChange: handleInputChange
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ColorField__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              label: "Button Background",
+              name: "cookie_button_bg",
+              value: formData.cookie_button_bg,
+              onChange: handleInputChange
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ColorField__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              label: "Button Text Color",
+              name: "cookie_button_text_color",
+              value: formData.cookie_button_text_color,
+              onChange: handleInputChange
+            })]
+          })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+      }), !locked && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "flex items-center justify-start gap-2 rounded-xl p-4",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("button", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("button", {
           type: "submit",
           disabled: saving,
           className: ['inline-flex items-center cursor-pointer justify-center rounded-xl px-6 py-[14px] text-sm font-semibold text-white shadow-[0px_4px_14px_-2px_#7C3BED40] transition', saving ? 'cursor-not-allowed bg-indigo-400' : 'bg-[#7C3BED] hover:bg-indigo-700'].join(' '),
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
             src: save,
             alt: "Save",
             className: "mr-2 h-4 w-4"
@@ -7627,13 +9516,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.mjs");
-/* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
-/* harmony import */ var _components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/common/MainPageLayout */ "./spa/admin/src/components/common/MainPageLayout.jsx");
+/* harmony import */ var _components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/common/MainPageLayout */ "./spa/admin/src/components/common/MainPageLayout.jsx");
+/* harmony import */ var _components_common_ProFeaturePoster__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/common/ProFeaturePoster */ "./spa/admin/src/components/common/ProFeaturePoster.jsx");
+/* harmony import */ var _components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/common/ProFeatureModal */ "./spa/admin/src/components/common/ProFeatureModal.jsx");
 /* harmony import */ var _components_GCookieSettings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/GCookieSettings */ "./spa/admin/src/pages/CookieBar/components/GCookieSettings/index.jsx");
 /* harmony import */ var _components_BlockServices__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/BlockServices */ "./spa/admin/src/pages/CookieBar/components/BlockServices/index.jsx");
-/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_CookieScanner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/CookieScanner */ "./spa/admin/src/pages/CookieBar/components/CookieScanner/index.jsx");
+/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -7648,9 +9538,36 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
-var CookieSettings = function CookieSettings() {
+
+var PRO_MESSAGES = {
+  default: 'This feature is available in Legal Pages Pro. Upgrade to unlock it.',
+  banner: 'Showing a cookie consent banner on your website (with Google Consent Mode v2 and a Manage consent button) is available in Legal Pages Pro.',
+  post_types: 'Scanning products, docs and other custom post types is available in Legal Pages Pro.',
+  sync: 'Re-syncing cookie descriptions with cookiedatabase.org is available in Legal Pages Pro.',
+  clear: 'Clearing scanned cookies is available in Legal Pages Pro.',
+  category: 'Changing a cookie\'s category is available in Legal Pages Pro.',
+  ignore: 'Hiding cookies from your cookie policy (Ignore / Restore) is available in Legal Pages Pro.',
+  block_services: 'Blocking third-party scripts until visitors consent is available in Legal Pages Pro.',
+  customize: 'Customizing the cookie bar position, consent categories, texts and colors is available in Legal Pages Pro.'
+};
+
+/**
+ * `locked` (no Pro, or no valid license): scanning and the cookie list work;
+ * the consent banner and everything else is shown with a lock and opens the
+ * Pro modal. The banner itself is Legal Pages Pro's code
+ * (LegalPagePro\Controllers\Front\ConsentBanner), and the settings are only
+ * saved through Pro (see LegalPage\Models\Cookie_Bar).
+ */
+var CookieSettings = function CookieSettings(_ref) {
+  var _LEGAL_PAGES;
+  var _ref$locked = _ref.locked,
+    locked = _ref$locked === void 0 ? false : _ref$locked;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
-      return localStorage.getItem('legal_pages_cookie_settings_tab') || 'general';
+      try {
+        return localStorage.getItem('legal_pages_cookie_settings_tab') || 'general';
+      } catch (e) {
+        return 'general';
+      }
     }),
     _useState2 = _slicedToArray(_useState, 2),
     activeTab = _useState2[0],
@@ -7659,41 +9576,111 @@ var CookieSettings = function CookieSettings() {
     _useState4 = _slicedToArray(_useState3, 2),
     isLoading = _useState4[0],
     setIsLoading = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState6 = _slicedToArray(_useState5, 2),
+    proModal = _useState6[0],
+    setProModal = _useState6[1];
+  var showPro = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    var feature = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
+    return setProModal(feature);
+  }, []);
+  var closePro = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    return setProModal(null);
+  }, []);
+  var currentTab = locked ? 'general' : activeTab;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    localStorage.setItem('legal_pages_cookie_settings_tab', activeTab);
+    try {
+      localStorage.setItem('legal_pages_cookie_settings_tab', activeTab);
+    } catch (e) {}
   }, [activeTab]);
+
+  // Pro before 2.1.0 still runs its own cookie bar, and the free scanner and
+  // settings routes are off (legal_pages_cookie_bar_in_legacy_pro()).
+  var legacyPro = (_LEGAL_PAGES = LEGAL_PAGES) === null || _LEGAL_PAGES === void 0 ? void 0 : _LEGAL_PAGES.cookie_legacy_pro;
+  if (legacyPro) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      title: "Cookie Bar Settings",
+      description: "Configure EU cookie consent bar for GDPR compliance",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        className: "mt-6 flex max-w-[1150px] flex-col gap-5 rounded-2xl border border-amber-200 bg-amber-50 p-6 sm:flex-row sm:items-center sm:justify-between",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
+            className: "!mb-1 !text-[16px] !font-semibold !text-[#17171C]",
+            children: "Update Legal Pages Pro to use the new Cookie Bar"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+            className: "!text-sm !text-[#6F6F7B]",
+            children: ["You have Legal Pages Pro ".concat(legacyPro.version || '').trim(), ". The cookie scanner and the new cookie settings need Legal Pages Pro 2.1.0 or newer. Your current cookie banner keeps working, and your settings carry over after the update."]
+          })]
+        }), legacyPro.update_url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
+          href: legacyPro.update_url,
+          className: "inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl bg-[#7C3BED] px-5 py-3 text-sm font-semibold !text-white no-underline transition hover:bg-indigo-700",
+          children: "Update Legal Pages Pro"
+        })]
+      })
+    });
+  }
   var tabs = [{
     id: 'general',
     label: 'General Settings',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_6__.GeneralInformationIcon, {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_7__.GeneralInformationIcon, {})
   }, {
     id: 'block_services',
     label: 'Block Services',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_6__.CookieBlock, {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_7__.CookieBlock, {}),
+    pro: true
   }];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
     title: "Cookie Bar Settings",
     description: "Configure EU cookie consent bar for GDPR compliance",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-      className: "mt-6 mb-6",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-        className: "inline-flex rounded-xl bg-[#F4F4F5] p-[4px]",
-        children: tabs.map(function (tab) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
-            onClick: function onClick() {
-              return setActiveTab(tab.id);
-            },
-            className: ['relative flex cursor-pointer items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium transition', activeTab === tab.id ? 'bg-white text-[#17171C] shadow-[0px_1px_2px_0px_#0000000D] ring-1 ring-gray-200' : 'text-gray-600 hover:text-gray-900'].join(' '),
-            children: [tab.icon, tab.label]
-          }, tab.id);
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      className: locked ? 'grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_300px] xl:items-start' : '',
+      children: [locked && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("aside", {
+        className: "xl:order-last xl:sticky xl:top-[52px]",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_common_ProFeaturePoster__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          title: "Cookie Bar is a Pro Feature",
+          description: "Show a cookie consent banner, block third-party scripts until visitors consent, and customize its texts and colors. Upgrade to Pro to unlock this feature and get more control over your legal pages."
         })
-      })
-    }), activeTab === 'general' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_GCookieSettings__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      isLoading: isLoading,
-      setIsLoading: setIsLoading
-    }), activeTab === 'block_services' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_BlockServices__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      isLoading: isLoading,
-      setIsLoading: setIsLoading
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        className: "min-w-0",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: locked ? '' : 'mt-6',
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_CookieScanner__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            locked: locked,
+            onLocked: showPro
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "mt-6 mb-6",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+            className: "inline-flex rounded-xl bg-[#F4F4F5] p-[4px]",
+            children: tabs.map(function (tab) {
+              var tabLocked = locked && tab.pro;
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("button", {
+                onClick: function onClick() {
+                  return tabLocked ? showPro(tab.id) : setActiveTab(tab.id);
+                },
+                className: ['relative flex cursor-pointer items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium transition', currentTab === tab.id ? 'bg-white text-[#17171C] shadow-[0px_1px_2px_0px_#0000000D] ring-1 ring-gray-200' : 'text-gray-600 hover:text-gray-900'].join(' '),
+                children: [tab.icon, tab.label, tabLocked && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+                  className: "text-[#7C3BED]",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_3__.LockIcon, {})
+                })]
+              }, tab.id);
+            })
+          })
+        }), currentTab === 'general' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_GCookieSettings__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          isLoading: isLoading,
+          setIsLoading: setIsLoading,
+          locked: locked,
+          onLocked: showPro
+        }), currentTab === 'block_services' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_BlockServices__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          isLoading: isLoading,
+          setIsLoading: setIsLoading
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      isOpen: proModal !== null,
+      onClose: closePro,
+      title: "This is a Pro Feature",
+      description: PRO_MESSAGES[proModal] || PRO_MESSAGES.default
     })]
   });
 };
@@ -11206,7 +13193,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
 /* harmony import */ var _components_SettingInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/SettingInfo */ "./spa/admin/src/pages/Settings/components/SettingInfo.jsx");
 /* harmony import */ var _components_DisclaimerScreen__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/DisclaimerScreen */ "./spa/admin/src/pages/Settings/components/DisclaimerScreen.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_common_CookieScanNotice__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/common/CookieScanNotice */ "./spa/admin/src/components/common/CookieScanNotice.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -11218,6 +13206,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 ;
+
 
 
 
@@ -11301,7 +13290,7 @@ var Settings = function Settings() {
     };
   }();
   if (showDisclaimer) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_DisclaimerScreen__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_DisclaimerScreen__WEBPACK_IMPORTED_MODULE_3__["default"], {
       onAccept: handleDisclaimerAccept,
       isSubmitting: submitting,
       isLoading: isLoading,
@@ -11309,14 +13298,1180 @@ var Settings = function Settings() {
     });
   }
   if (acceptedDisclaimer) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_SettingInfo__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      setIsLoading: setIsLoading,
-      isLoading: isLoading
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_common_CookieScanNotice__WEBPACK_IMPORTED_MODULE_4__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_SettingInfo__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        setIsLoading: setIsLoading,
+        isLoading: isLoading
+      })]
     });
   }
   return null;
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Settings);
+
+/***/ },
+
+/***/ "./spa/admin/src/pages/SetupWizard/components/GuidedTour.jsx"
+/*!*******************************************************************!*\
+  !*** ./spa/admin/src/pages/SetupWizard/components/GuidedTour.jsx ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+;
+
+// Small, dependency-free guided tour: dims the page, draws a highlight ring
+// around the current step's target ref, and shows a tooltip with Next/Skip.
+
+var GuidedTour = function GuidedTour(_ref) {
+  var steps = _ref.steps,
+    onFinish = _ref.onFinish;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState2 = _slicedToArray(_useState, 2),
+    stepIndex = _useState2[0],
+    setStepIndex = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    rect = _useState4[0],
+    setRect = _useState4[1];
+  var step = steps[stepIndex];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var updateRect = function updateRect() {
+      var _step$target;
+      var node = step === null || step === void 0 || (_step$target = step.target) === null || _step$target === void 0 ? void 0 : _step$target.current;
+      if (node) {
+        setRect(node.getBoundingClientRect());
+      }
+    };
+    updateRect();
+    window.addEventListener('resize', updateRect);
+    window.addEventListener('scroll', updateRect, true);
+    return function () {
+      window.removeEventListener('resize', updateRect);
+      window.removeEventListener('scroll', updateRect, true);
+    };
+  }, [stepIndex, step]);
+  if (!step || !rect) return null;
+  var isLast = stepIndex === steps.length - 1;
+
+  // Estimated tooltip footprint — placed below the target by default, flipped
+  // above it when there isn't room, and always clamped inside the viewport
+  // so it never overlaps the bottom-right toast notifications.
+  var TOOLTIP_WIDTH = 320;
+  var TOOLTIP_HEIGHT = 150;
+  var MARGIN = 16;
+  var fitsBelow = rect.bottom + MARGIN + TOOLTIP_HEIGHT <= window.innerHeight;
+  var tooltipTop = fitsBelow ? rect.bottom + 12 : Math.max(MARGIN, rect.top - TOOLTIP_HEIGHT - 12);
+  var tooltipLeft = Math.min(Math.max(MARGIN, rect.left), window.innerWidth - TOOLTIP_WIDTH - MARGIN);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "fixed inset-0 z-[999997] bg-black/25",
+      style: {
+        pointerEvents: 'none'
+      }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "fixed z-[999998] rounded-xl ring-2 ring-[#7C3BED] ring-offset-2 transition-all duration-200",
+      style: {
+        top: rect.top - 4,
+        left: rect.left - 4,
+        width: rect.width + 8,
+        height: rect.height + 8,
+        pointerEvents: 'none'
+      }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "fixed z-[999999] w-80 rounded-xl bg-white p-4 shadow-xl ring-1 ring-[#E4E4E7]",
+      style: {
+        top: tooltipTop,
+        left: tooltipLeft
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "text-sm font-semibold text-[#17171C]",
+        children: step.title
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+        className: "mt-1 text-sm text-[#6F6F7B]",
+        children: step.body
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "mt-4 flex items-center justify-between",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          type: "button",
+          onClick: onFinish,
+          className: "text-xs !font-bold text-[#6F6F7B] hover:text-[#17171C]",
+          children: "Skip tour"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "flex items-center gap-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+            className: "text-xs text-[#6F6F7B]",
+            children: [stepIndex + 1, "/", steps.length]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            type: "button",
+            onClick: function onClick() {
+              return isLast ? onFinish() : setStepIndex(function (i) {
+                return i + 1;
+              });
+            },
+            className: "rounded-lg bg-[#7C3BED] px-3 py-1.5 text-xs !font-bold text-white hover:bg-indigo-700",
+            children: isLast ? 'Got it' : 'Next'
+          })]
+        })]
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GuidedTour);
+
+/***/ },
+
+/***/ "./spa/admin/src/pages/SetupWizard/components/StepBusinessInfo.jsx"
+/*!*************************************************************************!*\
+  !*** ./spa/admin/src/pages/SetupWizard/components/StepBusinessInfo.jsx ***!
+  \*************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
+/* harmony import */ var _components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/common/SectionCard */ "./spa/admin/src/components/common/SectionCard.jsx");
+/* harmony import */ var _components_common_FormField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/common/FormField */ "./spa/admin/src/components/common/FormField.jsx");
+/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+;
+
+
+
+
+
+// Only these fields are shown to the user in this step; the rest of the
+// settings object (address/social) is fetched and carried through untouched
+// so saving here never wipes data already entered elsewhere.
+
+var VISIBLE_FIELDS = [{
+  name: 'site_url',
+  label: 'Your Site URL',
+  placeholder: '[siteUrl]'
+}, {
+  name: 'site_name',
+  label: 'Site / Business Name',
+  placeholder: '[siteName]'
+}, {
+  name: 'business_niche',
+  label: 'Business Niche',
+  placeholder: '[businessNiche]'
+}, {
+  name: 'phone_number',
+  label: 'Phone Number',
+  placeholder: '[phoneNumber]',
+  type: 'tel'
+}, {
+  name: 'email_address',
+  label: 'Email Address',
+  placeholder: '[emailAddress]'
+}];
+var StepBusinessInfo = function StepBusinessInfo(_ref) {
+  var onNext = _ref.onNext,
+    onSkip = _ref.onSkip,
+    _ref$skipping = _ref.skipping,
+    skipping = _ref$skipping === void 0 ? false : _ref$skipping;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    formData = _useState2[0],
+    setFormData = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState4 = _slicedToArray(_useState3, 2),
+    loading = _useState4[0],
+    setLoading = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    saving = _useState6[0],
+    setSaving = _useState6[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetchSettings();
+  }, []);
+  var fetchSettings = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      var response, result, _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            setLoading(true);
+            _context.p = 1;
+            _context.n = 2;
+            return fetch("".concat(LEGAL_PAGES.apiUrl, "/settings"), {
+              headers: {
+                'X-WP-Nonce': LEGAL_PAGES.nonce
+              }
+            });
+          case 2:
+            response = _context.v;
+            _context.n = 3;
+            return response.json();
+          case 3:
+            result = _context.v;
+            if (result.success && result.data) {
+              setFormData(result.data);
+            }
+            _context.n = 5;
+            break;
+          case 4:
+            _context.p = 4;
+            _t = _context.v;
+            console.error('Error fetching settings:', _t);
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to load business information');
+          case 5:
+            _context.p = 5;
+            setLoading(false);
+            return _context.f(5);
+          case 6:
+            return _context.a(2);
+        }
+      }, _callee, null, [[1, 4, 5, 6]]);
+    }));
+    return function fetchSettings() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+  var handleInputChange = function handleInputChange(e) {
+    var _e$target = e.target,
+      name = _e$target.name,
+      value = _e$target.value;
+    setFormData(function (prev) {
+      return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, name, value));
+    });
+  };
+  var copyToClipboard = function copyToClipboard(text) {
+    if (!text) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        return _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Placeholder copied to clipboard!');
+      }).catch(function () {
+        return _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to copy to clipboard');
+      });
+    }
+  };
+  var handleSubmit = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
+      var emailRegex, response, result, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            e.preventDefault();
+            if (!(formData.email_address && formData.email_address.trim() !== '')) {
+              _context2.n = 1;
+              break;
+            }
+            emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailRegex.test(formData.email_address)) {
+              _context2.n = 1;
+              break;
+            }
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Please provide a valid email address');
+            return _context2.a(2);
+          case 1:
+            setSaving(true);
+            _context2.p = 2;
+            _context2.n = 3;
+            return fetch("".concat(LEGAL_PAGES.apiUrl, "/settings"), {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': LEGAL_PAGES.nonce
+              },
+              body: JSON.stringify(formData)
+            });
+          case 3:
+            response = _context2.v;
+            _context2.n = 4;
+            return response.json();
+          case 4:
+            result = _context2.v;
+            if (result.success) {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Business information saved!');
+              onNext();
+            } else {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to save business information.');
+            }
+            _context2.n = 6;
+            break;
+          case 5:
+            _context2.p = 5;
+            _t2 = _context2.v;
+            console.error('Error saving settings:', _t2);
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('An error occurred while saving.');
+          case 6:
+            _context2.p = 6;
+            setSaving(false);
+            return _context2.f(6);
+          case 7:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[2, 5, 6, 7]]);
+    }));
+    return function handleSubmit(_x) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
+    onSubmit: handleSubmit,
+    noValidate: true,
+    children: [loading || !formData ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      title: "Business Information",
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_4__.BusinessInformationIcon, {}),
+      maxWidth: "max-w-[1150px]",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "space-y-3",
+        children: VISIBLE_FIELDS.map(function (field) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "h-10 bg-gray-200 rounded animate-pulse"
+          }, field.name);
+        })
+      })
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      title: "Business Information",
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_4__.BusinessInformationIcon, {}),
+      maxWidth: "max-w-[1150px]",
+      maxHeight: "max-h-[540px]",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "space-y-3",
+        children: VISIBLE_FIELDS.map(function (field) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_common_FormField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            label: field.label,
+            name: field.name,
+            placeholder: field.placeholder,
+            value: formData[field.name] || '',
+            onChange: handleInputChange,
+            onCopy: copyToClipboard,
+            type: field.type || 'text'
+          }, field.name);
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "mt-6 flex items-center justify-between gap-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+        type: "button",
+        onClick: onSkip,
+        disabled: saving || skipping,
+        className: "cursor-pointer rounded-xl border border-[#E4E4E7] bg-white px-6 py-[14px] text-sm !font-bold text-[#6F6F7B] transition-all hover:border-[#17171C] hover:text-[#17171C] disabled:cursor-not-allowed disabled:opacity-50",
+        children: skipping ? 'Skipping...' : "I'll set up later"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+        type: "submit",
+        disabled: saving || loading || skipping || !formData,
+        className: ['inline-flex items-center justify-center gap-2 rounded-xl px-8 py-[14px] text-sm !font-bold text-white shadow-[0px_4px_14px_-2px_#7C3BED40] transition', saving || loading ? 'cursor-not-allowed bg-indigo-400' : 'bg-[#7C3BED] hover:bg-indigo-700'].join(' '),
+        children: saving ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_4__.SaveButtonIcon, {}), "Saving..."]
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+          children: ["Next: Create a Legal Page", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_4__.ArrowRightIcon, {})]
+        })
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepBusinessInfo);
+
+/***/ },
+
+/***/ "./spa/admin/src/pages/SetupWizard/components/StepComplete.jsx"
+/*!*********************************************************************!*\
+  !*** ./spa/admin/src/pages/SetupWizard/components/StepComplete.jsx ***!
+  \*********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+;
+
+
+var StepComplete = function StepComplete(_ref) {
+  var createdPage = _ref.createdPage;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    finishing = _useState2[0],
+    setFinishing = _useState2[1];
+  var handleFinish = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      var _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            setFinishing(true);
+            _context.p = 1;
+            _context.n = 2;
+            return fetch("".concat(LEGAL_PAGES.apiUrl, "/setup-wizard/complete"), {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': LEGAL_PAGES.nonce
+              }
+            });
+          case 2:
+            _context.n = 4;
+            break;
+          case 3:
+            _context.p = 3;
+            _t = _context.v;
+            console.error('Error completing setup wizard:', _t);
+          case 4:
+            _context.p = 4;
+            setFinishing(false);
+            window.location.hash = '/all-legal-pages';
+            return _context.f(4);
+          case 5:
+            return _context.a(2);
+        }
+      }, _callee, null, [[1, 3, 4, 5]]);
+    }));
+    return function handleFinish() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "mx-auto max-w-2xl rounded-2xl border border-[#E4E4E780] bg-white p-10 text-center shadow-[0_4px_6px_-4px_rgba(0,0,0,0.08),0_10px_15px_-3px_rgba(0,0,0,0.08)]",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "mx-auto grid h-16 w-16 place-items-center rounded-full bg-[#7C3BED]",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_1__.AddedTemplateIcon, {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+      className: "mt-6 text-xl font-bold text-[#17171C]",
+      children: "You're all set!"
+    }), createdPage !== null && createdPage !== void 0 && createdPage.title ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("p", {
+      className: "mt-2 text-sm text-[#6F6F7B]",
+      children: ["\"", createdPage.title, "\" has been published. You can create more legal pages any time from", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+        className: "font-medium text-[#17171C]",
+        children: "Legal Pages \u2192 Add New Legal Page"
+      }), "."]
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("p", {
+      className: "mt-2 text-sm text-[#6F6F7B]",
+      children: ["Legal Pages is ready to use. You can create legal pages any time from", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+        className: "font-medium text-[#17171C]",
+        children: "Legal Pages \u2192 Add New Legal Page"
+      }), "."]
+    }), createdPage && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "mt-6 flex items-center justify-center gap-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
+        href: createdPage.view_url,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        className: "inline-flex items-center gap-2 rounded-xl border border-[#E4E4E7] px-5 py-3 text-sm !font-bold text-[#17171C] hover:bg-gray-50",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_1__.ViewIcon, {}), "View Page"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
+        href: createdPage.edit_url,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        className: "inline-flex items-center gap-2 rounded-xl border border-[#E4E4E7] px-5 py-3 text-sm !font-bold text-[#17171C] hover:bg-gray-50",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_1__.EditIcon, {}), "Edit Page"]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
+      type: "button",
+      onClick: handleFinish,
+      disabled: finishing,
+      className: ['mt-8 inline-flex items-center justify-center gap-2 rounded-xl px-8 py-[14px] text-sm !font-bold text-white shadow-[0px_4px_14px_-2px_#7C3BED40] transition', finishing ? 'cursor-not-allowed bg-indigo-400' : 'bg-[#7C3BED] hover:bg-indigo-700'].join(' '),
+      children: ["Go to All Legal Pages", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_1__.ArrowRightIcon, {})]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepComplete);
+
+/***/ },
+
+/***/ "./spa/admin/src/pages/SetupWizard/components/StepCreatePage.jsx"
+/*!***********************************************************************!*\
+  !*** ./spa/admin/src/pages/SetupWizard/components/StepCreatePage.jsx ***!
+  \***********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
+/* harmony import */ var _components_common_FormCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/common/FormCard */ "./spa/admin/src/components/common/FormCard.jsx");
+/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
+/* harmony import */ var _AddNewPage_components_ChooseTemplate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../AddNewPage/components/ChooseTemplate */ "./spa/admin/src/pages/AddNewPage/components/ChooseTemplate.jsx");
+/* harmony import */ var _AddNewPage_components_Texteditor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../AddNewPage/components/Texteditor */ "./spa/admin/src/pages/AddNewPage/components/Texteditor.jsx");
+/* harmony import */ var _GuidedTour__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./GuidedTour */ "./spa/admin/src/pages/SetupWizard/components/GuidedTour.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+;
+
+
+
+
+
+
+
+var StepCreatePage = function StepCreatePage(_ref) {
+  var _LEGAL_PAGES;
+  var onBack = _ref.onBack,
+    onCreated = _ref.onCreated;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState2 = _slicedToArray(_useState, 2),
+    title = _useState2[0],
+    setTitle = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState4 = _slicedToArray(_useState3, 2),
+    content = _useState4[0],
+    setContent = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState6 = _slicedToArray(_useState5, 2),
+    freeTemplates = _useState6[0],
+    setFreeTemplates = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState8 = _slicedToArray(_useState7, 2),
+    proTemplates = _useState8[0],
+    setProTemplates = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState0 = _slicedToArray(_useState9, 2),
+    shortcodes = _useState0[0],
+    setShortcodes = _useState0[1];
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState10 = _slicedToArray(_useState1, 2),
+    loading = _useState10[0],
+    setLoading = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    saving = _useState12[0],
+    setSaving = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState14 = _slicedToArray(_useState13, 2),
+    selectedTemplateId = _useState14[0],
+    setSelectedTemplateId = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState16 = _slicedToArray(_useState15, 2),
+    showTour = _useState16[0],
+    setShowTour = _useState16[1];
+  var templateListRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var editorRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var createButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var isProActive = ((_LEGAL_PAGES = LEGAL_PAGES) === null || _LEGAL_PAGES === void 0 || (_LEGAL_PAGES = _LEGAL_PAGES.license) === null || _LEGAL_PAGES === void 0 ? void 0 : _LEGAL_PAGES.status) === 'valid';
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetchTemplates();
+    fetchShortcodes();
+  }, []);
+  var fetchTemplates = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      var response, result, _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            _context.p = 0;
+            _context.n = 1;
+            return fetch("".concat(LEGAL_PAGES.apiUrl, "/templates?simple=true"), {
+              headers: {
+                'X-WP-Nonce': LEGAL_PAGES.nonce
+              }
+            });
+          case 1:
+            response = _context.v;
+            _context.n = 2;
+            return response.json();
+          case 2:
+            result = _context.v;
+            if (result.success) {
+              setFreeTemplates(result.data.free || []);
+              setProTemplates(result.data.pro || []);
+            }
+            _context.n = 4;
+            break;
+          case 3:
+            _context.p = 3;
+            _t = _context.v;
+            console.error('Error fetching templates:', _t);
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to load templates');
+          case 4:
+            _context.p = 4;
+            setLoading(false);
+            return _context.f(4);
+          case 5:
+            return _context.a(2);
+        }
+      }, _callee, null, [[0, 3, 4, 5]]);
+    }));
+    return function fetchTemplates() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+  var fetchShortcodes = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var response, result, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            _context2.p = 0;
+            _context2.n = 1;
+            return fetch("".concat(LEGAL_PAGES.apiUrl, "/shortcodes"), {
+              headers: {
+                'X-WP-Nonce': LEGAL_PAGES.nonce
+              }
+            });
+          case 1:
+            response = _context2.v;
+            _context2.n = 2;
+            return response.json();
+          case 2:
+            result = _context2.v;
+            if (result.success) {
+              setShortcodes(result.data || {});
+            }
+            _context2.n = 4;
+            break;
+          case 3:
+            _context2.p = 3;
+            _t2 = _context2.v;
+            console.error('Error fetching shortcodes:', _t2);
+          case 4:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[0, 3]]);
+    }));
+    return function fetchShortcodes() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+  var handleTemplateClick = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(templateId, templateType) {
+      var response, result, _t3;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            if (!(templateType === 'pro' && !isProActive)) {
+              _context3.n = 1;
+              break;
+            }
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.warning('Please upgrade to PRO to use this template');
+            return _context3.a(2);
+          case 1:
+            _context3.p = 1;
+            _context3.n = 2;
+            return fetch("".concat(LEGAL_PAGES.apiUrl, "/templates/").concat(templateId), {
+              headers: {
+                'X-WP-Nonce': LEGAL_PAGES.nonce
+              }
+            });
+          case 2:
+            response = _context3.v;
+            _context3.n = 3;
+            return response.json();
+          case 3:
+            result = _context3.v;
+            if (result.success) {
+              setTitle(result.data.name);
+              setContent(result.data.content);
+              setSelectedTemplateId(templateId);
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Template loaded successfully!');
+            }
+            _context3.n = 5;
+            break;
+          case 4:
+            _context3.p = 4;
+            _t3 = _context3.v;
+            console.error('Error loading template:', _t3);
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to load template');
+          case 5:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[1, 4]]);
+    }));
+    return function handleTemplateClick(_x, _x2) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+  var handleEditorChange = function handleEditorChange(newContent) {
+    setContent(newContent);
+  };
+  var handleMediaUpload = function handleMediaUpload() {
+    if (typeof wp === 'undefined' || typeof wp.media === 'undefined') {
+      console.error('WordPress media library is not available');
+      alert('Media library is not available. Please refresh the page.');
+      return;
+    }
+    var frame = wp.media({
+      title: 'Select Image',
+      button: {
+        text: 'Use selected image'
+      },
+      multiple: false
+    });
+    frame.on('select', function () {
+      var attachment = frame.state().get('selection').first().toJSON();
+      var imgHtml = "<img src=\"".concat(attachment.url, "\" alt=\"").concat(attachment.alt || attachment.title, "\" style=\"max-width:100%;\">");
+      var editor = window.tinymce.get('legal-pages-classic-editor');
+      if (editor) {
+        editor.insertContent(imgHtml);
+      }
+    });
+    frame.open();
+  };
+  var handleCreate = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var response, result, _t4;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
+          case 0:
+            if (title.trim()) {
+              _context4.n = 1;
+              break;
+            }
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Please enter a page title');
+            return _context4.a(2);
+          case 1:
+            if (content.trim()) {
+              _context4.n = 2;
+              break;
+            }
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Please add content');
+            return _context4.a(2);
+          case 2:
+            setSaving(true);
+            _context4.p = 3;
+            _context4.n = 4;
+            return fetch("".concat(LEGAL_PAGES.apiUrl, "/legal-page"), {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': LEGAL_PAGES.nonce
+              },
+              body: JSON.stringify({
+                title: title,
+                content: content
+              })
+            });
+          case 4:
+            response = _context4.v;
+            _context4.n = 5;
+            return response.json();
+          case 5:
+            result = _context4.v;
+            if (result.success) {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Legal page created successfully!');
+              onCreated(result.data);
+            } else {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to save legal page');
+            }
+            _context4.n = 7;
+            break;
+          case 6:
+            _context4.p = 6;
+            _t4 = _context4.v;
+            console.error('Error saving page:', _t4);
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('An error occurred while saving');
+          case 7:
+            _context4.p = 7;
+            setSaving(false);
+            return _context4.f(7);
+          case 8:
+            return _context4.a(2);
+        }
+      }, _callee4, null, [[3, 6, 7, 8]]);
+    }));
+    return function handleCreate() {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+  var tourSteps = [{
+    target: templateListRef,
+    title: 'Pick a template',
+    body: 'Start from a ready-made template — click one to load it into the editor.'
+  }, {
+    target: editorRef,
+    title: 'Review and edit',
+    body: 'Give your page a title and adjust the content. Shortcodes like [siteName] fill in automatically.'
+  }, {
+    target: createButtonRef,
+    title: 'Create the page',
+    body: 'When you are happy with it, click here to publish your first legal page.'
+  }];
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    children: [showTour && !loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_GuidedTour__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      steps: tourSteps,
+      onFinish: function onFinish() {
+        return setShowTour(false);
+      }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "grid grid-cols-1 lg:grid-cols-3 gap-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "lg:col-span-2 space-y-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          ref: editorRef,
+          className: "space-y-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_FormCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            as: "input",
+            type: "text",
+            value: title,
+            onChange: function onChange(e) {
+              return setTitle(e.target.value);
+            },
+            placeholder: "Enter page title...",
+            className: "!py-10 !px-6 !text-lg text-[#17171C] outline-none focus:ring-2 focus:ring-[#17171C]/5 focus:border-[#17171C]"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_FormCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "overflow-hidden",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "p-2",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_AddNewPage_components_Texteditor__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                content: content,
+                onChange: handleEditorChange,
+                handleMediaUpload: handleMediaUpload
+              })
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "flex items-center gap-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+            type: "button",
+            onClick: onBack,
+            disabled: saving,
+            className: "px-6 py-[14px] cursor-pointer border border-[#E4E4E7] text-[#6F6F7B] rounded-xl !font-bold hover:border-[#17171C] hover:text-[#17171C] transition-all disabled:opacity-50",
+            children: "Back"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
+            ref: createButtonRef,
+            type: "button",
+            onClick: handleCreate,
+            disabled: saving,
+            className: "\n                inline-flex items-center gap-2 px-8 py-[14px] cursor-pointer rounded-xl !font-bold text-white transition shadow-[0px_4px_14px_-2px_#7C3BED40]\n                ".concat(saving ? 'bg-indigo-400 cursor-not-allowed' : 'bg-lgp-color', "\n              "),
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_3__.SaveButtonIcon, {}), saving ? 'Creating...' : 'Create Page']
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_AddNewPage_components_ChooseTemplate__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        freeTemplates: freeTemplates,
+        proTemplates: proTemplates,
+        shortcodes: shortcodes,
+        handleTemplateClick: handleTemplateClick,
+        isProActive: isProActive,
+        loading: loading,
+        selectedTemplateId: selectedTemplateId,
+        templateListRef: templateListRef
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StepCreatePage);
+
+/***/ },
+
+/***/ "./spa/admin/src/pages/SetupWizard/components/WizardStepper.jsx"
+/*!**********************************************************************!*\
+  !*** ./spa/admin/src/pages/SetupWizard/components/WizardStepper.jsx ***!
+  \**********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+var WizardStepper = function WizardStepper(_ref) {
+  var steps = _ref.steps,
+    currentStep = _ref.currentStep;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    className: "flex items-center",
+    children: steps.map(function (step, index) {
+      var isCompleted = step.id < currentStep;
+      var isActive = step.id === currentStep;
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          className: "flex items-center gap-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+            className: ['grid h-9 w-9 flex-shrink-0 place-items-center rounded-full text-sm font-semibold transition', isCompleted ? 'bg-[#7C3BED] text-white' : isActive ? 'border-2 border-[#7C3BED] text-[#7C3BED]' : 'border-2 border-[#E4E4E7] text-[#6F6F7B]'].join(' '),
+            children: isCompleted ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_1__.AddedTemplateIcon, {}) : step.id
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+            className: ['text-sm font-medium', isActive || isCompleted ? 'text-[#17171C]' : 'text-[#6F6F7B]'].join(' '),
+            children: step.label
+          })]
+        }), index < steps.length - 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: ['mx-4 h-[2px] flex-1', isCompleted ? 'bg-[#7C3BED]' : 'bg-[#E4E4E7]'].join(' ')
+        })]
+      }, step.id);
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (WizardStepper);
+
+/***/ },
+
+/***/ "./spa/admin/src/pages/SetupWizard/index.jsx"
+/*!***************************************************!*\
+  !*** ./spa/admin/src/pages/SetupWizard/index.jsx ***!
+  \***************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
+/* harmony import */ var _Settings_components_DisclaimerScreen__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Settings/components/DisclaimerScreen */ "./spa/admin/src/pages/Settings/components/DisclaimerScreen.jsx");
+/* harmony import */ var _components_WizardStepper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/WizardStepper */ "./spa/admin/src/pages/SetupWizard/components/WizardStepper.jsx");
+/* harmony import */ var _components_StepBusinessInfo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/StepBusinessInfo */ "./spa/admin/src/pages/SetupWizard/components/StepBusinessInfo.jsx");
+/* harmony import */ var _components_StepCreatePage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/StepCreatePage */ "./spa/admin/src/pages/SetupWizard/components/StepCreatePage.jsx");
+/* harmony import */ var _components_StepComplete__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/StepComplete */ "./spa/admin/src/pages/SetupWizard/components/StepComplete.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+;
+
+
+
+
+
+
+
+var STEPS = [{
+  id: 1,
+  label: 'Business Information'
+}, {
+  id: 2,
+  label: 'Create a Legal Page'
+}, {
+  id: 3,
+  label: 'Done'
+}];
+var SetupWizard = function SetupWizard() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState2 = _slicedToArray(_useState, 2),
+    isLoading = _useState2[0],
+    setIsLoading = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    showDisclaimer = _useState4[0],
+    setShowDisclaimer = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    acceptedDisclaimer = _useState6[0],
+    setAcceptedDisclaimer = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    submitting = _useState8[0],
+    setSubmitting = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+    _useState0 = _slicedToArray(_useState9, 2),
+    currentStep = _useState0[0],
+    setCurrentStep = _useState0[1];
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState10 = _slicedToArray(_useState1, 2),
+    createdPage = _useState10[0],
+    setCreatedPage = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    skipping = _useState12[0],
+    setSkipping = _useState12[1];
+
+  // "I'll set up later": record the wizard as handled, then go to Settings.
+  var handleSkip = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      var _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            setSkipping(true);
+            _context.p = 1;
+            _context.n = 2;
+            return fetch("".concat(LEGAL_PAGES.apiUrl, "/setup-wizard/complete"), {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': LEGAL_PAGES.nonce
+              }
+            });
+          case 2:
+            _context.n = 4;
+            break;
+          case 3:
+            _context.p = 3;
+            _t = _context.v;
+            console.error('Error skipping setup wizard:', _t);
+          case 4:
+            _context.p = 4;
+            window.location.hash = '/';
+            return _context.f(4);
+          case 5:
+            return _context.a(2);
+        }
+      }, _callee, null, [[1, 3, 4, 5]]);
+    }));
+    return function handleSkip() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var _LEGAL_PAGES;
+    var disclaimerAccepted = (_LEGAL_PAGES = LEGAL_PAGES) === null || _LEGAL_PAGES === void 0 ? void 0 : _LEGAL_PAGES.status;
+    if (disclaimerAccepted === '1') {
+      setAcceptedDisclaimer(true);
+    } else {
+      setShowDisclaimer(true);
+    }
+    setIsLoading(false);
+  }, []);
+  var handleDisclaimerAccept = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var response, result, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            setSubmitting(true);
+            adl_legal_pages__modal(true);
+            _context2.p = 1;
+            _context2.n = 2;
+            return fetch("".concat(LEGAL_PAGES.apiUrl, "/accept"), {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': LEGAL_PAGES.nonce
+              }
+            });
+          case 2:
+            response = _context2.v;
+            _context2.n = 3;
+            return response.json();
+          case 3:
+            result = _context2.v;
+            if (result.success) {
+              setAcceptedDisclaimer(true);
+              setShowDisclaimer(false);
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Disclaimer accepted successfully!');
+            } else {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to save disclaimer acceptance.');
+            }
+            _context2.n = 5;
+            break;
+          case 4:
+            _context2.p = 4;
+            _t2 = _context2.v;
+            console.error(_t2);
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('An error occurred. Please try again.');
+          case 5:
+            _context2.p = 5;
+            setSubmitting(false);
+            adl_legal_pages__modal(false);
+            return _context2.f(5);
+          case 6:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[1, 4, 5, 6]]);
+    }));
+    return function handleDisclaimerAccept() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+  if (showDisclaimer) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Settings_components_DisclaimerScreen__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      onAccept: handleDisclaimerAccept,
+      isSubmitting: submitting,
+      isLoading: isLoading,
+      setIsLoading: setIsLoading
+    });
+  }
+  if (!acceptedDisclaimer) {
+    return null;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    className: "mx-auto max-w-5xl px-6 py-10",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
+      className: "!text-[24px] !font-bold !text-[#17171C]",
+      children: "Setup Wizard"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+      className: "!mt-2 !text-sm !text-[#6F6F7B]",
+      children: "Let's get Legal Pages configured for your site in three quick steps"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      className: "mt-8",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_WizardStepper__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        steps: STEPS,
+        currentStep: currentStep
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "mt-8",
+      children: [currentStep === 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_StepBusinessInfo__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        onNext: function onNext() {
+          return setCurrentStep(2);
+        },
+        onSkip: handleSkip,
+        skipping: skipping
+      }), currentStep === 2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_StepCreatePage__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        onBack: function onBack() {
+          return setCurrentStep(1);
+        },
+        onCreated: function onCreated(page) {
+          setCreatedPage(page);
+          setCurrentStep(3);
+        }
+      }), currentStep === 3 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_StepComplete__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        createdPage: createdPage
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SetupWizard);
 
 /***/ },
 
@@ -48070,16 +51225,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_AllPages__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/AllPages */ "./spa/admin/src/pages/AllPages/index.jsx");
 /* harmony import */ var _pages_LegalPageTemplates__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/LegalPageTemplates */ "./spa/admin/src/pages/LegalPageTemplates/index.jsx");
 /* harmony import */ var _pages_LegalPageTemplates_components_Edittemplatepage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/LegalPageTemplates/components/Edittemplatepage */ "./spa/admin/src/pages/LegalPageTemplates/components/Edittemplatepage.jsx");
-/* harmony import */ var _pages_HelpSupport__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/HelpSupport */ "./spa/admin/src/pages/HelpSupport.jsx");
-/* harmony import */ var _pages_UpgradeToPro__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/UpgradeToPro */ "./spa/admin/src/pages/UpgradeToPro.jsx");
-/* harmony import */ var _pages_ProFeatures__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/ProFeatures */ "./spa/admin/src/pages/ProFeatures.jsx");
-/* harmony import */ var _common_DashboardHeader__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../common/DashboardHeader */ "./spa/common/DashboardHeader.jsx");
-/* harmony import */ var _pages_LegalPageTemplates_components_CreateTemplatePage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/LegalPageTemplates/components/CreateTemplatePage */ "./spa/admin/src/pages/LegalPageTemplates/components/CreateTemplatePage.jsx");
-/* harmony import */ var _pages_AllPopups__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pages/AllPopups */ "./spa/admin/src/pages/AllPopups/index.jsx");
-/* harmony import */ var _pages_AddNewPopup__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./pages/AddNewPopup */ "./spa/admin/src/pages/AddNewPopup/index.jsx");
-/* harmony import */ var _pages_CookieBar__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./pages/CookieBar */ "./spa/admin/src/pages/CookieBar/index.jsx");
-/* harmony import */ var _pages_License__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./pages/License */ "./spa/admin/src/pages/License/index.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _pages_AllPages_components_EditLegalPage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/AllPages/components/EditLegalPage */ "./spa/admin/src/pages/AllPages/components/EditLegalPage.jsx");
+/* harmony import */ var _pages_HelpSupport__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/HelpSupport */ "./spa/admin/src/pages/HelpSupport.jsx");
+/* harmony import */ var _pages_UpgradeToPro__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/UpgradeToPro */ "./spa/admin/src/pages/UpgradeToPro.jsx");
+/* harmony import */ var _pages_ProFeatures__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/ProFeatures */ "./spa/admin/src/pages/ProFeatures.jsx");
+/* harmony import */ var _common_DashboardHeader__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../common/DashboardHeader */ "./spa/common/DashboardHeader.jsx");
+/* harmony import */ var _pages_LegalPageTemplates_components_CreateTemplatePage__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pages/LegalPageTemplates/components/CreateTemplatePage */ "./spa/admin/src/pages/LegalPageTemplates/components/CreateTemplatePage.jsx");
+/* harmony import */ var _pages_AllPopups__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./pages/AllPopups */ "./spa/admin/src/pages/AllPopups/index.jsx");
+/* harmony import */ var _pages_AddNewPopup__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./pages/AddNewPopup */ "./spa/admin/src/pages/AddNewPopup/index.jsx");
+/* harmony import */ var _pages_CookieBar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./pages/CookieBar */ "./spa/admin/src/pages/CookieBar/index.jsx");
+/* harmony import */ var _pages_License__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./pages/License */ "./spa/admin/src/pages/License/index.jsx");
+/* harmony import */ var _pages_SetupWizard__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pages/SetupWizard */ "./spa/admin/src/pages/SetupWizard/index.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -48105,8 +51262,10 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+
+
 var App = function App() {
-  var _LEGAL_PAGES, _LEGAL_PAGES2, _LEGAL_PAGES3;
+  var _LEGAL_PAGES, _LEGAL_PAGES2, _LEGAL_PAGES5;
   var isProActive = (_LEGAL_PAGES = LEGAL_PAGES) === null || _LEGAL_PAGES === void 0 ? void 0 : _LEGAL_PAGES.is_pro_active;
   var licenseStatus = (_LEGAL_PAGES2 = LEGAL_PAGES) === null || _LEGAL_PAGES2 === void 0 || (_LEGAL_PAGES2 = _LEGAL_PAGES2.license) === null || _LEGAL_PAGES2 === void 0 ? void 0 : _LEGAL_PAGES2.status;
   var isLicenseValid = licenseStatus === "valid";
@@ -48128,24 +51287,29 @@ var App = function App() {
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var handleHashChange = function handleHashChange() {
-      var protectedRoutes = ["/all-popups", "/cookie-bar", "/add-new-popup", "/license"];
-      if (!canAccessProRoutes && protectedRoutes.includes(hashPath)) {
+      // Cookie Bar isn't listed: without Pro its free parts work and the rest is locked in place.
+      var protectedRoutes = ["/all-popups", "/add-new-popup"];
+      var rawHash = window.location.hash.replace("#", "") || "";
+      if (!canAccessProRoutes && protectedRoutes.includes(rawHash)) {
         window.location.hash = "/upgrade-to-pro";
         return;
       }
-      var rawHash = window.location.hash.replace("#", "") || "";
-      if (rawHash === "/pro-features/all-popups" || rawHash === "/pro-features/cookie-bar") {
+      if (rawHash === "/pro-features/all-popups") {
         window.location.hash = "/upgrade-to-pro";
         return;
       }
 
-      // Check if this is an edit-template route
+      // Check if this is an edit-template or edit-legal-page route
       var editTemplateMatch = rawHash.match(/^\/edit-template\/\d+/);
+      var editLegalPageMatch = rawHash.match(/^\/edit-legal-page\/\d+/);
       var hashPath, currentPage;
       if (editTemplateMatch) {
         // For edit-template routes, the path is the whole match
         hashPath = '/edit-template';
         currentPage = 1; // Not used for edit-template
+      } else if (editLegalPageMatch) {
+        hashPath = '/edit-legal-page';
+        currentPage = 1; // Not used for edit-legal-page
       } else {
         // For other routes, split by /page/ to get pagination
         var _rawHash$split = rawHash.split("/page/");
@@ -48163,115 +51327,128 @@ var App = function App() {
     };
   }, []);
   var renderContent = function renderContent() {
+    var _LEGAL_PAGES3, _LEGAL_PAGES4;
     // Extract template ID from URL for edit-template route
     var editTemplateMatch = window.location.hash.match(/#\/edit-template\/(\d+)/);
     var templateId = editTemplateMatch ? parseInt(editTemplateMatch[1], 10) : null;
+
+    // Extract page ID from URL for edit-legal-page route
+    var editLegalPageMatch = window.location.hash.match(/#\/edit-legal-page\/(\d+)/);
+    var editPageId = editLegalPageMatch ? parseInt(editLegalPageMatch[1], 10) : null;
     switch (activeTab) {
       case "":
       case "/":
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_Settings__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_Settings__WEBPACK_IMPORTED_MODULE_4__["default"], {
           page: page
         });
       case "/add-new":
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_AddNewPage__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_AddNewPage__WEBPACK_IMPORTED_MODULE_5__["default"], {
           page: page
         });
       case "/all-legal-pages":
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_AllPages__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_AllPages__WEBPACK_IMPORTED_MODULE_6__["default"], {
           page: page
         });
       case "/legal-page-templates":
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_LegalPageTemplates__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_LegalPageTemplates__WEBPACK_IMPORTED_MODULE_7__["default"], {
           page: page
         });
+      case "/setup-wizard":
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_SetupWizard__WEBPACK_IMPORTED_MODULE_19__["default"], {});
       case "/edit-template":
-        return templateId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_LegalPageTemplates_components_Edittemplatepage__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        return templateId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_LegalPageTemplates_components_Edittemplatepage__WEBPACK_IMPORTED_MODULE_8__["default"], {
           templateId: templateId
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_Settings__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_Settings__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          page: page
+        });
+      case "/edit-legal-page":
+        return editPageId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_AllPages_components_EditLegalPage__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          pageId: editPageId
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_AllPages__WEBPACK_IMPORTED_MODULE_6__["default"], {
           page: page
         });
       case "/add-new-template":
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_LegalPageTemplates_components_CreateTemplatePage__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_LegalPageTemplates_components_CreateTemplatePage__WEBPACK_IMPORTED_MODULE_14__["default"], {
           page: page
         });
       case "/help-support":
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_HelpSupport__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_HelpSupport__WEBPACK_IMPORTED_MODULE_10__["default"], {
           page: page
         });
       case "/upgrade-to-pro":
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_UpgradeToPro__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_UpgradeToPro__WEBPACK_IMPORTED_MODULE_11__["default"], {
           page: page
         });
       case "/pro-features":
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_ProFeatures__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_ProFeatures__WEBPACK_IMPORTED_MODULE_12__["default"], {
           page: page
         });
       case "/pro-features/all-popups":
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_UpgradeToPro__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_UpgradeToPro__WEBPACK_IMPORTED_MODULE_11__["default"], {
           page: page
         });
       case "/pro-features/cookie-bar":
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_UpgradeToPro__WEBPACK_IMPORTED_MODULE_10__["default"], {
-          page: page
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_CookieBar__WEBPACK_IMPORTED_MODULE_17__["default"], {
+          page: page,
+          locked: !((_LEGAL_PAGES3 = LEGAL_PAGES) !== null && _LEGAL_PAGES3 !== void 0 && _LEGAL_PAGES3.cookie_pro)
         });
 
       // ── PRO-only routes ──
       case "/all-popups":
-        return canAccessProRoutes ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_AllPopups__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        return canAccessProRoutes ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_AllPopups__WEBPACK_IMPORTED_MODULE_15__["default"], {
           page: page
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_UpgradeToPro__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_UpgradeToPro__WEBPACK_IMPORTED_MODULE_11__["default"], {
           page: page
         });
       case "/cookie-bar":
-        return canAccessProRoutes ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_CookieBar__WEBPACK_IMPORTED_MODULE_16__["default"], {
-          page: page
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_UpgradeToPro__WEBPACK_IMPORTED_MODULE_10__["default"], {
-          page: page
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_CookieBar__WEBPACK_IMPORTED_MODULE_17__["default"], {
+          page: page,
+          locked: !((_LEGAL_PAGES4 = LEGAL_PAGES) !== null && _LEGAL_PAGES4 !== void 0 && _LEGAL_PAGES4.cookie_pro)
         });
       case "/add-new-popup":
-        return canAccessProRoutes ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_AddNewPopup__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        return canAccessProRoutes ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_AddNewPopup__WEBPACK_IMPORTED_MODULE_16__["default"], {
           page: page
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_UpgradeToPro__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_UpgradeToPro__WEBPACK_IMPORTED_MODULE_11__["default"], {
           page: page
         });
       case "/license":
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_pages_License__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_pages_License__WEBPACK_IMPORTED_MODULE_18__["default"], {
           page: page
         });
       // case "/edit-popup":
       //     return templateId ? <EditPopup templateId={templateId} /> : <Settings page={page} />;
 
       default:
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
           className: "p-8",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("h2", {
             className: "text-2xl font-bold text-red-600",
             children: "404 - Route not found"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("p", {
             className: "mt-4",
             children: ["Current hash: ", window.location.hash]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("p", {
-            children: ["Active tab detected: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("strong", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("p", {
+            children: ["Active tab detected: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("strong", {
               children: activeTab
             })]
           })]
         });
     }
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_common_DashboardHeader__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_common_DashboardHeader__WEBPACK_IMPORTED_MODULE_13__["default"], {
       title: "Dashboard",
-      viewSiteUrl: (_LEGAL_PAGES3 = LEGAL_PAGES) === null || _LEGAL_PAGES3 === void 0 ? void 0 : _LEGAL_PAGES3.site_url,
+      viewSiteUrl: (_LEGAL_PAGES5 = LEGAL_PAGES) === null || _LEGAL_PAGES5 === void 0 ? void 0 : _LEGAL_PAGES5.site_url,
       notificationCount: 1
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
       className: "bg-gray-50",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
         className: "",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
           className: "w-full mx-auto",
           children: renderContent()
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_toastify__WEBPACK_IMPORTED_MODULE_2__.ToastContainer, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_toastify__WEBPACK_IMPORTED_MODULE_2__.ToastContainer, {
         position: "bottom-right"
       })]
     })]
@@ -48282,7 +51459,7 @@ var App = function App() {
 var container = document.getElementById("adl-legal-pages");
 if (container) {
   var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(container);
-  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(App, {}));
+  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(App, {}));
 }
 })();
 

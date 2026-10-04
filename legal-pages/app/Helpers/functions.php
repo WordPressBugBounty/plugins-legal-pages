@@ -42,7 +42,59 @@ function legal_page_get_localized_data() {
 		'is_pro'     	=> defined( 'WPLP_PRO_VERSION' ),
 		'is_pro_active' => get_option( 'wplp_pro_version', false ),
 		'status'     	=> get_option( 'adl_lp_accept_term', '0' ),
+		'setup_wizard'  => array(
+			'completed' => (bool) get_option( 'adl_lp_setup_wizard_completed', false ),
+		),
+		// Cookie Bar Pro features (sync, per-cookie edits, customization, Block Services).
+		// Legal Pages Pro turns this on only with a valid license.
+		'cookie_pro'    => legal_pages_cookie_pro_unlocked(),
+		// Admin SPA notices the current user has closed (POST /notices/{notice}/dismiss).
+		'dismissed_notices' => \LegalPage\Models\Settings::get_dismissed_notices(),
+		// Pro before 2.1.0 is active: the Cookie Bar screen asks for a Pro update instead.
+		'cookie_legacy_pro' => legal_pages_cookie_bar_in_legacy_pro() ? array(
+			'version'    => defined( 'LEGAL_PAGES_PRO_VERSION' ) ? LEGAL_PAGES_PRO_VERSION : '',
+			'update_url' => current_user_can( 'update_plugins' ) ? legal_pages_pro_update_url() : '',
+		) : false,
 	);
+}
+
+/**
+ * Where to send the admin to update Legal Pages Pro: straight to the update
+ * when WordPress already knows about it, otherwise to the Plugins screen.
+ *
+ * @return string
+ */
+function legal_pages_pro_update_url() {
+	$plugin_file = defined( 'LEGAL_PAGES_PRO_BASE' ) ? LEGAL_PAGES_PRO_BASE : 'legal-pages-pro/adl-legal-pages-pro.php';
+	$updates     = get_site_transient( 'update_plugins' );
+
+	if ( isset( $updates->response[ $plugin_file ] ) ) {
+		return wp_nonce_url(
+			self_admin_url( 'update.php?action=upgrade-plugin&plugin=' . rawurlencode( $plugin_file ) ),
+			'upgrade-plugin_' . $plugin_file
+		);
+	}
+
+	return self_admin_url( 'plugins.php' );
+}
+
+/**
+ * Whether Legal Pages Pro's cookie bar features are available.
+ *
+ * @return bool
+ */
+function legal_pages_cookie_pro_unlocked() {
+	return (bool) apply_filters( 'legal_pages_cookie_pro_unlocked', false );
+}
+
+/**
+ * Legal Pages Pro before 2.1.0 shipped its own scanner and banner. With it
+ * active the free cookie bar stays off so nothing runs twice.
+ *
+ * @return bool
+ */
+function legal_pages_cookie_bar_in_legacy_pro() {
+	return class_exists( 'LegalPagePro\\Controllers\\Front\\CookieBar' );
 }
 
 /**

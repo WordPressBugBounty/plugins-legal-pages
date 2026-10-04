@@ -20,6 +20,13 @@
     display: none !important;
 }
 
+/* Except the plugin's own notices (e.g. "update Legal Pages Pro") — three
+   classes outrank the two-class rules above. */
+.toplevel_page_adl-legal-pages .notice.legal-pages-notice {
+    display: block !important;
+    margin: 16px 20px 0;
+}
+
 /* Also hide notices that might appear inside the content area */
 /* .toplevel_page_adl-legal-pages #wpcontent .notice,
 .toplevel_page_adl-legal-pages #wpbody-content .notice,
@@ -86,13 +93,16 @@
     opacity: 1;
 }
 
-#adminmenu #toplevel_page_adl-legal-pages .wp-has-submenu.wp-not-current-submenu.menu-top.toplevel_page_adl-legal-pages.menu-top-last .wp-menu-image img {
+/* Don't depend on .menu-top-last: WP only adds it to the last item before a separator,
+   so another plugin's menu at a nearby position (e.g. Complianz at 40) drops it and the
+   128px PNG renders unscaled. */
+#adminmenu #toplevel_page_adl-legal-pages .wp-menu-image img {
     width: 21px !important;
     height: 21px !important;
     margin-bottom: 1px;
     object-fit: contain;
 }
-#adminmenu #toplevel_page_adl-legal-pages .wp-has-submenu.wp-has-current-submenu.wp-menu-open.menu-top.toplevel_page_adl-legal-pages.menu-top-last .wp-menu-image img {
+#adminmenu #toplevel_page_adl-legal-pages.wp-has-current-submenu .wp-menu-image img {
     width: 27px !important;
     height: 30px !important;
     padding: 3px;

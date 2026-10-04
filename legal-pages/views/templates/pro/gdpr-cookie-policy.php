@@ -18,3 +18,4 @@
 <p>These cookies are set through our site by our advertising partners. These cookies are used to build a profile of your interests and show you relevant advertisements based on your visits. They do not store personal data but store info of your browser and internet device. You can opt-out by not allowing these cookies which will lead to less targeted advertising.</p>
 <p>Third-party cookies</p>
 <p>We use these cookies from third-party organizations to get insights about our website. These cookies are set by websites that are not visited by you by adding third-party elements like plugins or ads on their website. Third-party cookies also track users activities and save their browsing information for targeting ads.</p>
+[legal_pages_cookie_list]

@@ -98,7 +98,7 @@ final class WpOrgApi {
 	 *
 	 * @param string $version Version string to query.
 	 * @param string $locale  Optional. Locale to query. Defaults to 'en_US'.
-	 * @return false|array False on failure. An array of checksums on success.
+	 * @return bool|array False on failure. An array of checksums on success.
 	 * @throws RuntimeException If the remote request fails.
 	 */
 	public function get_core_checksums( $version, $locale = 'en_US' ) {
@@ -169,7 +169,7 @@ final class WpOrgApi {
 
 		$offer = $response['offers'][0];
 
-		if ( ! is_array( $offer ) || ! array_key_exists( 'locale', $offer ) || $locale !== $offer['locale'] ) {
+		if ( ! array_key_exists( 'locale', $offer ) || $locale !== $offer['locale'] ) {
 			return false;
 		}
 
@@ -181,7 +181,7 @@ final class WpOrgApi {
 	 *
 	 * @param string $plugin  Plugin slug to query.
 	 * @param string $version Version string to query.
-	 * @return false|array False on failure. An array of checksums on success.
+	 * @return bool|array False on failure. An array of checksums on success.
 	 * @throws RuntimeException If the remote request fails.
 	 */
 	public function get_plugin_checksums( $plugin, $version ) {

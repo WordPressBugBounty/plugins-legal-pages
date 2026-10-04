@@ -19,11 +19,8 @@ use cli\Streams;
  * The `Spinner` Notifier displays an ASCII spinner.
  */
 class Spinner extends Notify {
-	/** @var string */
 	protected $_chars = '-\|/';
-	/** @var string */
 	protected $_format = '{:msg} {:char}  ({:elapsed}, {:speed}/s)';
-	/** @var int */
 	protected $_iteration = 0;
 
 	/**
@@ -32,7 +29,6 @@ class Spinner extends Notify {
 	 *
 	 * @param boolean  $finish  `true` if this was called from
 	 *                          `cli\Notify::finish()`, `false` otherwise.
-	 * @return void
 	 * @see cli\out_padded()
 	 * @see cli\Notify::formatTime()
 	 * @see cli\Notify::speed()

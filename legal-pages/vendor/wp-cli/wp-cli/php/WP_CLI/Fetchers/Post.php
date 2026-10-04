@@ -6,8 +6,6 @@ use WP_Post;
 
 /**
  * Fetch a WordPress post based on one of its attributes.
- *
- * @extends Base<\WP_Post>
  */
 class Post extends Base {
 
@@ -21,14 +19,11 @@ class Post extends Base {
 	/**
 	 * Get a post object by ID
 	 *
-	 * @param string|int $arg The raw CLI argument.
-	 * @return WP_Post|false The item if found; false otherwise.
+	 * @param string $arg The raw CLI argument.
+	 * @return WP_Post|array|false The item if found; false otherwise.
 	 */
 	public function get( $arg ) {
-		/**
-		 * @var WP_Post|null $post
-		 */
-		$post = get_post( (int) $arg );
+		$post = get_post( $arg );
 
 		if ( null === $post ) {
 			return false;

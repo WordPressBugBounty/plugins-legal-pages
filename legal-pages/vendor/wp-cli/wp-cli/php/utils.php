@@ -12,8 +12,7 @@ use Closure;
 use Composer\Semver\Comparator;
 use Composer\Semver\Semver;
 use Exception;
-use Iterator;
-use Mustache\Engine as Mustache_Engine;
+use Mustache_Engine;
 use ReflectionFunction;
 use RuntimeException;
 use WP_CLI;
@@ -22,10 +21,8 @@ use WP_CLI\Formatter;
 use WP_CLI\Inflector;
 use WP_CLI\Iterators\Transform;
 use WP_CLI\NoOp;
-use WP_CLI\Path;
 use WP_CLI\Process;
 use WP_CLI\RequestsLibrary;
-use WpOrg\Requests\Response;
 
 /**
  * File stream wrapper prefix for Phar archives.
@@ -53,13 +50,19 @@ const FILE_DIR_PATTERN = '%(?>#.*?$)|(?>//.*?$)|(?>/\*.*?\*/)|(?>\'(?:(?=(\\\\?)
  * If no path is provided, the function checks whether the current WP_CLI instance is
  * running from within a Phar archive.
  *
- * @deprecated 2.13.0 Use Path::inside_phar() instead.
- *
  * @param string|null $path Optional. Path to check. Defaults to null, which checks WP_CLI_ROOT.
  * @return bool Whether path is within a Phar archive.
  */
 function inside_phar( $path = null ) {
-	return Path::inside_phar( $path );
+	if ( null === $path ) {
+		if ( ! defined( 'WP_CLI_ROOT' ) ) {
+			return false;
+		}
+
+		$path = WP_CLI_ROOT;
+	}
+
+	return 0 === strpos( $path, PHAR_STREAM_PREFIX );
 }
 
 /**
@@ -72,11 +75,11 @@ function inside_phar( $path = null ) {
  * @return string Path to the extracted file.
  */
 function extract_from_phar( $path ) {
-	if ( ! Path::inside_phar( $path ) ) {
+	if ( ! inside_phar( $path ) ) {
 		return $path;
 	}
 
-	$fname = Path::basename( $path );
+	$fname = basename( $path );
 
 	$tmp_path = get_temp_dir() . uniqid( 'wp-cli-extract-from-phar-', true ) . "-$fname";
 
@@ -99,7 +102,7 @@ function extract_from_phar( $path ) {
  * @return void|never
  */
 function load_dependencies() {
-	if ( Path::inside_phar() ) {
+	if ( inside_phar() ) {
 		if ( file_exists( WP_CLI_ROOT . '/vendor/autoload.php' ) ) {
 			require WP_CLI_ROOT . '/vendor/autoload.php';
 		} elseif ( file_exists( dirname( dirname( WP_CLI_ROOT ) ) . '/autoload.php' ) ) {
@@ -136,10 +139,7 @@ function get_vendor_paths() {
 	];
 	$maybe_composer_json = WP_CLI_ROOT . '/../../../composer.json';
 	if ( file_exists( $maybe_composer_json ) && is_readable( $maybe_composer_json ) ) {
-		/**
-		 * @var object{config: object{'vendor-dir': string}} $composer
-		 */
-		$composer = json_decode( (string) file_get_contents( $maybe_composer_json ), false );
+		$composer = json_decode( file_get_contents( $maybe_composer_json ) );
 		if ( ! empty( $composer->config ) && ! empty( $composer->config->{'vendor-dir'} ) ) {
 			array_unshift( $vendor_paths, WP_CLI_ROOT . '/../../../' . $composer->config->{'vendor-dir'} );
 		}
@@ -189,11 +189,11 @@ function load_command( $name ) {
  *       var_dump($val);
  *     }
  *
- * @param array|Iterator $it     Either a plain array or another iterator.
- * @param callable       ...$fns The function to apply to an element.
- * @return Iterator An iterator that applies the given callback(s).
+ * @param array|object $it Either a plain array or another iterator.
+ * @param callable     $fn The function to apply to an element.
+ * @return object An iterator that applies the given callback(s).
  */
-function iterator_map( $it, ...$fns ) {
+function iterator_map( $it, $fn ) {
 	if ( is_array( $it ) ) {
 		$it = new ArrayIterator( $it );
 	}
@@ -202,60 +202,11 @@ function iterator_map( $it, ...$fns ) {
 		$it = new Transform( $it );
 	}
 
-	foreach ( $fns as $fn ) {
-		/**
-		 * @var Transform $it
-		 */
+	foreach ( array_slice( func_get_args(), 1 ) as $fn ) {
 		$it->add_transform( $fn );
 	}
 
 	return $it;
-}
-
-/**
- * Check if a path is within open_basedir restrictions.
- *
- * This function compares paths using string operations to avoid triggering warnings
- * when checking paths that may be outside open_basedir restrictions.
- *
- * @param string $path The path to check (should be absolute).
- * @return bool True if the path is accessible (no open_basedir or within allowed paths), false otherwise.
- */
-function is_path_within_open_basedir( $path ) {
-	$open_basedir = ini_get( 'open_basedir' );
-	if ( empty( $open_basedir ) ) {
-		return true;
-	}
-
-	// Normalize the path to check and remove trailing slashes.
-	$path = Path::normalize( $path );
-	$path = rtrim( $path, '/\\' );
-
-	$allowed_paths = explode( PATH_SEPARATOR, $open_basedir );
-	foreach ( $allowed_paths as $allowed ) {
-		if ( empty( $allowed ) ) {
-			continue;
-		}
-		// Normalize the allowed path using realpath (allowed paths should be accessible).
-		$allowed      = rtrim( $allowed, '/\\' );
-		$real_allowed = realpath( $allowed );
-		if ( false !== $real_allowed ) {
-			$allowed = $real_allowed;
-		}
-		$allowed = Path::normalize( $allowed );
-		$allowed = rtrim( $allowed, '/\\' );
-		// Check if path starts with allowed directory.
-		// On Windows, use case-insensitive comparison as filesystem paths are case-insensitive.
-		$is_windows = is_windows();
-		if ( $is_windows ) {
-			if ( 0 === stripos( $path . '/', $allowed . '/' ) ) {
-				return true;
-			}
-		} elseif ( 0 === strpos( $path . '/', $allowed . '/' ) ) {
-			return true;
-		}
-	}
-	return false;
 }
 
 /**
@@ -271,12 +222,7 @@ function find_file_upward( $files, $dir = null, $stop_check = null ) {
 	if ( is_null( $dir ) ) {
 		$dir = getcwd();
 	}
-	// Normalize the directory path using string operations to avoid filesystem access
-	// that could trigger open_basedir warnings
-	if ( false !== $dir ) {
-		$dir = Path::normalize( $dir );
-	}
-	while ( $dir && is_path_within_open_basedir( $dir ) && is_readable( $dir ) ) {
+	while ( is_readable( $dir ) ) {
 		// Stop walking up when the supplied callable returns true being passed the $dir
 		if ( is_callable( $stop_check ) && call_user_func( $stop_check, $dir ) ) {
 			return null;
@@ -300,55 +246,16 @@ function find_file_upward( $files, $dir = null, $stop_check = null ) {
 
 /**
  * Determine whether a path is absolute.
- *
- * @deprecated 2.13.0 Use Path::is_absolute() instead.
- *
  * @param string $path
  * @return bool
  */
 function is_path_absolute( $path ) {
-	return Path::is_absolute( $path );
-}
-
-/**
- * Expand tilde (~) in path to home directory.
- *
- * Expands paths that start with ~ to the current user's home directory.
- * Only handles the current user's home directory (not ~username patterns).
- *
- * @deprecated 2.13.0 Use Path::expand_tilde() instead.
- *
- * @param string $path Path that may contain a tilde.
- * @return string Path with tilde expanded to home directory, or unchanged if tilde not at start or followed by username.
- */
-function expand_tilde_path( $path ) {
-	return Path::expand_tilde( $path );
-}
-
-/**
- * Escape a shell argument while preserving tilde expansion.
- *
- * This function is useful when passing paths to remote shells (e.g., via SSH)
- * where tilde expansion should occur on the remote system. Unlike escapeshellarg(),
- * this function allows tilde at the start of a path to be expanded by the remote shell.
- *
- * For paths starting with ~/: returns ~/ followed by the escaped remainder.
- * For all other paths: returns the fully escaped path using escapeshellarg().
- *
- * @param string $arg The argument to escape.
- * @return string The escaped argument.
- */
-function escapeshellarg_preserve_tilde( $arg ) {
-	// Check if argument starts with ~/
-	if ( substr( $arg, 0, 2 ) === '~/' ) {
-		// Extract everything after ~/
-		$remainder = substr( $arg, 2 );
-		// Return ~/ followed by the escaped remainder
-		return '~/' . escapeshellarg( $remainder );
+	// Windows.
+	if ( isset( $path[1] ) && ':' === $path[1] ) {
+		return true;
 	}
 
-	// For all other cases, use standard escapeshellarg
-	return escapeshellarg( $arg );
+	return isset( $path[0] ) && '/' === $path[0];
 }
 
 /**
@@ -358,17 +265,16 @@ function escapeshellarg_preserve_tilde( $arg ) {
  * @return string
  */
 function args_to_str( $args ) {
-	return ' ' . implode( ' ', array_map( 'escapeshellarg', array_map( 'strval', $args ) ) );
+	return ' ' . implode( ' ', array_map( 'escapeshellarg', $args ) );
 }
 
 /**
  * Composes associative arguments into a command string.
  *
- * @param array<string, mixed> $assoc_args Associative arguments to compose.
- * @param array<string> $sensitive_args Optional. Array of argument keys that should be masked.
+ * @param array<string, string> $assoc_args Associative arguments to compose.
  * @return string
  */
-function assoc_args_to_str( $assoc_args, $sensitive_args = [] ) {
+function assoc_args_to_str( $assoc_args ) {
 	$str = '';
 
 	foreach ( $assoc_args as $key => $value ) {
@@ -379,18 +285,11 @@ function assoc_args_to_str( $assoc_args, $sensitive_args = [] ) {
 				$str .= assoc_args_to_str(
 					[
 						$key => $v,
-					],
-					$sensitive_args
+					]
 				);
 			}
-		} elseif ( in_array( $key, $sensitive_args, true ) ) {
-			// Mask the value if this is a sensitive argument
-			$str .= " --$key=" . escapeshellarg( '[REDACTED]' );
 		} else {
-			/**
-			 * @var string|int $value
-			 */
-			$str .= " --$key=" . escapeshellarg( (string) $value );
+			$str .= " --$key=" . escapeshellarg( $value );
 		}
 	}
 
@@ -401,13 +300,16 @@ function assoc_args_to_str( $assoc_args, $sensitive_args = [] ) {
  * Given a template string and an arbitrary number of arguments,
  * returns the final command, with the parameters escaped.
  *
- * @param string $cmd
- * @param string ...$args
+ * @param array<string> $cmd
  */
-function esc_cmd( $cmd, ...$args ) {
+function esc_cmd( $cmd ) {
 	if ( func_num_args() < 2 ) {
 		trigger_error( 'esc_cmd() requires at least two arguments.', E_USER_WARNING );
 	}
+
+	$args = func_get_args();
+
+	$cmd = array_shift( $args );
 
 	return vsprintf( $cmd, array_map( 'escapeshellarg', $args ) );
 }
@@ -423,10 +325,8 @@ function locate_wp_config() {
 	if ( null === $path ) {
 		$path = false;
 
-		$config_path = (string) getenv( 'WP_CONFIG_PATH' );
-
-		if ( $config_path && file_exists( $config_path ) ) {
-			$path = $config_path;
+		if ( getenv( 'WP_CONFIG_PATH' ) && file_exists( getenv( 'WP_CONFIG_PATH' ) ) ) {
+			$path = getenv( 'WP_CONFIG_PATH' );
 		} elseif ( file_exists( ABSPATH . 'wp-config.php' ) ) {
 			$path = ABSPATH . 'wp-config.php';
 		} elseif ( file_exists( dirname( ABSPATH ) . '/wp-config.php' ) && ! file_exists( dirname( ABSPATH ) . '/wp-settings.php' ) ) {
@@ -449,11 +349,7 @@ function locate_wp_config() {
  * @return bool
  */
 function wp_version_compare( $since, $operator ) {
-	/**
-	 * @var string $wp_version
-	 */
-	$wp_version = $GLOBALS['wp_version'];
-	$wp_version = str_replace( '-src', '', $wp_version );
+	$wp_version = str_replace( '-src', '', $GLOBALS['wp_version'] );
 	$since      = str_replace( '-src', '', $since );
 	return version_compare( $wp_version, $since, $operator );
 }
@@ -516,9 +412,9 @@ function format_items( $format, $items, $fields ) {
  *
  * @access public
  *
- * @param resource                 $fd      File descriptor.
- * @param array<string[]>|iterable $rows    Array of rows to output.
- * @param array<string>            $headers List of CSV columns (optional).
+ * @param resource      $fd      File descriptor.
+ * @param array<string> $rows    Array of rows to output.
+ * @param array<string> $headers List of CSV columns (optional).
  */
 function write_csv( $fd, $rows, $headers = [] ) {
 	if ( ! empty( $headers ) ) {
@@ -526,21 +422,12 @@ function write_csv( $fd, $rows, $headers = [] ) {
 		fputcsv( $fd, $headers, ',', '"', '\\' );
 	}
 
-	/**
-	 * @var string[] $row
-	 */
 	foreach ( $rows as $row ) {
 		if ( ! empty( $headers ) ) {
 			$row = pick_fields( $row, $headers );
 		}
 
-		/**
-		 * @var string[] $row
-		 * @var callable $callback
-		 */
-
-		$callback = __NAMESPACE__ . '\escape_csv_value';
-		$row      = array_map( $callback, $row );
+		$row = array_map( __NAMESPACE__ . '\escape_csv_value', $row );
 		fputcsv( $fd, array_values( $row ), ',', '"', '\\' );
 	}
 }
@@ -586,7 +473,7 @@ function launch_editor_for_input( $input, $title = 'WP-CLI', $ext = 'tmp' ) {
 	$tmpdir = get_temp_dir();
 
 	do {
-		$tmpfile  = Path::basename( $title );
+		$tmpfile  = basename( $title );
 		$tmpfile  = preg_replace( '|\.[^.]*$|', '', $tmpfile );
 		$tmpfile .= '-' . substr( md5( (string) mt_rand() ), 0, 6 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.rand_mt_rand -- no crypto and WP not loaded.
 		$tmpfile  = $tmpdir . $tmpfile . '.' . $ext;
@@ -600,7 +487,6 @@ function launch_editor_for_input( $input, $title = 'WP-CLI', $ext = 'tmp' ) {
 		}
 	} while ( ! $tmpfile );
 
-	// @phpstan-ignore booleanNot.alwaysFalse
 	if ( ! $tmpfile ) {
 		WP_CLI::error( 'Error creating temporary file.' );
 	}
@@ -614,11 +500,9 @@ function launch_editor_for_input( $input, $title = 'WP-CLI', $ext = 'tmp' ) {
 
 	$descriptorspec = [ STDIN, STDOUT, STDERR ];
 	$process        = proc_open_compat( "$editor " . escapeshellarg( $tmpfile ), $descriptorspec, $pipes );
-	if ( $process ) {
-		$r = proc_close( $process );
-		if ( $r ) {
-			exit( $r );
-		}
+	$r              = proc_close( $process );
+	if ( $r ) {
+		exit( $r );
 	}
 
 	$output = file_get_contents( $tmpfile );
@@ -671,7 +555,7 @@ function mysql_host_to_cli_args( $raw_host ) {
  * @since v2.5.0 Deprecated $descriptors argument.
  *
  * @param string                $cmd           Command to run.
- * @param array<string, string> $assoc_args    Associative array of arguments to use.
+ * @param array<string, mixed>  $assoc_args    Associative array of arguments to use.
  * @param mixed                 $_             Deprecated. Former $descriptors argument.
  * @param bool                  $send_to_shell Optional. Whether to send STDOUT and STDERR
  *                                             immediately to the shell. Defaults to true.
@@ -690,9 +574,6 @@ function mysql_host_to_cli_args( $raw_host ) {
 function run_mysql_command( $cmd, $assoc_args, $_ = null, $send_to_shell = true, $interactive = false ) {
 	check_proc_available( 'run_mysql_command' );
 
-	/**
-	 * @var array<resource> $descriptors
-	 */
 	$descriptors = ( $interactive || $send_to_shell ) ?
 		[
 			0 => STDIN,
@@ -707,11 +588,7 @@ function run_mysql_command( $cmd, $assoc_args, $_ = null, $send_to_shell = true,
 
 	$stdout = '';
 	$stderr = '';
-
-	/**
-	 * @var array<int, resource> $pipes
-	 */
-	$pipes = [];
+	$pipes  = [];
 
 	if ( isset( $assoc_args['host'] ) ) {
 		// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysql_host_to_cli_args -- Misidentified as PHP native MySQL function.
@@ -772,7 +649,7 @@ function mustache_render( $template_name, $data = [] ) {
 		$template_name = WP_CLI_ROOT . "/templates/$template_name";
 	}
 
-	$template = (string) file_get_contents( $template_name );
+	$template = file_get_contents( $template_name );
 
 	$mustache = new Mustache_Engine(
 		[
@@ -839,11 +716,15 @@ function make_progress_bar( $message, $count, $interval = 100 ) {
  *               component doesn't exist in the given URL; a string or - in the
  *               case of PHP_URL_PORT - integer when it does. See parse_url()'s
  *               return values.
- *
- * @phpstan-return ($component is non-negative-int ? string|null|int|false : array{scheme?: string, host?: string, port?: int, user?: string, pass?: string, query?: string, path?: string, fragment?: string})
  */
 function parse_url( $url, $component = - 1, $auto_add_scheme = true ) {
-	if ( function_exists( 'wp_parse_url' ) ) {
+	if (
+		function_exists( 'wp_parse_url' )
+		&& (
+			-1 === $component
+			|| wp_version_compare( '4.7', '>=' )
+		)
+	) {
 		$url_parts = wp_parse_url( $url, $component );
 	} else {
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.parse_url_parse_url -- Fallback.
@@ -875,14 +756,36 @@ function is_windows() {
  * Replaces the __FILE__ and __DIR__ magic constants with the values they are
  * supposed to represent at runtime.
  *
- * @deprecated 2.13.0 Use Path::replace_path_consts() instead.
- *
  * @param string $source The PHP code to manipulate.
  * @param string $path The path to use instead of the magic constants.
  * @return string Adapted PHP code.
  */
 function replace_path_consts( $source, $path ) {
-	return Path::replace_path_consts( $source, $path );
+	// Solve issue with Windows allowing single quotes in account names.
+	$file = addslashes( $path );
+
+	if ( file_exists( $file ) ) {
+		$file = realpath( $file );
+	}
+
+	$dir = dirname( $file );
+
+	// Replace __FILE__ and __DIR__ constants with value of $file or $dir.
+	return preg_replace_callback(
+		FILE_DIR_PATTERN,
+		static function ( $matches ) use ( $file, $dir ) {
+			if ( ! empty( $matches['file'] ) ) {
+				return "'{$file}'";
+			}
+
+			if ( ! empty( $matches['dir'] ) ) {
+				return "'{$dir}'";
+			}
+
+			return $matches[0];
+		},
+		$source
+	);
 }
 
 /**
@@ -914,18 +817,14 @@ function replace_path_consts( $source, $path ) {
  *                               or string absolute path to CA cert to use.
  *                               Defaults to detected CA cert bundled with the Requests library.
  *     @type bool $insecure      Whether to retry automatically without certificate validation.
- *     @type int  $max_retries   Maximum number of retries of failed requests. Default 3.
  * }
- * @return \Requests_Response|Response
+ * @return object
  * @throws RuntimeException If the request failed.
  * @throws ExitException If the request failed and $halt_on_error is true.
- *
- * @phpstan-param array{halt_on_error?: bool, verify?: bool|string, insecure?: bool} $options
  */
 function http_request( $method, $url, $data = null, $headers = [], $options = [] ) {
 	$insecure      = isset( $options['insecure'] ) && (bool) $options['insecure'];
 	$halt_on_error = ! isset( $options['halt_on_error'] ) || (bool) $options['halt_on_error'];
-	$max_retries   = isset( $options['max_retries'] ) ? (int) $options['max_retries'] : 3;
 	unset( $options['halt_on_error'] );
 
 	if ( ! isset( $options['verify'] ) ) {
@@ -933,42 +832,21 @@ function http_request( $method, $url, $data = null, $headers = [], $options = []
 		$options['verify'] = ! empty( ini_get( 'curl.cainfo' ) ) ? ini_get( 'curl.cainfo' ) : true;
 	}
 
-	/**
-	 * @var array{halt_on_error?: bool, verify: bool|string, insecure?: bool} $options
-	 */
-	$options = WP_CLI::do_hook( 'http_request_options', $options, $method, $url, $data, $headers );
+	$options = WP_CLI::do_hook( 'http_request_options', $options );
 
 	RequestsLibrary::register_autoloader();
 
-	/**
-	 * @var callable $request_method
-	 */
 	$request_method = [ RequestsLibrary::get_class_name(), 'request' ];
 
-	$attempt           = 0;
-	$last_exception    = null;
-	$retry_after_delay = 1; // Start with 1 second delay.
-
-	while ( $attempt < $max_retries ) {
-		++$attempt;
+	try {
 		try {
-			try {
-				return $request_method( $url, $headers, $data, $method, $options );
-			} catch ( \Requests_Exception | \WpOrg\Requests\Exception $exception ) {
-				$curl_handle = $exception->getData();
-				// Get curl error code safely - only if curl is available and handle is valid.
-				$curl_errno = null;
-				if ( function_exists( 'curl_errno' ) && ( is_resource( $curl_handle ) || ( is_object( $curl_handle ) && $curl_handle instanceof \CurlHandle ) ) ) {
-					// @phpstan-ignore argument.type
-					$curl_errno = curl_errno( $curl_handle );
-				}
-				// CURLE_SSL_CACERT = 60
-				$is_ssl_cacert_error = null !== $curl_errno && 60 === $curl_errno;
-
+			return $request_method( $url, $headers, $data, $method, $options );
+		} catch ( Exception $exception ) {
+			if ( RequestsLibrary::is_requests_exception( $exception ) ) {
 				if (
 					true !== $options['verify']
 					|| 'curlerror' !== $exception->getType()
-					|| ! $is_ssl_cacert_error
+					|| curl_errno( $exception->getData() ) !== CURLE_SSL_CACERT
 				) {
 					throw $exception;
 				}
@@ -977,43 +855,23 @@ function http_request( $method, $url, $data = null, $headers = [], $options = []
 
 				return $request_method( $url, $headers, $data, $method, $options );
 			}
-		} catch ( \Requests_Exception | \WpOrg\Requests\Exception $exception ) {
-			$curl_handle = $exception->getData();
-			// Get curl error code safely - only if curl is available and handle is valid.
-			$curl_errno = null;
-			if ( function_exists( 'curl_errno' ) && ( is_resource( $curl_handle ) || ( is_object( $curl_handle ) && $curl_handle instanceof \CurlHandle ) ) ) {
-				// @phpstan-ignore argument.type
-				$curl_errno = curl_errno( $curl_handle );
-			}
-			// CURLE_SSL_CONNECT_ERROR = 35, CURLE_SSL_CERTPROBLEM = 58, CURLE_SSL_CACERT_BADFILE = 77
-			$is_ssl_error = null !== $curl_errno && in_array( $curl_errno, [ 35, 58, 77 ], true );
-
-			// CURLE_COULDNT_RESOLVE_HOST = 6, CURLE_COULDNT_CONNECT = 7, CURLE_PARTIAL_FILE = 18
-			// CURLE_OPERATION_TIMEDOUT = 28, CURLE_GOT_NOTHING = 52, CURLE_SEND_ERROR = 55, CURLE_RECV_ERROR = 56
-			$is_transient_error = null !== $curl_errno && in_array( $curl_errno, [ 6, 7, 18, 28, 52, 55, 56 ], true );
-
+			throw $exception;
+		}
+	} catch ( Exception $exception ) {
+		if ( RequestsLibrary::is_requests_exception( $exception ) ) {
+			// CURLE_SSL_CACERT_BADFILE only defined for PHP >= 7.
 			if (
 				! $insecure
 				||
 				'curlerror' !== $exception->getType()
 				||
-				! $is_ssl_error
+				! in_array( curl_errno( $exception->getData() ), [ CURLE_SSL_CONNECT_ERROR, CURLE_SSL_CERTPROBLEM, 77 /*CURLE_SSL_CACERT_BADFILE*/ ], true )
 			) {
-				// Check if this is a transient error that should be retried.
-				if ( ! $is_transient_error || $attempt >= $max_retries ) {
-					$error_msg = sprintf( "Failed to get url '%s': %s.", $url, $exception->getMessage() );
-					if ( $halt_on_error ) {
-						WP_CLI::error( $error_msg );
-					}
-					throw new RuntimeException( $error_msg, 0, $exception );
+				$error_msg = sprintf( "Failed to get url '%s': %s.", $url, $exception->getMessage() );
+				if ( $halt_on_error ) {
+					WP_CLI::error( $error_msg );
 				}
-
-				// Store exception and retry.
-				$last_exception = $exception;
-				WP_CLI::debug( sprintf( 'Retrying HTTP request to %s (retry %d/%d) after transient error: %s', $url, $attempt, $max_retries, $exception->getMessage() ), 'http' );
-				sleep( $retry_after_delay );
-				$retry_after_delay = min( $retry_after_delay * 2, 10 ); // Exponential backoff, max 10 seconds.
-				continue;
+				throw new RuntimeException( $error_msg, 0, $exception );
 			}
 
 			$warning = sprintf(
@@ -1028,40 +886,19 @@ function http_request( $method, $url, $data = null, $headers = [], $options = []
 
 			try {
 				return $request_method( $url, $headers, $data, $method, $options );
-			} catch ( \Requests_Exception | \WpOrg\Requests\Exception $retry_exception ) {
-				// Check if this is a transient error that should be retried.
-				$retry_curl_handle = $retry_exception->getData();
-				$retry_curl_errno  = null;
-				if ( function_exists( 'curl_errno' ) && ( is_resource( $retry_curl_handle ) || ( is_object( $retry_curl_handle ) && $retry_curl_handle instanceof \CurlHandle ) ) ) {
-					// @phpstan-ignore argument.type
-					$retry_curl_errno = curl_errno( $retry_curl_handle );
+			} catch ( Exception $exception ) {
+				if ( RequestsLibrary::is_requests_exception( $exception ) ) {
+					$error_msg = sprintf( "Failed to get non-verified url '%s' %s.", $url, $exception->getMessage() );
+					if ( $halt_on_error ) {
+						WP_CLI::error( $error_msg );
+					}
+					throw new RuntimeException( $error_msg, 0, $exception );
 				}
-				$is_retry_transient = null !== $retry_curl_errno && in_array( $retry_curl_errno, [ 6, 7, 18, 28, 52, 55, 56 ], true );
-
-				if ( $is_retry_transient && $attempt < $max_retries ) {
-					// Transient error, let the retry loop handle it.
-					$last_exception = $retry_exception;
-					WP_CLI::debug( sprintf( 'Retrying HTTP request to %s (retry %d/%d) after transient error: %s', $url, $attempt, $max_retries, $retry_exception->getMessage() ), 'http' );
-					sleep( $retry_after_delay );
-					$retry_after_delay = min( $retry_after_delay * 2, 10 ); // Exponential backoff, max 10 seconds.
-					continue;
-				}
-
-				$error_msg = sprintf( "Failed to get non-verified url '%s' %s.", $url, $retry_exception->getMessage() );
-				if ( $halt_on_error ) {
-					WP_CLI::error( $error_msg );
-				}
-				throw new RuntimeException( $error_msg, 0, $retry_exception );
+				throw $exception;
 			}
 		}
+		throw $exception;
 	}
-
-	// All retries exhausted, throw the last exception.
-	$error_msg = sprintf( "Failed to get url '%s' after %d attempts.", $url, $max_retries );
-	if ( $halt_on_error ) {
-		WP_CLI::error( $error_msg );
-	}
-	throw new RuntimeException( $error_msg, 0, $last_exception );
 }
 
 /**
@@ -1076,7 +913,7 @@ function get_default_cacert( $halt_on_error = false ) {
 	$cert_path = RequestsLibrary::get_bundled_certificate_path();
 	$error_msg = 'Cannot find SSL certificate.';
 
-	if ( Path::inside_phar( $cert_path ) ) {
+	if ( inside_phar( $cert_path ) ) {
 		// cURL can't read Phar archives.
 		return extract_from_phar( $cert_path );
 	}
@@ -1105,52 +942,45 @@ function get_default_cacert( $halt_on_error = false ) {
  */
 function increment_version( $current_version, $new_version ) {
 	// split version assuming the format is x.y.z-pre.
-	$_current_version    = explode( '-', $current_version, 2 );
-	$_current_version[0] = explode( '.', $_current_version[0] );
+	$current_version    = explode( '-', $current_version, 2 );
+	$current_version[0] = explode( '.', $current_version[0] );
 
-	$_current_version = array_slice( $_current_version, 0, 2 );
-
-	/**
-	 * @var array{0: list<string>, 1?: string|list<string>|null} $_current_version
-	 */
-	// @phpstan-ignore varTag.type
 	switch ( $new_version ) {
 		case 'same':
 			// do nothing.
 			break;
 
 		case 'patch':
-			$_current_version[0][2] = (int) $_current_version[0][2] + 1;
+			++$current_version[0][2];
 
-			$_current_version = [ $_current_version[0] ]; // Drop possible pre-release info.
+			$current_version = [ $current_version[0] ]; // Drop possible pre-release info.
 			break;
 
 		case 'minor':
-			$_current_version[0][1] = (int) $_current_version[0][1] + 1;
-			$_current_version[0][2] = 0;
+			++$current_version[0][1];
+			$current_version[0][2] = 0;
 
-			$_current_version = [ $_current_version[0] ]; // Drop possible pre-release info.
+			$current_version = [ $current_version[0] ]; // Drop possible pre-release info.
 			break;
 
 		case 'major':
-			$_current_version[0][0] = (int) $_current_version[0][0] + 1;
-			$_current_version[0][1] = 0;
-			$_current_version[0][2] = 0;
+			++$current_version[0][0];
+			$current_version[0][1] = 0;
+			$current_version[0][2] = 0;
 
-			$_current_version = [ $_current_version[0] ]; // Drop possible pre-release info.
+			$current_version = [ $current_version[0] ]; // Drop possible pre-release info.
 			break;
 
 		default: // not a keyword.
-			$_current_version = [ [ $new_version ] ];
+			$current_version = [ [ $new_version ] ];
 			break;
 	}
 
 	// Reconstruct version string.
-	$_current_version[0] = implode( '.', $_current_version[0] );
-	// @phpstan-ignore argument.type
-	$_current_version = implode( '-', $_current_version );
+	$current_version[0] = implode( '.', $current_version[0] );
+	$current_version    = implode( '-', $current_version );
 
-	return $_current_version;
+	return $current_version;
 }
 
 /**
@@ -1173,6 +1003,9 @@ function get_named_sem_ver( $new_version, $original_version ) {
 	$major = $bits[0];
 	if ( isset( $bits[1] ) ) {
 		$minor = $bits[1];
+	}
+	if ( isset( $bits[2] ) ) {
+		$patch = $bits[2];
 	}
 
 	try {
@@ -1200,10 +1033,10 @@ function get_named_sem_ver( $new_version, $original_version ) {
  * @access public
  * @category Input
  *
- * @param array<string|int,string|bool> $assoc_args Arguments array.
- * @param string|int                    $flag       Flag to get the value.
- * @param string|bool|int|null          $default    Default value for the flag. Default: NULL.
- * @return string|bool|int|null
+ * @param array<string,string|bool>  $assoc_args Arguments array.
+ * @param string                     $flag       Flag to get the value.
+ * @param mixed                      $default    Default value for the flag. Default: NULL.
+ * @return mixed
  */
 function get_flag_value( $assoc_args, $flag, $default = null ) {
 	return isset( $assoc_args[ $flag ] ) ? $assoc_args[ $flag ] : $default;
@@ -1212,21 +1045,23 @@ function get_flag_value( $assoc_args, $flag, $default = null ) {
 /**
  * Get the home directory.
  *
- * @deprecated 2.13.0 Use Path::get_home_dir() instead.
- *
  * @access public
  * @category System
  *
  * @return string
  */
 function get_home_dir() {
-	return Path::get_home_dir();
+	$home = getenv( 'HOME' );
+	if ( ! $home ) {
+		// In Windows $HOME may not be defined.
+		$home = getenv( 'HOMEDRIVE' ) . getenv( 'HOMEPATH' );
+	}
+
+	return rtrim( $home, '/\\' );
 }
 
 /**
  * Appends a trailing slash.
- *
- * @deprecated 2.13.0 Use Path::trailingslashit() instead.
  *
  * @access public
  * @category System
@@ -1235,22 +1070,11 @@ function get_home_dir() {
  * @return string String with trailing slash added.
  */
 function trailingslashit( $string ) {
-	return Path::trailingslashit( $string );
-}
+	if ( ! is_string( $string ) ) {
+		return '/';
+	}
 
-/**
- * Check if a path is a PHP stream URL.
- *
- * @deprecated 2.13.0 Use Path::is_stream() instead.
- *
- * @access public
- * @category System
- *
- * @param string $path The resource path or URL.
- * @return bool True if the path is a PHP stream URL, false otherwise.
- */
-function is_stream( $path ) {
-	return Path::is_stream( $path );
+	return rtrim( $string, '/\\' ) . '/';
 }
 
 /**
@@ -1261,9 +1085,6 @@ function is_stream( $path ) {
  * Allows for two leading slashes for Windows network shares, but
  * ensures that all other duplicate slashes are reduced to a single one.
  * Ensures upper-case drive letters on Windows systems.
- * Allows for PHP file wrappers.
- *
- * @deprecated 2.13.0 Use Path::normalize() instead.
  *
  * @access public
  * @category System
@@ -1272,7 +1093,12 @@ function is_stream( $path ) {
  * @return string Normalized path.
  */
 function normalize_path( $path ) {
-	return Path::normalize( $path );
+	$path = str_replace( '\\', '/', $path );
+	$path = preg_replace( '|(?<=.)/+|', '/', $path );
+	if ( ':' === substr( $path, 1, 1 ) ) {
+		$path = ucfirst( $path );
+	}
+	return $path;
 }
 
 
@@ -1302,7 +1128,7 @@ function get_temp_dir() {
 	}
 
 	// `sys_get_temp_dir()` introduced PHP 5.2.1. Will always return something.
-	$temp = Path::trailingslashit( sys_get_temp_dir() );
+	$temp = trailingslashit( sys_get_temp_dir() );
 
 	if ( ! is_writable( $temp ) ) {
 		WP_CLI::warning( "Temp directory isn't writable: {$temp}" );
@@ -1325,14 +1151,9 @@ function get_temp_dir() {
  * @param string $url
  * @param int $component
  * @return mixed
- *
- * @phpstan-return ($component is non-negative-int ? string|null : array{scheme?: string, user?: string, host?: string, port?: string, path?: string})
  */
 function parse_ssh_url( $url, $component = -1 ) {
 	preg_match( '#^((docker|docker\-compose|docker\-compose\-run|ssh|vagrant):)?(([^@:]+)@)?([^:/~]+)(:([\d]*))?((/|~)(.+))?$#', $url, $matches );
-	/**
-	 * @var array{scheme?: string, user?: string, host?: string, port?: string, path?: string} $bits
-	 */
 	$bits = [];
 	foreach ( [
 		2 => 'scheme',
@@ -1348,7 +1169,7 @@ function parse_ssh_url( $url, $component = -1 ) {
 
 	// Find the hostname from `vagrant ssh-config` automatically.
 	if ( preg_match( '/^vagrant:?/', $url ) ) {
-		if ( isset( $bits['host'] ) && 'vagrant' === $bits['host'] && empty( $bits['scheme'] ) ) {
+		if ( 'vagrant' === $bits['host'] && empty( $bits['scheme'] ) ) {
 			$bits['scheme'] = 'vagrant';
 			$bits['host']   = '';
 		}
@@ -1416,43 +1237,24 @@ function report_batch_operation_results( $noun, $verb, $total, $successes, $fail
  * @return array<string>
  */
 function parse_str_to_argv( $arguments ) {
-	preg_match_all( '/(?:--[^\s=]+=(["\'])((\\{2})*|[^\\\\](?:\\{2})*|(?:[^\1]+?[^\\\\](\\{2})*))\1|--[^\s=]+=[^\s]+|--[^\s=]+|(["\'])((\\{2})*|[^\\\\](?:\\{2})*|(?:[^\5]+?[^\\\\](\\{2})*))\5|[^\s]+)/', $arguments, $matches, PREG_SET_ORDER );
-	$argv = [];
-	foreach ( $matches as $match ) {
-		// Check if this is a quoted associative argument (--key="value" or --key='value').
-		// For associative args, groups 1 and 2 contain the quote char and value.
-		// For positional args, groups 5 and 6 contain the quote char and value, and group 1 is empty.
-		if ( isset( $match[1], $match[2] ) && 0 < strlen( $match[1] ) ) {
-			// Extract the key part (everything before the quote).
-			if ( preg_match( '/^(--[^=]+=)/', $match[0], $key_match ) ) {
-				$value = $match[2];
-				// Unescape the quote character that was used to wrap the value.
-				$quote_char = $match[1];
-				$value      = str_replace( '\\' . $quote_char, $quote_char, $value );
-				// Reconstruct without the outer quotes.
-				$argv[] = $key_match[1] . $value;
-			} else {
-				$argv[] = $match[0];
+	preg_match_all( '/(?:--[^\s=]+=(["\'])((\\{2})*|(?:[^\1]+?[^\\\\](\\{2})*))\1|--[^\s=]+=[^\s]+|--[^\s=]+|(["\'])((\\{2})*|(?:[^\5]+?[^\\\\](\\{2})*))\5|[^\s]+)/', $arguments, $matches );
+	$argv = $matches[0];
+	return array_map(
+		static function ( $arg ) {
+			foreach ( [ '"', "'" ] as $char ) {
+				if ( substr( $arg, 0, 1 ) === $char && substr( $arg, -1 ) === $char ) {
+					$arg = substr( $arg, 1, -1 );
+					break;
+				}
 			}
-		} elseif ( isset( $match[5], $match[6] ) ) {
-			// This is a quoted positional argument.
-			$value = $match[6];
-			// Unescape the quote character that was used to wrap the value.
-			$quote_char = $match[5];
-			$value      = str_replace( '\\' . $quote_char, $quote_char, $value );
-			$argv[]     = $value;
-		} else {
-			// Unquoted argument.
-			$argv[] = $match[0];
-		}
-	}
-	return $argv;
+			return $arg;
+		},
+		$argv
+	);
 }
 
 /**
  * Locale-independent version of basename()
- *
- * @deprecated 2.13.0 Use Path::basename() instead.
  *
  * @access public
  *
@@ -1461,7 +1263,8 @@ function parse_str_to_argv( $arguments ) {
  * @return string
  */
 function basename( $path, $suffix = '' ) {
-	return Path::basename( $path, $suffix );
+	// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.urlencode_urlencode -- Format required by wordpress.org API.
+	return urldecode( \basename( str_replace( [ '%2F', '%5C' ], '/', urlencode( $path ) ), $suffix ) );
 }
 
 /**
@@ -1525,9 +1328,6 @@ function expand_globs( $paths, $flags = 'default' ) {
 		$matching = [ $path ];
 
 		if ( preg_match( '/[' . preg_quote( '*?[]{}!', '/' ) . ']/', $path ) ) {
-			/**
-			 * @var int $flags
-			 */
 			$matching = $glob_func( $path, $flags ) ?: [];
 		}
 		$expanded = array_merge( $expanded, $matching );
@@ -1582,10 +1382,7 @@ function glob_brace( $pattern, $dummy_flags = null ) { // phpcs:ignore Generic.C
 
 	$length = strlen( $pattern );
 
-	$begin = 0;
-
 	// Find first opening brace.
-	// @phpstan-ignore for.variableOverwrite
 	for ( $begin = 0; $begin < $length; $begin++ ) {
 		if ( '\\' === $pattern[ $begin ] ) {
 			++$begin;
@@ -1597,8 +1394,7 @@ function glob_brace( $pattern, $dummy_flags = null ) { // phpcs:ignore Generic.C
 	// Find comma or matching closing brace.
 	$next = $next_brace_sub( $pattern, $begin + 1 );
 	if ( null === $next ) {
-		$result = glob( $pattern );
-		return $result ?: [];
+		return glob( $pattern );
 	}
 
 	$rest = $next;
@@ -1607,8 +1403,7 @@ function glob_brace( $pattern, $dummy_flags = null ) { // phpcs:ignore Generic.C
 	while ( '}' !== $pattern[ $rest ] ) {
 		$rest = $next_brace_sub( $pattern, $rest + 1 );
 		if ( null === $rest ) {
-			$result = glob( $pattern );
-			return $result ?: [];
+			return glob( $pattern );
 		}
 	}
 
@@ -1684,9 +1479,6 @@ function get_suggestion( $target, array $options, $threshold = 2 ) {
 	if ( empty( $options ) ) {
 		return '';
 	}
-
-	$levenshtein = [];
-
 	foreach ( $options as $option ) {
 		$distance               = levenshtein( $option, $target );
 		$levenshtein[ $option ] = $distance;
@@ -1713,13 +1505,20 @@ function get_suggestion( $target, array $options, $threshold = 2 ) {
  *
  * Use the __FILE__ or __DIR__ constants as a starting point.
  *
- * @deprecated 2.13.0 Use Path::phar_safe() instead.
- *
  * @param string $path An absolute path that might be within a Phar.
  * @return string A Phar-safe version of the path.
  */
 function phar_safe_path( $path ) {
-	return Path::phar_safe( $path );
+
+	if ( ! inside_phar() ) {
+		return $path;
+	}
+
+	return str_replace(
+		PHAR_STREAM_PREFIX . rtrim( WP_CLI_PHAR_PATH, '/' ) . '/',
+		PHAR_STREAM_PREFIX,
+		$path
+	);
 }
 
 /**
@@ -1801,7 +1600,7 @@ function past_tense_verb( $verb ) {
  */
 function get_php_binary() {
 	// Phar installs always use PHP_BINARY.
-	if ( Path::inside_phar() ) {
+	if ( inside_phar() ) {
 		return PHP_BINARY;
 	}
 
@@ -1824,30 +1623,17 @@ function get_php_binary() {
  *
  * @access public
  *
- * @param string                            $cmd            Command to execute.
- * @param array<int, list<string>|resource> $descriptorspec Indexed array of descriptor numbers and their values.
- * @param array<int, resource>              &$pipes         Indexed array of file pointers that correspond to PHP's end of any pipes that are created.
- * @param string                            $cwd            Initial working directory for the command.
- * @param array<string, string>             $env            Array of environment variables.
- * @param array<string, bool>|null          $other_options  Array of additional options (Windows only).
- * @return resource|false Command stripped of any environment variable settings, or false on failure.
- *
- * @param-out array<int, resource> $pipes
+ * @param string                $cmd            Command to execute.
+ * @param array<int, string>    $descriptorspec Indexed array of descriptor numbers and their values.
+ * @param array<int, string>    &$pipes         Indexed array of file pointers that correspond to PHP's end of any pipes that are created.
+ * @param string                $cwd            Initial working directory for the command.
+ * @param array<string, string> $env            Array of environment variables.
+ * @param array<string>         $other_options  Array of additional options (Windows only).
+ * @return resource Command stripped of any environment variable settings.
  */
 function proc_open_compat( $cmd, $descriptorspec, &$pipes, $cwd = null, $env = null, $other_options = null ) {
 	if ( is_windows() ) {
-		// @phpstan-ignore no.private.function
 		$cmd = _proc_open_compat_win_env( $cmd, $env );
-
-		// Normalize forward slashes in the executable name for Windows cmd.exe
-		if ( false !== strpos( $cmd, '/' ) ) {
-			if ( preg_match( '/^("[^"]*"|[^ ]+)/', $cmd, $matches ) ) {
-				$executable = $matches[0];
-				$rest       = substr( $cmd, strlen( $executable ) );
-				$executable = str_replace( '/', '\\', $executable );
-				$cmd        = $executable . $rest;
-			}
-		}
 	}
 	return proc_open( $cmd, $descriptorspec, $pipes, $cwd, $env, $other_options );
 }
@@ -1859,7 +1645,7 @@ function proc_open_compat( $cmd, $descriptorspec, &$pipes, $cwd = null, $env = n
  * @access private
  *
  * @param string                $cmd  Command to execute.
- * @param array<string, string>|null &$env Array of existing environment variables. Will be modified if any settings in command.
+ * @param array<string, string> &$env Array of existing environment variables. Will be modified if any settings in command.
  * @return string Command stripped of any environment variable settings.
  */
 function _proc_open_compat_win_env( $cmd, &$env ) {
@@ -1890,13 +1676,10 @@ function _proc_open_compat_win_env( $cmd, &$env ) {
  *                or real_escape next.
  */
 function esc_like( $text ) {
-	/**
-	 * @var null|\wpdb $wpdb
-	 */
 	global $wpdb;
 
 	// Check if the esc_like() method exists on the global $wpdb object.
-	// We need to do this because to ensure compatibility layers like the
+	// We need to do this because to ensure compatibilty layers like the
 	// SQLite integration plugin still work.
 	if ( null !== $wpdb && method_exists( $wpdb, 'esc_like' ) ) {
 		return $wpdb->esc_like( $text );
@@ -1911,8 +1694,6 @@ function esc_like( $text ) {
  *
  * @param  string|array<string> $idents A single identifier or an array of identifiers.
  * @return string|array<string> An escaped string if given a string, or an array of escaped strings if given an array of strings.
- *
- * @phpstan-return ($idents is string ? string : array<string>)
  */
 function esc_sql_ident( $idents ) {
 	$backtick = static function ( $v ) {
@@ -1928,12 +1709,10 @@ function esc_sql_ident( $idents ) {
 /**
  * Check whether a given string is a valid JSON representation.
  *
- * @param mixed  $argument       String to evaluate.
+ * @param string $argument       String to evaluate.
  * @param bool   $ignore_scalars Optional. Whether to ignore scalar values.
  *                               Defaults to true.
  * @return bool Whether the provided string is a valid JSON representation.
- *
- * @phpstan-assert-if-true =non-empty-string $argument
  */
 function is_json( $argument, $ignore_scalars = true ) {
 	if ( ! is_string( $argument ) || '' === $argument ) {
@@ -1955,7 +1734,7 @@ function is_json( $argument, $ignore_scalars = true ) {
  * @param array<string, string> $assoc_args      Associative array of arguments.
  * @param array<string>         $array_arguments Array of argument keys that should receive an
  *                                               array through the shell.
- * @return array<string, mixed>
+ * @return array<string, string>
  */
 function parse_shell_arrays( $assoc_args, $array_arguments ) {
 	if ( empty( $assoc_args ) || empty( $array_arguments ) ) {
@@ -1964,8 +1743,7 @@ function parse_shell_arrays( $assoc_args, $array_arguments ) {
 
 	foreach ( $array_arguments as $key ) {
 		if ( array_key_exists( $key, $assoc_args ) && is_json( $assoc_args[ $key ] ) ) {
-			// @phpstan-ignore cast.useless
-			$assoc_args[ $key ] = json_decode( (string) $assoc_args[ $key ], $assoc = true );
+			$assoc_args[ $key ] = json_decode( $assoc_args[ $key ], $assoc = true );
 		}
 	}
 
@@ -1987,17 +1765,15 @@ function describe_callable( $callable ) {
 		}
 
 		if ( is_array( $callable ) ) {
-			/** @var array{0: object|string, 1: string} $callable */
-
 			if ( is_object( $callable[0] ) ) {
 				return sprintf(
 					'%s->%s()',
 					get_class( $callable[0] ),
-					(string) $callable[1]
+					$callable[1]
 				);
 			}
 
-			return sprintf( '%s::%s()', (string) $callable[0], (string) $callable[1] );
+			return sprintf( '%s::%s()', $callable[0], $callable[1] );
 		}
 
 		return gettype( $callable );
@@ -2012,7 +1788,7 @@ function describe_callable( $callable ) {
  * This accommodates changes to `is_callable()` in PHP 8 that mean an array of a
  * classname and instance method is no longer callable.
  *
- * @param array $pair The class and method pair to check.
+ * @param array<string> $pair The class and method pair to check.
  * @return bool
  */
 function is_valid_class_and_method_pair( $pair ) {
@@ -2142,14 +1918,14 @@ function get_mysql_version() {
 		return $version;
 	}
 
-	$version = '';
-
 	$db_type = get_db_type();
 
 	if ( 'sqlite' !== $db_type ) {
 		$result = Process::create( "/usr/bin/env $db_type --version", null, null )->run();
 
-		if ( 0 === $result->return_code ) {
+		if ( 0 !== $result->return_code ) {
+			$version = '';
+		} else {
 			$version = trim( $result->stdout );
 		}
 	}
@@ -2198,11 +1974,10 @@ function get_sql_modes() {
 		if ( 0 !== $result->return_code ) {
 			$sql_modes = [];
 		} else {
-			$split_lines = preg_split( "/\r\n|\n|\r/", $result->stdout );
-			$sql_modes   = array_filter(
+			$sql_modes = array_filter(
 				array_map(
 					'trim',
-					$split_lines ?: []
+					preg_split( "/\r\n|\n|\r/", $result->stdout )
 				)
 			);
 		}
@@ -2212,39 +1987,13 @@ function get_sql_modes() {
 }
 
 /**
- * Get an environment variable value, with config file fallback.
- *
- * Checks the actual environment variable first, then falls back to
- * values defined in the 'env' configuration key in wp-cli.yml.
- *
- * @param string $name Environment variable name.
- * @return string|false The value of the environment variable, or false if not set.
- */
-function get_env_or_config( $name ) {
-	$env_value = getenv( $name );
-	if ( false !== $env_value ) {
-		return $env_value;
-	}
-
-	// Try to get from config file
-	$runner = WP_CLI::get_runner();
-	if ( $runner && isset( $runner->extra_config['env'] ) && is_array( $runner->extra_config['env'] ) && isset( $runner->extra_config['env'][ $name ] ) ) {
-		// @phpstan-ignore cast.string
-		return (string) $runner->extra_config['env'][ $name ];
-	}
-
-	return false;
-}
-
-/**
  * Get the WP-CLI cache directory.
  *
  * @return string
  */
 function get_cache_dir() {
-	$home      = Path::get_home_dir();
-	$cache_dir = get_env_or_config( 'WP_CLI_CACHE_DIR' );
-	return $cache_dir ? : "$home/.wp-cli/cache";
+	$home = get_home_dir();
+	return getenv( 'WP_CLI_CACHE_DIR' ) ? : "$home/.wp-cli/cache";
 }
 
 /**
@@ -2253,34 +2002,11 @@ function get_cache_dir() {
  * @return bool
  */
 function has_stdin() {
-	// Use fstat() to detect character devices (S_IFCHR), which includes
-	// both interactive terminals (TTY) and /dev/null. In non-interactive
-	// environments (cron, atd, puppet exec), STDIN is often connected to
-	// /dev/null, which stream_select() incorrectly reports as readable
-	// (since EOF is immediately available). For the purposes of this
-	// helper, character devices are treated as "no stdin" to avoid
-	// blocking on interactive input or misdetecting /dev/null as input.
-	$stat = fstat( STDIN );
-	if ( false !== $stat ) {
-		// S_IFMT  (0170000): bitmask to extract the POSIX file type.
-		// S_IFCHR (0020000): file type constant for character devices.
-		// Character devices include both interactive terminals (TTY) and
-		// /dev/null, all of which are treated as not providing stdin here.
-		if ( 0020000 === ( $stat['mode'] & 0170000 ) ) {
-			return false;
-		}
-	}
-
-	$handle = fopen( 'php://stdin', 'r' );
-	if ( ! $handle ) {
-		return false;
-	}
-
+	$handle  = fopen( 'php://stdin', 'r' );
 	$read    = array( $handle );
 	$write   = null;
 	$except  = null;
 	$streams = stream_select( $read, $write, $except, 0 );
-
 	fclose( $handle );
 
 	return 1 === $streams;
@@ -2337,42 +2063,4 @@ function escape_csv_value( $value ) {
 	}
 
 	return $value;
-}
-
-/**
- * Convert a size in bytes to a human-readable format.
- *
- * @param int|float $bytes    Size in bytes.
- * @param int       $decimals Optional. Number of decimal places to round to. Default 0.
- * @param string    $unit     Optional. Specific unit to use. Default is auto-detect.
- * @return string Human-readable size.
- */
-function format_bytes_string( $bytes, $decimals = 0, $unit = '' ) {
-	if ( 0 === (int) $bytes ) {
-		return '0 B';
-	}
-
-	$sizes = [ 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' ];
-
-	// Use absolute value for calculating log exponent metrics cleanly.
-	$abs_bytes = abs( (float) $bytes );
-
-	// Resolve the specific target unit manually.
-	$size_key = false;
-	if ( ! empty( $unit ) ) {
-		$unit     = strtoupper( $unit );
-		$size_key = array_search( $unit, $sizes, true );
-	}
-
-	// Calculate and bound the auto-detect unit size string if no valid unit was requested.
-	if ( false === $size_key ) {
-		$size_key = (int) floor( log( $abs_bytes ) / log( 1000 ) );
-		$size_key = min( $size_key, count( $sizes ) - 1 ); // Prevent out of bounds
-
-		$unit = $sizes[ $size_key ];
-	}
-
-	$divisor = pow( 1000, $size_key );
-
-	return round( $bytes / $divisor, $decimals ) . ' ' . $unit;
 }

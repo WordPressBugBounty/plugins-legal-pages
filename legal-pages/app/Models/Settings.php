@@ -18,7 +18,7 @@ class Settings {
             ARRAY_A
         );
 
-        $templates = $results ?: [];
+        $templates = array_map( [ __CLASS__, 'format_template' ], $results ?: [] );
 
         $free = array_values( array_filter( $templates, fn($t) => $t['type'] === 'free' ) );
         $pro  = array_values( array_filter( $templates, fn($t) => $t['type'] === 'pro'  ) );
@@ -30,15 +30,33 @@ class Settings {
         global $wpdb;
         $table = $wpdb->prefix . 'adl_lp_templates';
 
-        return $wpdb->get_row(
+        $template = $wpdb->get_row(
             $wpdb->prepare( "SELECT id, name, content, type FROM $table WHERE id = %d", $id ),
             ARRAY_A
-        ) ?: null;
+        );
+
+        return $template ? self::format_template( $template ) : null;
+    }
+
+    /**
+     * Some bundled templates are plain text separated by blank lines. TinyMCE
+     * treats content as HTML and collapses those into one paragraph, so give
+     * them <p> tags before they reach the editor. Templates that already use
+     * paragraphs are left as-is. Single newlines aren't turned into <br>, since
+     * these templates already mark their line breaks explicitly.
+     */
+    private static function format_template( $template ) {
+        if ( ! empty( $template['content'] ) && false === stripos( $template['content'], '<p' ) ) {
+            $template['content'] = wpautop( $template['content'], false );
+        }
+
+        return $template;
     }
 
     // ────────────────────────────────────────────────
     // Legal page creation
     // ────────────────────────────────────────────────
+
 
     public static function save_legal_page( $params ) {
         if ( empty( $params['title'] ) ) {
@@ -359,7 +377,8 @@ class Settings {
     public static function get_shortcodes() {
         $settings = get_option( 'adl_lp_general', array() );
 
-        return array(
+        // The SPA's shortcode picker only uses the keys; add-ons (Legal Pages Pro) add their own tags here.
+        return apply_filters( 'legal_pages_shortcodes', array(
             'siteUrl'                 => ! empty( $settings['site_url'] ) ? $settings['site_url'] : '',
             'siteName'                => ! empty( $settings['site_name'] ) ? $settings['site_name'] : '',
             'businessNiche'           => ! empty( $settings['business_niche'] ) ? $settings['business_niche'] : '',
@@ -372,7 +391,7 @@ class Settings {
             'zipCode'                 => ! empty( $settings['zip_code'] ) ? $settings['zip_code'] : '',
             'mailingAddress'          => ! empty( $settings['complete_address'] ) ? $settings['complete_address'] : '',
             'facebookUrl'             => ! empty( $settings['facebook_url'] ) ? $settings['facebook_url'] : '',
-        );
+        ) );
     }
 
     /**
@@ -382,6 +401,44 @@ class Settings {
      */
     public static function accept_disclaimer() {
         return update_option( 'adl_lp_accept_term', '1' );
+    }
+
+    /**
+     * Mark the Setup Wizard as completed
+     *
+     * @return bool True if updated, false otherwise
+     */
+    public static function complete_setup_wizard() {
+        return update_option( 'adl_lp_setup_wizard_completed', '1', false );
+    }
+
+    // ────────────────────────────────────────────────
+    // Dismissible admin SPA notices (per user)
+    // ────────────────────────────────────────────────
+
+    const DISMISSIBLE_NOTICES = [ 'cookie_scan' ];
+    const DISMISSED_NOTICES_META = 'adl_lp_dismissed_notices';
+
+    public static function get_dismissed_notices( $user_id = 0 ) {
+        $dismissed = get_user_meta( $user_id ?: get_current_user_id(), self::DISMISSED_NOTICES_META, true );
+        return is_array( $dismissed ) ? array_values( array_intersect( $dismissed, self::DISMISSIBLE_NOTICES ) ) : [];
+    }
+
+    /**
+     * @return array|\WP_Error The current user's dismissed notices.
+     */
+    public static function dismiss_notice( $notice ) {
+        if ( ! in_array( $notice, self::DISMISSIBLE_NOTICES, true ) ) {
+            return new \WP_Error( 'invalid_notice', __( 'Unknown notice.', 'legal-pages' ), [ 'status' => 400 ] );
+        }
+
+        $dismissed = self::get_dismissed_notices();
+        if ( ! in_array( $notice, $dismissed, true ) ) {
+            $dismissed[] = $notice;
+            update_user_meta( get_current_user_id(), self::DISMISSED_NOTICES_META, $dismissed );
+        }
+
+        return $dismissed;
     }
 
     // ────────────────────────────────────────────────
@@ -526,6 +583,46 @@ class Settings {
             'all'       => (int) $all_count,
             'published' => (int) $published_count,
             'draft'     => (int) $draft_count
+        ];
+    }
+
+    /**
+     * Get a single legal page by ID, for editing
+     *
+     * @param int $page_id Page ID
+     * @return array|\WP_Error
+     */
+    public static function get_legal_page_by_id( $page_id ) {
+        $page_id = (int) $page_id;
+
+        $is_legal_page = get_post_meta( $page_id, 'is_adl_legal_page', true );
+
+        if ( $is_legal_page !== '1' ) {
+            return new \WP_Error(
+                'not_legal_page',
+                __( 'This is not a legal page.', 'legal-pages' ),
+                [ 'status' => 404 ]
+            );
+        }
+
+        $post = get_post( $page_id );
+
+        if ( ! $post ) {
+            return new \WP_Error(
+                'page_not_found',
+                __( 'Page not found.', 'legal-pages' ),
+                [ 'status' => 404 ]
+            );
+        }
+
+        return [
+            'id'       => $page_id,
+            'title'    => get_the_title( $page_id ),
+            'content'  => $post->post_content,
+            'subtitle' => get_post_meta( $page_id, '_legal_page_subtitle', true ),
+            'status'   => get_post_status( $page_id ),
+            'edit_url' => get_edit_post_link( $page_id, 'raw' ),
+            'view_url' => get_permalink( $page_id ),
         ];
     }
 

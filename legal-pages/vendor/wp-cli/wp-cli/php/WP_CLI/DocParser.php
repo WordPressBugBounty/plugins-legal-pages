@@ -33,9 +33,9 @@ class DocParser {
 	 * @return string
 	 */
 	private static function remove_decorations( $comment ) {
-		$comment = (string) preg_replace( '|^/\*\*[\r\n]+|', '', $comment );
-		$comment = (string) preg_replace( '|\n[\t ]*\*/$|', '', $comment );
-		$comment = (string) preg_replace( '|^[\t ]*\* ?|m', '', $comment );
+		$comment = preg_replace( '|^/\*\*[\r\n]+|', '', $comment );
+		$comment = preg_replace( '|\n[\t ]*\*/$|', '', $comment );
+		$comment = preg_replace( '|^[\t ]*\* ?|m', '', $comment );
 
 		return $comment;
 	}
@@ -93,18 +93,6 @@ class DocParser {
 	}
 
 	/**
-	 * Check if a given tag exists (e.g. "@skipglobalargcheck")
-	 *
-	 * Useful for checking the presence of valueless tags in PHPdoc.
-	 *
-	 * @param string $name Name for the tag, without '@'
-	 * @return bool True if the tag exists, false otherwise.
-	 */
-	public function has_tag( $name ) {
-		return (bool) preg_match( '/^\s*\*?\s*@' . preg_quote( $name, '/' ) . '\b/m', $this->doc_comment );
-	}
-
-	/**
 	 * Get the command's synopsis.
 	 *
 	 * @return string
@@ -136,7 +124,7 @@ class DocParser {
 	 * Get the arguments for a given argument.
 	 *
 	 * @param string $name Argument's doc name.
-	 * @return array|null
+	 * @return mixed|null
 	 */
 	public function get_arg_args( $name ) {
 		return $this->get_arg_or_param_args( "/^\[?<{$name}>.*/" );
@@ -161,7 +149,7 @@ class DocParser {
 	 * Get the arguments for a given parameter.
 	 *
 	 * @param string $key Parameter's key.
-	 * @return array|null
+	 * @return mixed|null
 	 */
 	public function get_param_args( $key ) {
 		return $this->get_arg_or_param_args( "/^\[?--{$key}=.*/" );

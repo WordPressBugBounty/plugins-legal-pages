@@ -4,6 +4,7 @@ use WP_REST_Server;
 use LegalPage\Traits\Hook;
 use LegalPage\Traits\Rest;
 use LegalPage\API\Settings;
+use LegalPage\API\Cookie;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -33,6 +34,30 @@ class API {
                     'permission_callback' => array( new Settings(), 'check_permissions' ),
                 ),
                 // 'schema' => array( new Settings(), 'get_item_schema' ),
+            )
+        );
+
+        // Setup wizard completion endpoint
+        $this->register_route(
+            '/setup-wizard/complete',
+            array(
+                array(
+                    'methods'             => WP_REST_Server::CREATABLE,
+                    'callback'            => array( new Settings(), 'complete_setup_wizard' ),
+                    'permission_callback' => array( new Settings(), 'check_permissions' ),
+                ),
+            )
+        );
+
+        // Dismiss an admin SPA notice for the current user
+        $this->register_route(
+            '/notices/(?P<notice>[a-z0-9_]+)/dismiss',
+            array(
+                array(
+                    'methods'             => WP_REST_Server::CREATABLE,
+                    'callback'            => array( new Settings(), 'dismiss_notice' ),
+                    'permission_callback' => array( new Settings(), 'check_permissions' ),
+                ),
             )
         );
 
@@ -248,6 +273,18 @@ class API {
             )
         );
 
+        // Get a single legal page (for editing)
+        $this->register_route(
+            '/legal-page/(?P<id>\d+)',
+            array(
+                array(
+                    'methods'             => WP_REST_Server::READABLE,
+                    'callback'            => array( new Settings(), 'get_legal_page' ),
+                    'permission_callback' => array( new Settings(), 'check_permissions' ),
+                ),
+            )
+        );
+
         // Delete legal page
         $this->register_route(
             '/legal-page/(?P<id>\d+)',
@@ -284,5 +321,37 @@ class API {
                 ),
             )
         );
+
+        if ( ! legal_pages_cookie_bar_in_legacy_pro() ) {
+            $this->register_cookie_routes();
+        }
+    }
+
+    /**
+     * Cookie bar settings + scanner. Pro registers sync/clear/update/Block Services.
+     */
+    private function register_cookie_routes() {
+        $cookie     = new Cookie();
+        $permission = array( $cookie, 'check_permissions' );
+
+        $this->register_route( '/cookie-settings', array(
+            array( 'methods' => WP_REST_Server::READABLE, 'callback' => array( $cookie, 'get_settings' ), 'permission_callback' => $permission ),
+            array( 'methods' => WP_REST_Server::CREATABLE, 'callback' => array( $cookie, 'save_settings' ), 'permission_callback' => $permission ),
+        ) );
+        $this->register_route( '/cookie-scan', array(
+            array( 'methods' => WP_REST_Server::READABLE, 'callback' => array( $cookie, 'get_scan' ), 'permission_callback' => $permission ),
+        ) );
+        $this->register_route( '/cookie-scan/start', array(
+            array( 'methods' => WP_REST_Server::CREATABLE, 'callback' => array( $cookie, 'start_scan' ), 'permission_callback' => $permission ),
+        ) );
+        $this->register_route( '/cookie-scan/next', array(
+            array( 'methods' => WP_REST_Server::CREATABLE, 'callback' => array( $cookie, 'next_page' ), 'permission_callback' => $permission ),
+        ) );
+        $this->register_route( '/cookie-scan/stop', array(
+            array( 'methods' => WP_REST_Server::CREATABLE, 'callback' => array( $cookie, 'stop_scan' ), 'permission_callback' => $permission ),
+        ) );
+        $this->register_route( '/cookie-scan/report', array(
+            array( 'methods' => WP_REST_Server::CREATABLE, 'callback' => array( $cookie, 'report' ), 'permission_callback' => $permission ),
+        ) );
     }
 }
