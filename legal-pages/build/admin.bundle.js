@@ -13231,7 +13231,7 @@ var Settings = function Settings() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var _LEGAL_PAGES;
     var disclaimerAccepted = (_LEGAL_PAGES = LEGAL_PAGES) === null || _LEGAL_PAGES === void 0 ? void 0 : _LEGAL_PAGES.status;
-    if (disclaimerAccepted === '1') {
+    if (String(disclaimerAccepted) === '1') {
       setAcceptedDisclaimer(true);
     } else {
       setShowDisclaimer(true);
@@ -13262,6 +13262,9 @@ var Settings = function Settings() {
           case 3:
             result = _context.v;
             if (result.success) {
+              // LEGAL_PAGES is only localized on page load; update it so the disclaimer
+              // doesn't come back when this page remounts after SPA (hash) navigation.
+              window.LEGAL_PAGES.status = '1';
               setAcceptedDisclaimer(true);
               setShowDisclaimer(false);
               _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Disclaimer accepted successfully!');
@@ -14366,7 +14369,7 @@ var SetupWizard = function SetupWizard() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var _LEGAL_PAGES;
     var disclaimerAccepted = (_LEGAL_PAGES = LEGAL_PAGES) === null || _LEGAL_PAGES === void 0 ? void 0 : _LEGAL_PAGES.status;
-    if (disclaimerAccepted === '1') {
+    if (String(disclaimerAccepted) === '1') {
       setAcceptedDisclaimer(true);
     } else {
       setShowDisclaimer(true);
@@ -14397,6 +14400,8 @@ var SetupWizard = function SetupWizard() {
           case 3:
             result = _context2.v;
             if (result.success) {
+              // Keep the page-load copy in sync so other SPA screens don't show the disclaimer again.
+              window.LEGAL_PAGES.status = '1';
               setAcceptedDisclaimer(true);
               setShowDisclaimer(false);
               _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Disclaimer accepted successfully!');

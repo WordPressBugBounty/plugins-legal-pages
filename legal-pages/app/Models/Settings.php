@@ -397,9 +397,15 @@ class Settings {
     /**
      * Accept disclaimer
      *
-     * @return bool True if updated, false otherwise
+     * @return bool True if accepted (or already accepted), false otherwise
      */
     public static function accept_disclaimer() {
+        // update_option() returns false when the value is unchanged, so an already-accepted
+        // disclaimer must count as success rather than a failed save.
+        if ( '1' === (string) get_option( 'adl_lp_accept_term', '0' ) ) {
+            return true;
+        }
+
         return update_option( 'adl_lp_accept_term', '1' );
     }
 
@@ -409,6 +415,10 @@ class Settings {
      * @return bool True if updated, false otherwise
      */
     public static function complete_setup_wizard() {
+        if ( '1' === (string) get_option( 'adl_lp_setup_wizard_completed', '0' ) ) {
+            return true;
+        }
+
         return update_option( 'adl_lp_setup_wizard_completed', '1', false );
     }
 

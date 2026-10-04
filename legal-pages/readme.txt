@@ -3,7 +3,7 @@ Contributors: wpWax
 Tags: GDPR, Privacy Policy, Terms and conditions, Legal documents, Cookie notice, Legal compliance, Legal templates, Website legal requirements, Legal pages generator, GDPR compliance, CCPA compliance, DMCA compliance
 Requires at least: 4.0
 Tested up to: 7.1
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -269,6 +269,11 @@ https://legalpagespro.com/documentation/
 
 
 == Changelog ==
+= 1.7.1 =
+* Fix: The disclaimer screen appeared again after accepting it and moving to another Legal Pages screen
+* Fix: "Failed to save disclaimer acceptance" error when accepting a disclaimer that was already accepted
+* Fix: Completing the Setup Wizard a second time no longer reports an error
+
 = 1.7.0 =
 
 **Free**

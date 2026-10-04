@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'wpwax/legal-page',
-        'pretty_version' => 'v1.7.0',
-        'version' => '1.7.0.0',
-        'reference' => '99ed61365a249a86940a47b61deb5893d0a24ea5',
+        'pretty_version' => 'v1.7.1',
+        'version' => '1.7.1.0',
+        'reference' => '34d07a06880c3cdd0e35bb199256ae16095b0178',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -80,9 +80,9 @@
             'dev_requirement' => false,
         ),
         'wpwax/legal-page' => array(
-            'pretty_version' => 'v1.7.0',
-            'version' => '1.7.0.0',
-            'reference' => '99ed61365a249a86940a47b61deb5893d0a24ea5',
+            'pretty_version' => 'v1.7.1',
+            'version' => '1.7.1.0',
+            'reference' => '34d07a06880c3cdd0e35bb199256ae16095b0178',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
