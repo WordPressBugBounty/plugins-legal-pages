@@ -123,10 +123,48 @@ class Initializer {
         // Load Common Controllers (both admin and frontend)
         $this->load_common_controllers();
 
+        // Load Cookie Controllers (cookie scanner + cookie list; both admin and frontend)
+        $this->load_cookie_controllers();
+
         /**
          * Fires after loading controllers.
          */
         do_action( 'legal_pages_after_load_controllers' );
+    }
+
+    /**
+     * Load cookie controllers (both admin and frontend)
+     *
+     * @return void
+     */
+    private function load_cookie_controllers() {
+        /**
+         * Fires before loading cookie controllers.
+         */
+        do_action( 'legal_pages_before_load_cookie_controllers' );
+
+        $controller_dir = LEGAL_PAGES_PLUGIN_DIR . 'app/Controllers/Cookie/';
+
+        if ( ! is_dir( $controller_dir ) ) {
+            return;
+        }
+
+        $controllers = glob( $controller_dir . '*.php' );
+        $controllers = apply_filters( 'legal_pages_cookie_controllers', $controllers );
+
+        foreach ( $controllers as $file ) {
+            $class_name = basename( $file, '.php' );
+            $controller = "\\LegalPage\\Controllers\\Cookie\\{$class_name}";
+
+            if ( class_exists( $controller ) ) {
+                new $controller();
+            }
+        }
+
+        /**
+         * Fires after loading cookie controllers.
+         */
+        do_action( 'legal_pages_after_load_cookie_controllers' );
     }
 
     /**

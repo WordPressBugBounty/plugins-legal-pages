@@ -1,9 +1,9 @@
 ﻿=== Legal Pages – Privacy Policy, Terms & Conditions, GDPR, CCPA, and Cookie Notice Generator ===
 Contributors: wpWax
-Tags: GDPR, Privacy Policy, Terms and conditions, Legal documents, Cookie notice, Legal compliance, Legal templates, Website legal requirements, Legal pages generator, GDPR compliance, CCPA compliance, DMCA compliance
+Tags: GDPR, Privacy Policy, Terms and conditions, Cookie banner, Cookie notice, Legal compliance, Legal templates, Website legal requirements, Legal pages generator, GDPR compliance, CCPA compliance, DMCA compliance
 Requires at least: 4.0
 Tested up to: 7.1
-Stable tag: 1.7.1
+Stable tag: 1.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -269,6 +269,32 @@ https://legalpagespro.com/documentation/
 
 
 == Changelog ==
+= 1.8.1 =
+* Update: Plugin directory tags now include "Cookie banner"
+
+= 1.8.0 =
+
+**Free**
+* New: "Regions Served" setting (Settings and Setup Wizard) — tick the regions your business serves (EU/EEA, United Kingdom, United States, Canada, Australia)
+* New: [lp_if region="…"]…[/lp_if] shortcode — show a section of a legal page only for the regions you serve; pages update by themselves when you change the setting
+* New: [lp_cookie_table] shortcode, a short name for [legal_pages_cookie_list]
+* Update: The shortcode list in the page editor explains the cookie and region shortcodes, shows their short lp_ names and copies a complete [lp_if] example
+* Update: Pages that use region sections are refreshed in caches that clear on post updates (e.g. WP Super Cache) when you change Regions Served
+* Fix: Updating the plugin could add the same new template twice when several visitors opened the site at the same moment
+* Fix: The plugin could fail to load its files when WordPress was started from another folder (some WP-CLI and cron setups)
+
+**Pro**
+* New: Geo-targeted cookie banners — choose opt-in, opt-out notice, simple notice or no banner for the EU/EEA, the United Kingdom, the United States and everyone else (Cookie Bar → Regions), with a "Test my location" check
+* New: Global Privacy Control (GPC) — browsers that send it get marketing cookies turned off automatically in the US states that require it, recorded in the consent log
+* New: Optional MaxMind GeoLite2 location database for sites without Cloudflare or a host that provides the visitor's location
+* New: "Privacy Policy (Multi-Region)" and "Do Not Sell or Share My Personal Information" templates
+* New: [lp_do_not_sell_form] opt-out button (also works as [legal_pages_dnsmpi_form]) — turns marketing cookies off for the visitor and records the request in the consent log
+* New: [lp_manage_consent] short name for [legal_pages_manage_consent]
+* New: "Privacy policy page" picker on the Regions tab — the banner's Privacy Policy link works even when WordPress's Settings → Privacy page is empty, and the tab tells you when that link would be hidden
+* New: "Create page" button on the Regions tab makes the "Do Not Sell or Share" page as a draft (review it, then publish) and links it from the US banner
+* New: The consent log shows GPC opt-outs and opt-outs
+* Note: Legal Pages Pro 2.2.0 needs Legal Pages 1.8.0 or newer
+
 = 1.7.1 =
 * Fix: The disclaimer screen appeared again after accepting it and moving to another Legal Pages screen
 * Fix: "Failed to save disclaimer acceptance" error when accepting a disclaimer that was already accepted

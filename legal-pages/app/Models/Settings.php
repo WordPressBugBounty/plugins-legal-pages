@@ -5,6 +5,11 @@ defined( 'ABSPATH' ) || exit;
 
 class Settings {
 
+    // Regions a site can serve. Drives the F7 region-policies feature
+    // (`[lp_if region="…"]`); "ca" is deliberately not an option because it
+    // reads as both Canada and California.
+    const REGIONS_SERVED = [ 'eu', 'uk', 'us', 'canada', 'australia' ];
+
     // ────────────────────────────────────────────────
     // Templates
     // ────────────────────────────────────────────────
@@ -75,11 +80,15 @@ class Settings {
             );
         }
 
+        $status = isset( $params['status'] ) && in_array( $params['status'], [ 'publish', 'draft' ], true )
+            ? $params['status']
+            : 'publish';
+
         $args = [
             'post_title'   => sanitize_text_field( $params['title'] ),
             'post_content' => wp_kses_post( $params['content'] ),
             'post_type'    => 'page',
-            'post_status'  => 'publish',
+            'post_status'  => $status,
             'meta_input'   => [
                 'is_adl_legal_page' => 1,
             ],
@@ -109,6 +118,7 @@ class Settings {
             'view_url'  => get_permalink( $page_id ),
             'title'     => get_the_title( $page_id ),
             'subtitle'  => get_post_meta( $page_id, '_legal_page_subtitle', true ),
+            'status'    => get_post_status( $page_id ),
         ];
     }
 
@@ -133,6 +143,7 @@ class Settings {
             'facebook_url'     => '',
             'linkedin_url'     => '',
             'twitter_url'      => '',
+            'regions_served'   => [],
         ];
 
         $saved  = get_option( 'adl_lp_general', [] );
@@ -172,6 +183,10 @@ class Settings {
             ?? $social['twitterUrl']
             ?? '';
 
+        $mapped['regions_served'] = self::sanitize_regions_served(
+            $saved['regions_served'] ?? []
+        );
+
         $mapped['site_url']  = ! empty( $mapped['site_url'] )  ? $mapped['site_url']  : get_site_url();
         $mapped['site_name'] = ! empty( $mapped['site_name'] ) ? $mapped['site_name'] : get_bloginfo( 'name' );
 
@@ -202,7 +217,81 @@ class Settings {
             $sanitized[ $key ] = isset( $data[ $key ] ) ? call_user_func( $sanitizer, $data[ $key ] ) : '';
         }
 
-        return update_option( 'adl_lp_general', $sanitized, false );
+        $sanitized['regions_served'] = self::sanitize_regions_served(
+            isset( $data['regions_served'] ) ? $data['regions_served'] : []
+        );
+
+        $old_regions = self::get_served_regions();
+        $saved       = update_option( 'adl_lp_general', $sanitized, false );
+
+        if ( $saved && $old_regions !== $sanitized['regions_served'] ) {
+            self::purge_legal_pages_cache();
+
+            /**
+             * Fires when the "regions we serve" list changes. Caching plugins can
+             * hook this to purge their full-page cache for legal pages.
+             *
+             * @param array $new_regions The new list of region keys.
+             * @param array $old_regions The previous list of region keys.
+             */
+            do_action( 'legal_pages_regions_served_changed', $sanitized['regions_served'], $old_regions );
+        }
+
+        return $saved;
+    }
+
+    /**
+     * Drop the object cache for every legal page so a change to region targeting
+     * is reflected on the next render, even on a cached install.
+     */
+    private static function purge_legal_pages_cache() {
+        $ids = get_posts(
+            [
+                'post_type'        => 'page',
+                'post_status'      => [ 'publish', 'draft' ],
+                'posts_per_page'   => -1,
+                'fields'           => 'ids',
+                'meta_key'         => 'is_adl_legal_page',
+                'meta_value'       => '1',
+                'suppress_filters' => true,
+            ]
+        );
+
+        foreach ( (array) $ids as $id ) {
+            clean_post_cache( (int) $id );
+        }
+    }
+
+    /**
+     * Normalize the list of served regions: array, known keys only, unique.
+     *
+     * @param mixed $regions Raw value from settings.
+     * @return array
+     */
+    private static function sanitize_regions_served( $regions ) {
+        if ( ! is_array( $regions ) ) {
+            return [];
+        }
+
+        $regions = array_map( 'sanitize_key', $regions );
+        $regions = array_intersect( $regions, self::REGIONS_SERVED );
+
+        return array_values( array_unique( $regions ) );
+    }
+
+    /**
+     * Read the saved "regions we serve" list, normalized to known region keys.
+     *
+     * @return array
+     */
+    public static function get_served_regions() {
+        $saved = get_option( 'adl_lp_general', [] );
+
+        if ( ! is_array( $saved ) ) {
+            $saved = [];
+        }
+
+        return self::sanitize_regions_served( $saved['regions_served'] ?? [] );
     }
 
     public static function reset_general_settings() {

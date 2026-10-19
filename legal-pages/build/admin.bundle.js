@@ -564,7 +564,7 @@ function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbol
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
 function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = _objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var n = Object.getOwnPropertySymbols(e); for (r = 0; r < n.length; r++) o = n[r], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } return i; }
 function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (-1 !== e.indexOf(n)) continue; t[n] = r[n]; } return t; }
 ;
@@ -1620,6 +1620,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   GeneralInfoIcon: () => (/* binding */ GeneralInfoIcon),
 /* harmony export */   GeneralInformationIcon: () => (/* binding */ GeneralInformationIcon),
 /* harmony export */   GeneralTermsIcon: () => (/* binding */ GeneralTermsIcon),
+/* harmony export */   GlobeIcon: () => (/* binding */ GlobeIcon),
 /* harmony export */   HeartIcon: () => (/* binding */ HeartIcon),
 /* harmony export */   HideLicense: () => (/* binding */ HideLicense),
 /* harmony export */   ImportantDiscliamer: () => (/* binding */ ImportantDiscliamer),
@@ -3165,6 +3166,34 @@ var linkTextIcon = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1_
     d: "M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
   })
 });
+var GlobeIcon = function GlobeIcon() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+    width: "20",
+    height: "20",
+    viewBox: "0 0 20 20",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("circle", {
+      cx: "10",
+      cy: "10",
+      r: "8.33",
+      stroke: "#7C3BED",
+      strokeWidth: "1.66667"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+      d: "M1.66797 10H18.3346",
+      stroke: "#7C3BED",
+      strokeWidth: "1.66667",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+      d: "M10.0013 1.6665C12.0857 3.94848 13.2703 6.90987 13.3346 9.99984C13.2703 13.0898 12.0857 16.0512 10.0013 18.3332C7.91691 16.0512 6.73232 13.0898 6.66797 9.99984C6.73232 6.90987 7.91691 3.94848 10.0013 1.6665Z",
+      stroke: "#7C3BED",
+      strokeWidth: "1.66667",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    })]
+  });
+};
 
 /***/ },
 
@@ -3188,7 +3217,7 @@ function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbol
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
 ;
 
 
@@ -3292,8 +3321,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
+/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -3303,6 +3333,59 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 ;
 
 
+
+// Tags that need more than "[tag]" to be useful: a line of help, and for enclosing
+// tags a complete example to copy instead of the bare tag.
+
+var GUIDED = {
+  lp_if: {
+    label: '[lp_if region="eu"] … [/lp_if]',
+    copy: '[lp_if region="eu"]\nText shown only when "European Union" is ticked in Settings → Regions Served.\n[/lp_if]',
+    help: 'Shows the text between the tags only for the regions you serve (Settings → Regions Served). Codes: eu, uk, us, canada, australia; several: region="canada,australia". With no regions ticked, everything shows.'
+  },
+  // The picker shows and copies the short lp_ names; the long ones keep working.
+  legal_pages_cookie_list: {
+    label: '[lp_cookie_table]',
+    copy: '[lp_cookie_table]',
+    help: 'A live table of the cookies found by the cookie scanner, grouped by category. Also works as [legal_pages_cookie_list].'
+  },
+  legal_pages_manage_consent: {
+    label: '[lp_manage_consent]',
+    copy: '[lp_manage_consent]',
+    help: 'A link that reopens the cookie banner so visitors can change their choice. Also works as [legal_pages_manage_consent].'
+  },
+  legal_pages_dnsmpi_form: {
+    label: '[lp_do_not_sell_form]',
+    copy: '[lp_do_not_sell_form]',
+    help: 'The "Do Not Sell or Share" opt-out button: turns marketing cookies off on the visitor\'s browser and records it in the consent log. Needs the cookie banner on. Also works as [legal_pages_dnsmpi_form].'
+  }
+};
+var fallbackCopy = function fallbackCopy(text) {
+  var textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.style.position = 'fixed';
+  textArea.style.left = '-999999px';
+  document.body.appendChild(textArea);
+  textArea.select();
+  try {
+    document.execCommand('copy');
+    _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Shortcode copied!');
+  } catch (err) {
+    _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to copy');
+  }
+  document.body.removeChild(textArea);
+};
+var copyText = function copyText(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function () {
+      return _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Shortcode copied!');
+    }).catch(function () {
+      return fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+};
 var AllShortCodes = function AllShortCodes(_ref) {
   var shortcodes = _ref.shortcodes,
     copyShortcode = _ref.copyShortcode,
@@ -3311,63 +3394,73 @@ var AllShortCodes = function AllShortCodes(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     isOpen = _useState2[0],
     setIsOpen = _useState2[1];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+    children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "space-y-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "h-8 bg-gray-200 rounded animate-pulse"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "h-8 bg-gray-200 rounded animate-pulse"
       })]
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
         onClick: function onClick() {
           return setIsOpen(!isOpen);
         },
         className: "w-full flex items-center justify-between group transition-all cursor-pointer px-2 sm:px-0",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "flex items-center gap-2 sm:gap-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "text-xl sm:text-2xl",
             children: "\uD83D\uDD17"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
             className: "text-lg sm:text-xl md:text-2xl font-bold text-[#17171C]",
             children: "Available Shortcodes"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("svg", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
           className: "w-5 h-5 sm:w-6 sm:h-6 text-gray-600 transition-transform duration-300 flex-shrink-0 ".concat(isOpen ? 'rotate-180' : ''),
           fill: "none",
           stroke: "currentColor",
           viewBox: "0 0 24 24",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
             strokeLinecap: "round",
             strokeLinejoin: "round",
             strokeWidth: 2,
             d: "M19 9l-7 7-7-7"
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "overflow-hidden transition-all duration-500 ease-in-out ".concat(isOpen ? 'max-h-[800px] opacity-100 mt-3 sm:mt-4' : 'max-h-0 opacity-0'),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "bg-white",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "bg-gradient-to-r from-purple-50 to-blue-50 border-l-4 border-[#7C3BED] px-4 py-3 mb-4 sm:mb-6 rounded-r-lg",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("p", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
               className: "text-sm sm:text-base text-[#17171C] font-medium flex items-center gap-2",
-              children: [_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_1__.InfoIcon, "Click on any shortcode below to copy it"]
+              children: [_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_2__.InfoIcon, "Click on any shortcode below to copy it"]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "space-y-2 sm:space-y-3 max-h-[400px] sm:max-h-[500px] md:max-h-[600px] overflow-y-auto pr-1 custom-scrollbar",
             children: Object.keys(shortcodes).map(function (key) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
+              var guide = GUIDED[key];
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
                 onClick: function onClick() {
-                  return copyShortcode(key);
+                  return guide && guide.copy ? copyText(guide.copy) : copyShortcode(key);
                 },
-                className: "w-full px-3 py-3 sm:px-4 sm:py-3.5 md:px-5 md:py-3 text-left font-mono text-[#7C3BED] bg-[#F4F4F5] bg-opacity-50 rounded-xl sm:rounded-2xl transition-colors flex items-center justify-between group cursor-pointer hover:bg-opacity-70 active:bg-opacity-90",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-                  className: "text-xs sm:text-sm md:text-xs !bg-[#7C3BED1A] px-1.5 py-1 sm:p-[7px] bg-opacity-10 rounded break-all",
-                  children: ["[", key, "]"]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_1__.CopyClipboardIcon, {})]
+                className: "w-full px-3 py-3 sm:px-4 sm:py-3.5 md:px-5 md:py-3 text-left font-mono text-[#7C3BED] bg-[#F4F4F5] bg-opacity-50 rounded-xl sm:rounded-2xl transition-colors flex items-center justify-between gap-3 group cursor-pointer hover:bg-opacity-70 active:bg-opacity-90",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  className: "flex min-w-0 flex-col gap-1.5",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                    className: "self-start text-xs sm:text-sm md:text-xs !bg-[#7C3BED1A] px-1.5 py-1 sm:p-[7px] bg-opacity-10 rounded break-all",
+                    children: guide && guide.label ? guide.label : "[".concat(key, "]")
+                  }), guide && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                    className: "font-sans text-xs leading-snug text-[#6F6F7B]",
+                    children: guide.help
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                  className: "flex-shrink-0",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_2__.CopyClipboardIcon, {})
+                })]
               }, key);
             })
           })]
@@ -6581,7 +6674,7 @@ function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbol
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -6744,7 +6837,7 @@ function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbol
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -7250,7 +7343,7 @@ function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbol
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
@@ -7823,6 +7916,916 @@ var ColorField = function ColorField(_ref) {
 
 /***/ },
 
+/***/ "./spa/admin/src/pages/CookieBar/components/ConsentLog/ConsentChart.jsx"
+/*!******************************************************************************!*\
+  !*** ./spa/admin/src/pages/CookieBar/components/ConsentLog/ConsentChart.jsx ***!
+  \******************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CHOICES: () => (/* binding */ CHOICES),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   supportedChoices: () => (/* binding */ supportedChoices)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+;
+
+// Fixed order (categorical slots 1-5), checked with the dataviz palette
+// validator (light surface). Deny's aqua, GPC's yellow and Opt-out's magenta
+// are under 3:1 against white, so every value is also in the tiles, the
+// tooltip and the log table.
+// GPC opt-out and Opt-out come from geo-targeted banners (Legal Pages Pro);
+// they only show up once such records exist, and an older Pro doesn't send them.
+
+var CHOICES = [{
+  key: 'accept_all',
+  label: 'Accept all',
+  color: '#2a78d6'
+}, {
+  key: 'custom',
+  label: 'Custom',
+  color: '#eb6834'
+}, {
+  key: 'deny',
+  label: 'Deny',
+  color: '#1baf7a'
+}, {
+  key: 'gpc',
+  label: 'GPC opt-out',
+  color: '#eda100',
+  optional: true
+}, {
+  key: 'opt_out',
+  label: 'Opt-out',
+  color: '#e87ba4',
+  optional: true
+}];
+
+// Choices the connected Pro reports (stats.totals keys); the first three always.
+var supportedChoices = function supportedChoices(stats) {
+  return CHOICES.filter(function (c) {
+    return !c.optional || stats && stats.totals && c.key in stats.totals;
+  });
+};
+
+// A day's (or month's) total across every choice; missing keys count as 0.
+var rowTotal = function rowTotal(row) {
+  return CHOICES.reduce(function (sum, c) {
+    return sum + (row[c.key] || 0);
+  }, 0);
+};
+var pct = function pct(part, total) {
+  return total ? Math.round(part / total * 1000) / 10 : 0;
+};
+var formatBucket = function formatBucket(bucket, type) {
+  var _bucket$split$map = bucket.split('-').map(Number),
+    _bucket$split$map2 = _slicedToArray(_bucket$split$map, 3),
+    y = _bucket$split$map2[0],
+    m = _bucket$split$map2[1],
+    d = _bucket$split$map2[2];
+  var date = new Date(Date.UTC(y, m - 1, d || 1));
+  return date.toLocaleDateString(undefined, type === 'month' ? {
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC'
+  } : {
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC'
+  });
+};
+var StatTile = function StatTile(_ref) {
+  var label = _ref.label,
+    value = _ref.value,
+    sub = _ref.sub,
+    color = _ref.color;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "rounded-xl border border-[#E4E4E7] bg-white px-4 py-3",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "flex items-center gap-2 text-xs font-medium text-[#6F6F7B]",
+      children: [color && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "inline-block h-2.5 w-2.5 rounded-sm",
+        style: {
+          background: color
+        }
+      }), label]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "mt-1 text-2xl font-semibold text-[#17171C]",
+      children: value
+    }), sub && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "text-xs text-[#6F6F7B]",
+      children: sub
+    })]
+  });
+};
+
+/**
+ * Accept / custom / deny (plus GPC opt-out / opt-out when there are any) totals
+ * as tiles, plus a stacked bar per day (or month) with a hover tooltip.
+ */
+var ConsentChart = function ConsentChart(_ref2) {
+  var stats = _ref2.stats;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    hover = _useState2[0],
+    setHover = _useState2[1];
+  if (!stats) return null;
+  var totals = stats.totals,
+    series = stats.series,
+    bucket = stats.bucket;
+  var count = function count(key) {
+    return totals[key] || 0;
+  };
+  // The optional choices get a tile, legend entry and tooltip row only when there are some.
+  var shown = CHOICES.filter(function (c) {
+    return !c.optional || count(c.key) > 0;
+  });
+  var tileCols = {
+    3: 'md:grid-cols-4',
+    4: 'md:grid-cols-5',
+    5: 'md:grid-cols-3 xl:grid-cols-6'
+  }[shown.length];
+  var max = Math.max.apply(Math, [1].concat(_toConsumableArray(series.map(rowTotal))));
+  var height = 180;
+  var gap = series.length > 60 ? 1 : 2;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "space-y-5",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "grid grid-cols-2 gap-3 ".concat(tileCols),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(StatTile, {
+        label: "Consents recorded",
+        value: totals.total.toLocaleString()
+      }), shown.map(function (c) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(StatTile, {
+          label: c.label,
+          color: c.color,
+          value: "".concat(pct(count(c.key), totals.total), "%"),
+          sub: "".concat(count(c.key).toLocaleString(), " ").concat(count(c.key) === 1 ? 'choice' : 'choices')
+        }, c.key);
+      })]
+    }), totals.total === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "rounded-xl border border-dashed border-[#E4E4E7] py-10 text-center text-sm text-[#6F6F7B]",
+      children: "No consents recorded for these filters yet."
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "mb-3 flex flex-wrap items-center gap-4 text-xs text-[#3F3F46]",
+        children: [shown.map(function (c) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+            className: "inline-flex items-center gap-1.5",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              className: "inline-block h-2.5 w-2.5 rounded-sm",
+              style: {
+                background: c.color
+              }
+            }), c.label]
+          }, c.key);
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+          className: "ml-auto text-[#6F6F7B]",
+          children: ["Per ", bucket, ", site time zone"]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "relative",
+        onMouseLeave: function onMouseLeave() {
+          return setHover(null);
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "flex items-end border-b border-[#E4E4E7]",
+          style: {
+            height: height,
+            gap: gap
+          },
+          children: series.map(function (s, i) {
+            var total = rowTotal(s);
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              className: "relative flex h-full min-w-0 flex-1 cursor-default flex-col justify-end",
+              onMouseEnter: function onMouseEnter() {
+                return setHover(i);
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                className: "flex flex-col-reverse overflow-hidden rounded-t-[4px] ".concat(hover === i ? 'opacity-100' : hover === null ? 'opacity-100' : 'opacity-60'),
+                style: {
+                  height: "".concat(total / max * 100, "%"),
+                  gap: total ? 2 : 0
+                },
+                children: CHOICES.map(function (c) {
+                  return (s[c.key] || 0) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                    style: {
+                      flexGrow: s[c.key],
+                      flexBasis: 0,
+                      background: c.color,
+                      minHeight: 2
+                    }
+                  }, c.key);
+                })
+              })
+            }, s.bucket);
+          })
+        }), hover !== null && series[hover] && function () {
+          var s = series[hover];
+          var total = rowTotal(s);
+          var left = (hover + 0.5) / series.length * 100;
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "pointer-events-none absolute top-0 z-10 w-44 rounded-lg border border-[#E4E4E7] bg-white p-3 text-xs shadow-lg",
+            style: {
+              left: "".concat(left, "%"),
+              transform: "translateX(".concat(left > 70 ? '-105%' : '5%', ")")
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              className: "mb-1.5 font-semibold text-[#17171C]",
+              children: formatBucket(s.bucket, bucket)
+            }), shown.map(function (c) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                className: "flex items-center justify-between gap-2 py-0.5 text-[#3F3F46]",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                  className: "inline-flex items-center gap-1.5",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                    className: "inline-block h-2 w-2 rounded-sm",
+                    style: {
+                      background: c.color
+                    }
+                  }), c.label]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                  className: "font-medium text-[#17171C]",
+                  children: [s[c.key] || 0, " (", pct(s[c.key] || 0, total), "%)"]
+                })]
+              }, c.key);
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+              className: "mt-1 border-t border-[#F4F4F5] pt-1 text-[#6F6F7B]",
+              children: ["Total ", total]
+            })]
+          });
+        }()]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "mt-1.5 flex justify-between text-[11px] text-[#6F6F7B]",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          children: series.length ? formatBucket(series[0].bucket, bucket) : ''
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+          children: ["max ", max, " / ", bucket]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          children: series.length ? formatBucket(series[series.length - 1].bucket, bucket) : ''
+        })]
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ConsentChart);
+
+/***/ },
+
+/***/ "./spa/admin/src/pages/CookieBar/components/ConsentLog/index.jsx"
+/*!***********************************************************************!*\
+  !*** ./spa/admin/src/pages/CookieBar/components/ConsentLog/index.jsx ***!
+  \***********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
+/* harmony import */ var _components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../components/common/SectionCard */ "./spa/admin/src/components/common/SectionCard.jsx");
+/* harmony import */ var _components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../components/common/ToggleField */ "./spa/admin/src/components/common/ToggleField.jsx");
+/* harmony import */ var _components_common_Skeleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../components/common/Skeleton */ "./spa/admin/src/components/common/Skeleton.jsx");
+/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
+/* harmony import */ var _ConsentChart__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ConsentChart */ "./spa/admin/src/pages/CookieBar/components/ConsentLog/ConsentChart.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
+;
+
+
+
+
+
+
+
+var secondaryBtn = 'inline-flex cursor-pointer items-center justify-center rounded-xl border border-[#E4E4E7] bg-white px-3.5 py-[11px] text-sm font-medium text-[#17171C] transition hover:bg-[#FAFAFA] disabled:cursor-not-allowed disabled:opacity-50';
+var primaryBtn = 'inline-flex cursor-pointer items-center justify-center rounded-xl bg-[#7C3BED] px-6 py-[11px] text-sm font-semibold text-white shadow-[0px_4px_14px_-2px_#7C3BED40] transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-indigo-400';
+var inputCls = '!h-[42px] !rounded-xl !border !border-[#E4E4E7] !bg-white !px-3 !text-sm !text-[#17171C] focus:!border-[#7C3BED] focus:!shadow-none';
+var EMPTY_FILTERS = {
+  search: '',
+  from: '',
+  to: '',
+  region: '',
+  action: ''
+};
+var PER_PAGE = 20;
+var api = function api(path) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return fetch("".concat(LEGAL_PAGES.apiUrl).concat(path), _objectSpread(_objectSpread({}, options), {}, {
+    headers: _objectSpread({
+      'X-WP-Nonce': LEGAL_PAGES.nonce
+    }, options.headers || {})
+  }));
+};
+var query = function query(params) {
+  var qs = new URLSearchParams();
+  Object.entries(params).forEach(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+      k = _ref2[0],
+      v = _ref2[1];
+    return v !== '' && v !== null && v !== undefined && qs.set(k, v);
+  });
+  var s = qs.toString();
+  return s ? "?".concat(s) : '';
+};
+var choiceLabel = function choiceLabel(key) {
+  var _CHOICES$find;
+  return ((_CHOICES$find = _ConsentChart__WEBPACK_IMPORTED_MODULE_6__.CHOICES.find(function (c) {
+    return c.key === key;
+  })) === null || _CHOICES$find === void 0 ? void 0 : _CHOICES$find.label) || key;
+};
+var choiceColor = function choiceColor(key) {
+  var _CHOICES$find2;
+  return ((_CHOICES$find2 = _ConsentChart__WEBPACK_IMPORTED_MODULE_6__.CHOICES.find(function (c) {
+    return c.key === key;
+  })) === null || _CHOICES$find2 === void 0 ? void 0 : _CHOICES$find2.color) || '#A1A1AA';
+};
+
+/**
+ * Consent log (Pro): proof of each visitor's consent choices, recorded by the
+ * consent banner under the visitor's consent ID. Backend: Legal Pages Pro's
+ * `/consent-log*` routes (LegalPagePro\Models\Consent_Log).
+ */
+var ConsentLog = function ConsentLog() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    settings = _useState2[0],
+    setSettings = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    savingSettings = _useState4[0],
+    setSavingSettings = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(EMPTY_FILTERS),
+    _useState6 = _slicedToArray(_useState5, 2),
+    filters = _useState6[0],
+    setFilters = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState8 = _slicedToArray(_useState7, 2),
+    search = _useState8[0],
+    setSearch = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+    _useState0 = _slicedToArray(_useState9, 2),
+    page = _useState0[0],
+    setPage = _useState0[1];
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState10 = _slicedToArray(_useState1, 2),
+    log = _useState10[0],
+    setLog = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState12 = _slicedToArray(_useState11, 2),
+    stats = _useState12[0],
+    setStats = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState14 = _slicedToArray(_useState13, 2),
+    loading = _useState14[0],
+    setLoading = _useState14[1];
+  var recordsBox = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState16 = _slicedToArray(_useState15, 2),
+    exporting = _useState16[0],
+    setExporting = _useState16[1];
+  var loadSettings = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+    var res, result, _t;
+    return _regenerator().w(function (_context) {
+      while (1) switch (_context.p = _context.n) {
+        case 0:
+          _context.p = 0;
+          _context.n = 1;
+          return api('/consent-log/settings');
+        case 1:
+          res = _context.v;
+          _context.n = 2;
+          return res.json();
+        case 2:
+          result = _context.v;
+          if (result.success) setSettings(result.data);
+          _context.n = 4;
+          break;
+        case 3:
+          _context.p = 3;
+          _t = _context.v;
+          _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to load consent log settings');
+        case 4:
+          return _context.a(2);
+      }
+    }, _callee, null, [[0, 3]]);
+  })), []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    loadSettings();
+  }, [loadSettings]);
+
+  // Typing in the search box filters after a short pause.
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var t = setTimeout(function () {
+      setFilters(function (f) {
+        return f.search === search.trim() ? f : _objectSpread(_objectSpread({}, f), {}, {
+          search: search.trim()
+        });
+      });
+    }, 350);
+    return function () {
+      return clearTimeout(t);
+    };
+  }, [search]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setPage(1);
+  }, [filters]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var cancelled = false;
+    setLoading(true);
+    Promise.all([api("/consent-log".concat(query(_objectSpread(_objectSpread({}, filters), {}, {
+      page: page,
+      per_page: PER_PAGE
+    })))).then(function (r) {
+      return r.json();
+    }), api("/consent-log/stats".concat(query(filters))).then(function (r) {
+      return r.json();
+    })]).then(function (_ref4) {
+      var _ref5 = _slicedToArray(_ref4, 2),
+        list = _ref5[0],
+        st = _ref5[1];
+      if (cancelled) return;
+      if (list.success) setLog(list.data);
+      if (st.success) setStats(st.data);
+    }).catch(function () {
+      return !cancelled && _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to load the consent log');
+    }).finally(function () {
+      return !cancelled && setLoading(false);
+    });
+    return function () {
+      cancelled = true;
+    };
+  }, [filters, page]);
+
+  // A new page or filter starts at the top of the records box, not where the last one was scrolled to.
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (recordsBox.current) recordsBox.current.scrollTop = 0;
+  }, [log]);
+  var setFilter = function setFilter(key, value) {
+    return setFilters(function (f) {
+      return _objectSpread(_objectSpread({}, f), {}, _defineProperty({}, key, value));
+    });
+  };
+  var resetFilters = function resetFilters() {
+    setSearch('');
+    setFilters(EMPTY_FILTERS);
+  };
+  var saveSettings = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var res, result, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            setSavingSettings(true);
+            _context2.p = 1;
+            _context2.n = 2;
+            return api('/consent-log/settings', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                enabled: settings.enabled,
+                retention_months: settings.retention_months
+              })
+            });
+          case 2:
+            res = _context2.v;
+            _context2.n = 3;
+            return res.json();
+          case 3:
+            result = _context2.v;
+            if (result.success) {
+              setSettings(result.data);
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Consent log settings saved!');
+            } else {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to save settings.');
+            }
+            _context2.n = 5;
+            break;
+          case 4:
+            _context2.p = 4;
+            _t2 = _context2.v;
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('An error occurred while saving.');
+          case 5:
+            _context2.p = 5;
+            setSavingSettings(false);
+            return _context2.f(5);
+          case 6:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[1, 4, 5, 6]]);
+    }));
+    return function saveSettings() {
+      return _ref6.apply(this, arguments);
+    };
+  }();
+
+  // The export route streams CSV, so it's downloaded as a file, not parsed.
+  var exportCsv = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      var res, blob, match, url, a, _t3;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            setExporting(true);
+            _context3.p = 1;
+            _context3.n = 2;
+            return api("/consent-log/export".concat(query(filters)));
+          case 2:
+            res = _context3.v;
+            if (res.ok) {
+              _context3.n = 3;
+              break;
+            }
+            throw new Error(String(res.status));
+          case 3:
+            _context3.n = 4;
+            return res.blob();
+          case 4:
+            blob = _context3.v;
+            match = /filename="([^"]+)"/.exec(res.headers.get('Content-Disposition') || '');
+            url = URL.createObjectURL(blob);
+            a = document.createElement('a');
+            a.href = url;
+            a.download = match ? match[1] : 'consent-log.csv';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(function () {
+              return URL.revokeObjectURL(url);
+            }, 1000);
+            _context3.n = 6;
+            break;
+          case 5:
+            _context3.p = 5;
+            _t3 = _context3.v;
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Export failed.');
+          case 6:
+            _context3.p = 6;
+            setExporting(false);
+            return _context3.f(6);
+          case 7:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[1, 5, 6, 7]]);
+    }));
+    return function exportCsv() {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+  var hasFilters = Object.values(filters).some(function (v) {
+    return v !== '';
+  }) || search !== '';
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      title: "Proof of Consent",
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.CookieComplianceIcon, {}),
+      maxHeight: "",
+      children: !settings ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_Skeleton__WEBPACK_IMPORTED_MODULE_4__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "space-y-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+          className: "!text-sm !text-[#6F6F7B]",
+          children: "Every Accept, Deny and Save preferences in the consent banner is recorded with the visitor's consent ID, the time, the categories they accepted, the banner and cookie policy versions they saw, and their region. Opt-outs (the Opt out button and \"Do Not Sell or Share\") and Global Privacy Control signals honored automatically are recorded too. Visitors see their consent ID under View preferences, so you can look them up here. No IP addresses are stored."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          label: "Record consents",
+          description: "Keep a log of every consent choice made in the banner",
+          name: "enabled",
+          checked: settings.enabled,
+          onChange: function onChange(name, value) {
+            return setSettings(function (s) {
+              return _objectSpread(_objectSpread({}, s), {}, _defineProperty({}, name, value));
+            });
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "flex flex-wrap items-end gap-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+            className: "flex flex-col gap-1.5 text-sm font-medium text-[#17171C]",
+            children: ["Keep records for", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("select", {
+              className: "".concat(inputCls, " !pr-8"),
+              value: settings.retention_months,
+              onChange: function onChange(e) {
+                return setSettings(function (s) {
+                  return _objectSpread(_objectSpread({}, s), {}, {
+                    retention_months: Number(e.target.value)
+                  });
+                });
+              },
+              children: settings.retention_choices.map(function (m) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("option", {
+                  value: m,
+                  children: [m, " ", m === 1 ? 'month' : 'months']
+                }, m);
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+            type: "button",
+            className: primaryBtn,
+            onClick: saveSettings,
+            disabled: savingSettings,
+            children: savingSettings ? 'Saving...' : 'Save Settings'
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+          className: "!text-xs !text-[#6F6F7B]",
+          children: "Older records are deleted automatically once a day."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("dl", {
+          className: "grid grid-cols-2 gap-3 border-t border-[#F4F4F5] pt-4 text-sm md:grid-cols-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("dt", {
+              className: "text-xs text-[#6F6F7B]",
+              children: "Records stored"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("dd", {
+              className: "font-semibold text-[#17171C]",
+              children: settings.total_rows.toLocaleString()
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("dt", {
+              className: "text-xs text-[#6F6F7B]",
+              children: "Oldest record"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("dd", {
+              className: "font-semibold text-[#17171C]",
+              children: settings.oldest || '—'
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("dt", {
+              className: "text-xs text-[#6F6F7B]",
+              children: "Current banner version"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("dd", {
+              className: "font-semibold text-[#17171C]",
+              title: "Goes up when the banner texts, categories or policy link change",
+              children: ["v", settings.banner_version]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("dt", {
+              className: "text-xs text-[#6F6F7B]",
+              children: "Cookie policy version"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("dd", {
+              className: "font-semibold text-[#17171C]",
+              title: "When the linked cookie policy page was last updated (UTC)",
+              children: settings.policy_version || 'Not a page on this site'
+            })]
+          })]
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "flex max-w-[1150px] flex-wrap items-end gap-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+        className: "flex min-w-[240px] flex-1 flex-col gap-1.5 text-xs font-medium text-[#6F6F7B]",
+        children: ["Consent ID", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+          type: "search",
+          className: "".concat(inputCls, " font-mono"),
+          placeholder: "Search by consent ID",
+          value: search,
+          onChange: function onChange(e) {
+            return setSearch(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+        className: "flex flex-col gap-1.5 text-xs font-medium text-[#6F6F7B]",
+        children: ["From", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+          type: "date",
+          className: inputCls,
+          value: filters.from,
+          max: filters.to || undefined,
+          onChange: function onChange(e) {
+            return setFilter('from', e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+        className: "flex flex-col gap-1.5 text-xs font-medium text-[#6F6F7B]",
+        children: ["To", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+          type: "date",
+          className: inputCls,
+          value: filters.to,
+          min: filters.from || undefined,
+          onChange: function onChange(e) {
+            return setFilter('to', e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+        className: "flex flex-col gap-1.5 text-xs font-medium text-[#6F6F7B]",
+        children: ["Region", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("select", {
+          className: "".concat(inputCls, " !pr-8"),
+          value: filters.region,
+          onChange: function onChange(e) {
+            return setFilter('region', e.target.value);
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+            value: "",
+            children: "All regions"
+          }), ((log === null || log === void 0 ? void 0 : log.regions) || []).map(function (r) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+              value: r,
+              children: r
+            }, r);
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
+        className: "flex flex-col gap-1.5 text-xs font-medium text-[#6F6F7B]",
+        children: ["Choice", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("select", {
+          className: "".concat(inputCls, " !pr-8"),
+          value: filters.action,
+          onChange: function onChange(e) {
+            return setFilter('action', e.target.value);
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+            value: "",
+            children: "All choices"
+          }), (0,_ConsentChart__WEBPACK_IMPORTED_MODULE_6__.supportedChoices)(stats).map(function (c) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+              value: c.key,
+              children: c.label
+            }, c.key);
+          })]
+        })]
+      }), hasFilters && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+        type: "button",
+        className: secondaryBtn,
+        onClick: resetFilters,
+        children: "Reset"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+        type: "button",
+        className: primaryBtn,
+        onClick: exportCsv,
+        disabled: exporting || !(log !== null && log !== void 0 && log.total),
+        children: exporting ? 'Exporting...' : 'Export CSV'
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      title: "Accept / Deny Rate",
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.GeneralInformationIcon, {}),
+      maxHeight: "",
+      children: !stats ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_Skeleton__WEBPACK_IMPORTED_MODULE_4__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ConsentChart__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        stats: stats
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      title: "Consent Records".concat(log ? " (".concat(log.total.toLocaleString(), ")") : ''),
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.CookieComplianceIcon, {}),
+      maxHeight: "",
+      children: !log ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_common_Skeleton__WEBPACK_IMPORTED_MODULE_4__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: loading ? 'opacity-60 transition-opacity' : 'transition-opacity',
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          className: "overflow-hidden rounded-xl border border-[#E4E4E7]",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            ref: recordsBox,
+            className: "max-h-[420px] overflow-auto",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("table", {
+              className: "w-full text-sm",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("thead", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("tr", {
+                  className: "border-b border-[#E4E4E7] bg-[#FAFAFA]",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
+                    className: "px-4 py-3 text-left font-semibold text-[#17171C]",
+                    children: "Date"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
+                    className: "px-4 py-3 text-left font-semibold text-[#17171C]",
+                    children: "Consent ID"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
+                    className: "px-4 py-3 text-left font-semibold text-[#17171C]",
+                    children: "Choice"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
+                    className: "px-4 py-3 text-left font-semibold text-[#17171C]",
+                    children: "Categories"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
+                    className: "px-4 py-3 text-left font-semibold text-[#17171C]",
+                    children: "Banner"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
+                    className: "px-4 py-3 text-left font-semibold text-[#17171C]",
+                    children: "Policy"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
+                    className: "px-4 py-3 text-left font-semibold text-[#17171C]",
+                    children: "Region"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
+                    className: "px-4 py-3 text-left font-semibold text-[#17171C]",
+                    children: "Page"
+                  })]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("tbody", {
+                className: "divide-y divide-[#E4E4E7]",
+                children: [log.items.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("tr", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                    colSpan: 8,
+                    className: "px-4 py-10 text-center text-[#6F6F7B]",
+                    children: hasFilters ? 'No records match these filters.' : 'No consents recorded yet. They appear here as visitors use the consent banner.'
+                  })
+                }), log.items.map(function (row) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("tr", {
+                    className: "hover:bg-[#FAFAFA]",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                      className: "whitespace-nowrap px-4 py-3 text-[#3F3F46]",
+                      title: "".concat(row.created_at, " (UTC)"),
+                      children: row.created_local
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                      className: "whitespace-nowrap px-4 py-3",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+                        type: "button",
+                        className: "cursor-pointer whitespace-nowrap font-mono text-xs text-[#7C3BED] hover:underline",
+                        title: "Show every choice for this consent ID",
+                        onClick: function onClick() {
+                          return setSearch(row.consent_id);
+                        },
+                        children: row.consent_id
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                      className: "whitespace-nowrap px-4 py-3 text-[#17171C]",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
+                        className: "inline-flex items-center gap-1.5",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                          className: "inline-block h-2.5 w-2.5 rounded-sm",
+                          style: {
+                            background: choiceColor(row.action)
+                          }
+                        }), choiceLabel(row.action)]
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                      className: "px-4 py-3 text-[#3F3F46]",
+                      children: row.categories.join(', ')
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                      className: "px-4 py-3 text-[#3F3F46]",
+                      children: row.banner_version ? "v".concat(row.banner_version) : '—'
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                      className: "whitespace-nowrap px-4 py-3 text-[#3F3F46]",
+                      children: row.policy_version || '—'
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                      className: "px-4 py-3 text-[#3F3F46]",
+                      children: row.region || '—'
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                      className: "max-w-[200px] truncate px-4 py-3 text-[#3F3F46]",
+                      title: row.url,
+                      children: row.url
+                    })]
+                  }, row.id);
+                })]
+              })]
+            })
+          })
+        }), log.total_pages > 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "mt-4 flex items-center justify-between text-sm text-[#6F6F7B]",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
+            children: ["Page ", log.page, " of ", log.total_pages.toLocaleString()]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "flex gap-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+              type: "button",
+              className: secondaryBtn,
+              disabled: page <= 1 || loading,
+              onClick: function onClick() {
+                return setPage(function (p) {
+                  return p - 1;
+                });
+              },
+              children: "Previous"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+              type: "button",
+              className: secondaryBtn,
+              disabled: page >= log.total_pages || loading,
+              onClick: function onClick() {
+                return setPage(function (p) {
+                  return p + 1;
+                });
+              },
+              children: "Next"
+            })]
+          })]
+        })]
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ConsentLog);
+
+/***/ },
+
 /***/ "./spa/admin/src/pages/CookieBar/components/ConsentSelect.jsx"
 /*!********************************************************************!*\
   !*** ./spa/admin/src/pages/CookieBar/components/ConsentSelect.jsx ***!
@@ -8304,7 +9307,7 @@ function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbol
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 ;
@@ -8778,7 +9781,7 @@ function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbol
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -9113,7 +10116,7 @@ var GCookieSettings = function GCookieSettings(_ref3) {
                 className: "bg-[#F4F4F580] p-2 rounded-xl",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   label: "Show Manage Consent Button",
-                  description: "Floating button that lets visitors change their choice later. You can also use the [legal_pages_manage_consent] shortcode.",
+                  description: "Floating button that lets visitors change their choice later. You can also use the [lp_manage_consent] shortcode.",
                   name: "show_manage_button",
                   checked: formData.show_manage_button,
                   onChange: function onChange(name, value) {
@@ -9363,7 +10366,7 @@ __webpack_require__.r(__webpack_exports__);
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
 ;
 
 
@@ -9395,6 +10398,1270 @@ var PositionPreview = function PositionPreview(_ref) {
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PositionPreview);
+
+/***/ },
+
+/***/ "./spa/admin/src/pages/CookieBar/components/Regions/index.jsx"
+/*!********************************************************************!*\
+  !*** ./spa/admin/src/pages/CookieBar/components/Regions/index.jsx ***!
+  \********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../components/common/Toast */ "./spa/admin/src/components/common/Toast.jsx");
+/* harmony import */ var _components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../components/common/SectionCard */ "./spa/admin/src/components/common/SectionCard.jsx");
+/* harmony import */ var _components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../components/common/ToggleField */ "./spa/admin/src/components/common/ToggleField.jsx");
+/* harmony import */ var _components_common_Skeleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../components/common/Skeleton */ "./spa/admin/src/components/common/Skeleton.jsx");
+/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
+;
+
+
+
+
+
+
+var primaryBtn = 'inline-flex cursor-pointer items-center justify-center rounded-xl bg-[#7C3BED] px-6 py-[11px] text-sm font-semibold text-white shadow-[0px_4px_14px_-2px_#7C3BED40] transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-indigo-400';
+var secondaryBtn = 'inline-flex cursor-pointer items-center justify-center rounded-xl border border-[#E4E4E7] bg-white px-3.5 py-[11px] text-sm font-medium text-[#17171C] transition hover:bg-[#FAFAFA] disabled:cursor-not-allowed disabled:opacity-50';
+var inputCls = '!h-[42px] !rounded-xl !border !border-[#E4E4E7] !bg-white !px-3 !text-sm !text-[#17171C] focus:!border-[#7C3BED] focus:!shadow-none';
+var REGIONS = [{
+  key: 'eu',
+  label: 'EU / EEA',
+  hint: 'GDPR'
+}, {
+  key: 'uk',
+  label: 'United Kingdom',
+  hint: 'UK GDPR'
+}, {
+  key: 'us',
+  label: 'United States',
+  hint: 'State privacy laws'
+}, {
+  key: 'other',
+  label: 'Everyone else',
+  hint: 'All other countries'
+}];
+var BANNERS = [{
+  key: 'opt_in',
+  label: 'Opt-in',
+  help: 'Nothing optional runs until the visitor accepts.'
+}, {
+  key: 'opt_out',
+  label: 'Opt-out notice',
+  help: 'Categories below run at once; the visitor can opt out.'
+}, {
+  key: 'notice',
+  label: 'Simple notice',
+  help: 'Categories below run; the banner only informs (OK).'
+}, {
+  key: 'none',
+  label: 'No banner',
+  help: 'Categories below run; no banner (Manage consent still works).'
+}];
+var CATEGORIES = [{
+  key: 'preferences',
+  label: 'Preferences'
+}, {
+  key: 'statistics',
+  label: 'Statistics'
+}, {
+  key: 'marketing',
+  label: 'Marketing'
+}];
+var LINKS = [{
+  key: 'cookie_policy',
+  label: 'Cookie policy'
+}, {
+  key: 'privacy_policy',
+  label: 'Privacy policy'
+}, {
+  key: 'do_not_sell',
+  label: 'Do Not Sell or Share'
+}];
+var SOURCES = {
+  cloudflare: 'Cloudflare header',
+  cloudfront: 'Amazon CloudFront header',
+  'wp-engine': 'WP Engine geolocation',
+  geoip: 'Server geolocation (e.g. Kinsta)',
+  'maxmind-module': 'Server MaxMind module',
+  'app-engine': 'Google App Engine header',
+  header: 'Geo request header',
+  maxmind: 'MaxMind database',
+  timezone: 'Browser time zone (no CDN or host location found)'
+};
+var api = function api(path) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return fetch("".concat(LEGAL_PAGES.apiUrl).concat(path), _objectSpread(_objectSpread({}, options), {}, {
+    headers: _objectSpread({
+      'X-WP-Nonce': LEGAL_PAGES.nonce
+    }, options.headers || {})
+  }));
+};
+var browserTimezone = function browserTimezone() {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+  } catch (e) {
+    return '';
+  }
+};
+var toggleIn = function toggleIn(list, key) {
+  return list.includes(key) ? list.filter(function (k) {
+    return k !== key;
+  }) : [].concat(_toConsumableArray(list), [key]);
+};
+
+// Page dropdown label, marking drafts so an unpublished page is obvious.
+var pageLabel = function pageLabel(p) {
+  var _p$title;
+  var title = (_p$title = p.title) !== null && _p$title !== void 0 && _p$title.rendered ? p.title.rendered.replace(/<[^>]+>/g, '') : "#".concat(p.id);
+  return p.status === 'draft' ? "".concat(title, " (draft)") : title;
+};
+var pageEditUrl = function pageEditUrl(id) {
+  return "".concat(LEGAL_PAGES.admin_url, "post.php?post=").concat(id, "&action=edit");
+};
+
+// The F7 template behind "Create page" (seeded by Core\Activator, Pro template).
+var DNS_TEMPLATE = 'Do Not Sell or Share My Personal Information';
+
+/**
+ * Geo-targeted banners (Pro): which banner each visitor region gets, Global
+ * Privacy Control, and the "Do Not Sell or Share" link. Backend: Legal Pages
+ * Pro's `/geo-rules` and `/geo` routes (LegalPagePro\Models\Geo_Rules,
+ * LegalPagePro\Services\Geo).
+ */
+var Regions = function Regions() {
+  var _test$location, _test$location2, _test$location3;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    rules = _useState2[0],
+    setRules = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState4 = _slicedToArray(_useState3, 2),
+    statesText = _useState4[0],
+    setStatesText = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState6 = _slicedToArray(_useState5, 2),
+    pages = _useState6[0],
+    setPages = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    saving = _useState8[0],
+    setSaving = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState0 = _slicedToArray(_useState9, 2),
+    unavailable = _useState0[0],
+    setUnavailable = _useState0[1];
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState10 = _slicedToArray(_useState1, 2),
+    test = _useState10[0],
+    setTest = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    testing = _useState12[0],
+    setTesting = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState14 = _slicedToArray(_useState13, 2),
+    testIp = _useState14[0],
+    setTestIp = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState16 = _slicedToArray(_useState15, 2),
+    creatingPage = _useState16[0],
+    setCreatingPage = _useState16[1];
+  // The draft made by "Create page", so we can point at it to review/publish.
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState18 = _slicedToArray(_useState17, 2),
+    createdDraft = _useState18[0],
+    setCreatedDraft = _useState18[1];
+
+  // MaxMind GeoLite2 (optional). `db` is the saved state from the server (never the
+  // license key); `dbForm` is what's being typed. null = this Pro has no MaxMind support.
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState20 = _slicedToArray(_useState19, 2),
+    db = _useState20[0],
+    setDb = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      account_id: '',
+      license_key: '',
+      edition: 'city',
+      trust_proxy: false
+    }),
+    _useState22 = _slicedToArray(_useState21, 2),
+    dbForm = _useState22[0],
+    setDbForm = _useState22[1];
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState24 = _slicedToArray(_useState23, 2),
+    dbBusy = _useState24[0],
+    setDbBusy = _useState24[1];
+  // Collapsed until set up: most sites don't need MaxMind.
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState26 = _slicedToArray(_useState25, 2),
+    dbOpen = _useState26[0],
+    setDbOpen = _useState26[1];
+  var load = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+    var res, result, _t;
+    return _regenerator().w(function (_context) {
+      while (1) switch (_context.p = _context.n) {
+        case 0:
+          _context.p = 0;
+          _context.n = 1;
+          return api('/geo-rules');
+        case 1:
+          res = _context.v;
+          if (!(res.status === 404)) {
+            _context.n = 2;
+            break;
+          }
+          // Legal Pages Pro older than geo-targeting.
+          setUnavailable(true);
+          return _context.a(2);
+        case 2:
+          _context.n = 3;
+          return res.json();
+        case 3:
+          result = _context.v;
+          if (result.success) {
+            setRules(result.data);
+            setStatesText(result.data.gpc.states.join(', '));
+          } else {
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to load region settings');
+          }
+          _context.n = 5;
+          break;
+        case 4:
+          _context.p = 4;
+          _t = _context.v;
+          _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to load region settings');
+        case 5:
+          return _context.a(2);
+      }
+    }, _callee, null, [[0, 4]]);
+  })), []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    load();
+  }, [load]);
+
+  // Published and draft pages for the "Do Not Sell or Share" / "Privacy policy" links.
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetch("".concat(LEGAL_PAGES.rest_base, "wp/v2/pages?status=publish,draft&per_page=100&orderby=title&order=asc&_fields=id,title,status"), {
+      headers: {
+        'X-WP-Nonce': LEGAL_PAGES.nonce
+      }
+    }).then(function (r) {
+      return r.ok ? r.json() : [];
+    }).then(function (list) {
+      return setPages(Array.isArray(list) ? list : []);
+    }).catch(function () {
+      return setPages([]);
+    });
+  }, []);
+  var setRule = function setRule(region, patch) {
+    return setRules(function (r) {
+      return _objectSpread(_objectSpread({}, r), {}, {
+        rules: _objectSpread(_objectSpread({}, r.rules), {}, _defineProperty({}, region, _objectSpread(_objectSpread({}, r.rules[region]), patch)))
+      });
+    });
+  };
+  var save = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var states, res, result, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            setSaving(true);
+            _context2.p = 1;
+            states = statesText.split(/[\s,]+/).map(function (s) {
+              return s.trim().toUpperCase();
+            }).filter(Boolean);
+            _context2.n = 2;
+            return api('/geo-rules', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(_objectSpread(_objectSpread({}, rules), {}, {
+                gpc: _objectSpread(_objectSpread({}, rules.gpc), {}, {
+                  states: states
+                })
+              }))
+            });
+          case 2:
+            res = _context2.v;
+            _context2.n = 3;
+            return res.json();
+          case 3:
+            result = _context2.v;
+            if (result.success) {
+              setRules(result.data);
+              setStatesText(result.data.gpc.states.join(', '));
+              setTest(null);
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Region settings saved!');
+            } else {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to save settings.');
+            }
+            _context2.n = 5;
+            break;
+          case 4:
+            _context2.p = 4;
+            _t2 = _context2.v;
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('An error occurred while saving.');
+          case 5:
+            _context2.p = 5;
+            setSaving(false);
+            return _context2.f(5);
+          case 6:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[1, 4, 5, 6]]);
+    }));
+    return function save() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  // "Create page": a legal page from the Do Not Sell template, saved as a draft and set as
+  // the banner's link. The link only appears once the page is published, so the admin
+  // reviews it first. Only `do_not_sell_page` is saved (on top of the stored rules), so other
+  // unsaved edits on this tab stay unsaved.
+  var createDnsPage = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      var _found$data, found, template, created, page, stored, saved, _t3, _t4;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            setCreatingPage(true);
+            _context3.p = 1;
+            _context3.n = 2;
+            return api("/templates?type=pro&per_page=50&search=".concat(encodeURIComponent(DNS_TEMPLATE))).then(function (r) {
+              return r.json();
+            });
+          case 2:
+            found = _context3.v;
+            template = (((_found$data = found.data) === null || _found$data === void 0 ? void 0 : _found$data.templates) || []).find(function (t) {
+              return t.name === DNS_TEMPLATE;
+            });
+            if (template) {
+              _context3.n = 3;
+              break;
+            }
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error("The \"".concat(DNS_TEMPLATE, "\" template wasn't found under Legal Page Templates."));
+            return _context3.a(2);
+          case 3:
+            _context3.n = 4;
+            return api('/legal-page', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                title: DNS_TEMPLATE,
+                content: template.content,
+                status: 'draft'
+              })
+            }).then(function (r) {
+              return r.json();
+            });
+          case 4:
+            created = _context3.v;
+            if (created.success) {
+              _context3.n = 5;
+              break;
+            }
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Failed to create the page.');
+            return _context3.a(2);
+          case 5:
+            page = created.data;
+            _context3.n = 6;
+            return api('/geo-rules').then(function (r) {
+              return r.json();
+            });
+          case 6:
+            stored = _context3.v;
+            _t3 = stored.success;
+            if (!_t3) {
+              _context3.n = 8;
+              break;
+            }
+            _context3.n = 7;
+            return api('/geo-rules', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(_objectSpread(_objectSpread({}, stored.data), {}, {
+                do_not_sell_page: page.id
+              }))
+            }).then(function (r) {
+              return r.json();
+            });
+          case 7:
+            _t3 = _context3.v;
+          case 8:
+            saved = _t3;
+            setPages(function (list) {
+              return [].concat(_toConsumableArray(list), [{
+                id: page.id,
+                title: {
+                  rendered: page.title
+                },
+                status: 'draft'
+              }]);
+            });
+            setRules(function (r) {
+              return _objectSpread(_objectSpread({}, r), {}, {
+                do_not_sell_page: page.id
+              });
+            });
+            setCreatedDraft({
+              id: page.id,
+              edit_url: page.edit_url,
+              title: page.title
+            });
+            if (saved && saved.success) {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Draft page created — review and publish it to show the link.');
+            } else {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Draft page created, but the setting wasn\'t saved. Click Save Settings.');
+            }
+            _context3.n = 10;
+            break;
+          case 9:
+            _context3.p = 9;
+            _t4 = _context3.v;
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('An error occurred while creating the page.');
+          case 10:
+            _context3.p = 10;
+            setCreatingPage(false);
+            return _context3.f(10);
+          case 11:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[1, 9, 10, 11]]);
+    }));
+    return function createDnsPage() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  // `ip` set = "Test an IP address" (MaxMind only); empty = this browser's own location.
+  var testLocation = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var ip,
+        qs,
+        res,
+        result,
+        _args4 = arguments,
+        _t5;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
+          case 0:
+            ip = _args4.length > 0 && _args4[0] !== undefined ? _args4[0] : '';
+            setTesting(true);
+            _context4.p = 1;
+            qs = ip ? "ip=".concat(encodeURIComponent(ip)) : "timezone=".concat(encodeURIComponent(browserTimezone()));
+            _context4.n = 2;
+            return api("/geo?".concat(qs));
+          case 2:
+            res = _context4.v;
+            _context4.n = 3;
+            return res.json();
+          case 3:
+            result = _context4.v;
+            setTest(result.success ? _objectSpread(_objectSpread({}, result.data), {}, {
+              testedIp: ip
+            }) : null);
+            _context4.n = 5;
+            break;
+          case 4:
+            _context4.p = 4;
+            _t5 = _context4.v;
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('Could not check the location.');
+          case 5:
+            _context4.p = 5;
+            setTesting(false);
+            return _context4.f(5);
+          case 6:
+            return _context4.a(2);
+        }
+      }, _callee4, null, [[1, 4, 5, 6]]);
+    }));
+    return function testLocation() {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+  var applyDb = function applyDb(data) {
+    setDb(data);
+    if (data.has_key || data.available) setDbOpen(true);
+    setDbForm({
+      account_id: data.account_id,
+      license_key: '',
+      edition: data.edition,
+      trust_proxy: data.trust_proxy
+    });
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    api('/geo-database').then(function (r) {
+      return r.ok ? r.json() : null;
+    }).then(function (result) {
+      return result && result.success && applyDb(result.data);
+    }).catch(function () {});
+  }, []);
+
+  // download = true: save, then fetch the database from MaxMind now.
+  var saveDb = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5(download) {
+      var res, result, _t6;
+      return _regenerator().w(function (_context5) {
+        while (1) switch (_context5.p = _context5.n) {
+          case 0:
+            setDbBusy(download ? 'download' : 'save');
+            _context5.p = 1;
+            _context5.n = 2;
+            return api('/geo-database', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(_objectSpread(_objectSpread({}, dbForm), {}, {
+                download: download
+              }))
+            });
+          case 2:
+            res = _context5.v;
+            _context5.n = 3;
+            return res.json();
+          case 3:
+            result = _context5.v;
+            if (result.data) applyDb(result.data);
+            if (result.success) {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success(download ? 'Location database downloaded!' : 'Location database settings saved!');
+            } else {
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error(result.message || 'Download failed.');
+            }
+            _context5.n = 5;
+            break;
+          case 4:
+            _context5.p = 4;
+            _t6 = _context5.v;
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('An error occurred while contacting the server.');
+          case 5:
+            _context5.p = 5;
+            setDbBusy('');
+            return _context5.f(5);
+          case 6:
+            return _context5.a(2);
+        }
+      }, _callee5, null, [[1, 4, 5, 6]]);
+    }));
+    return function saveDb(_x) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+  var removeDb = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+      var res, result, _t7;
+      return _regenerator().w(function (_context6) {
+        while (1) switch (_context6.p = _context6.n) {
+          case 0:
+            setDbBusy('remove');
+            _context6.p = 1;
+            _context6.n = 2;
+            return api('/geo-database', {
+              method: 'DELETE'
+            });
+          case 2:
+            res = _context6.v;
+            _context6.n = 3;
+            return res.json();
+          case 3:
+            result = _context6.v;
+            if (result.success) {
+              applyDb(result.data);
+              setDbOpen(false);
+              _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.success('Location database removed.');
+            }
+            _context6.n = 5;
+            break;
+          case 4:
+            _context6.p = 4;
+            _t7 = _context6.v;
+            _components_common_Toast__WEBPACK_IMPORTED_MODULE_1__.Toast.error('An error occurred while removing.');
+          case 5:
+            _context6.p = 5;
+            setDbBusy('');
+            return _context6.f(5);
+          case 6:
+            return _context6.a(2);
+        }
+      }, _callee6, null, [[1, 4, 5, 6]]);
+    }));
+    return function removeDb() {
+      return _ref6.apply(this, arguments);
+    };
+  }();
+  if (unavailable) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      title: "Geo-targeted banners",
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.GlobeIcon, {}),
+      maxHeight: "",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+        className: "!text-sm !text-[#6F6F7B]",
+        children: "Update Legal Pages Pro to show each visitor the banner that fits their region."
+      })
+    });
+  }
+  if (!rules) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      title: "Geo-targeted banners",
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.GlobeIcon, {}),
+      maxHeight: "",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_Skeleton__WEBPACK_IMPORTED_MODULE_4__["default"], {})
+    });
+  }
+  var regionLabel = function regionLabel(key) {
+    var _REGIONS$find;
+    return ((_REGIONS$find = REGIONS.find(function (r) {
+      return r.key === key;
+    })) === null || _REGIONS$find === void 0 ? void 0 : _REGIONS$find.label) || key;
+  };
+  var bannerLabel = function bannerLabel(key) {
+    var _BANNERS$find;
+    return ((_BANNERS$find = BANNERS.find(function (b) {
+      return b.key === key;
+    })) === null || _BANNERS$find === void 0 ? void 0 : _BANNERS$find.label) || key;
+  };
+
+  // The chosen Do Not Sell page, if it still exists as a draft, so we can prompt a publish.
+  var dnsIsDraft = rules.do_not_sell_page ? pages.some(function (p) {
+    return p.id === rules.do_not_sell_page && p.status === 'draft';
+  }) : false;
+  var dnsEditUrl = (createdDraft === null || createdDraft === void 0 ? void 0 : createdDraft.id) === rules.do_not_sell_page ? createdDraft.edit_url : pageEditUrl(rules.do_not_sell_page);
+
+  // Privacy Policy link: the picked page if published, else Settings → Privacy. Warn when
+  // a region shows the link but neither gives a page, since the link then just disappears.
+  // `wp_privacy_url` is undefined with an older Pro's localized data: no warning then.
+  var privacyIsDraft = rules.privacy_policy_page ? pages.some(function (p) {
+    return p.id === rules.privacy_policy_page && p.status === 'draft';
+  }) : false;
+  var privacyShown = REGIONS.some(function (_ref7) {
+    var key = _ref7.key;
+    return rules.rules[key].links.includes('privacy_policy');
+  });
+  var noWpPrivacy = LEGAL_PAGES.wp_privacy_url === '';
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    className: "space-y-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      title: "Geo-targeted banners",
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.GlobeIcon, {}),
+      maxHeight: "",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "space-y-5",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          className: "!text-sm !text-[#6F6F7B]",
+          children: "Show each visitor the banner their region's law expects: opt-in in the EU and UK, an opt-out notice with a \"Do Not Sell or Share\" link in the US, and a simple notice elsewhere. The visitor's region comes from your CDN or host when they provide it, otherwise from the browser's time zone. Pages stay cacheable: the banner asks for the visitor's rule after the page loads. When this is off, everyone gets the opt-in banner."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          label: "Geo-targeted banners",
+          description: "Show the banner that fits each visitor's region",
+          name: "enabled",
+          checked: rules.enabled,
+          onChange: function onChange(name, value) {
+            return setRules(function (r) {
+              return _objectSpread(_objectSpread({}, r), {}, _defineProperty({}, name, value));
+            });
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "overflow-x-auto rounded-xl border border-[#E4E4E7]",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("table", {
+            className: "w-full min-w-[760px] text-left text-sm",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("thead", {
+              className: "bg-[#FAFAFA] text-xs text-[#6F6F7B]",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
+                  className: "px-4 py-3 font-medium",
+                  children: "Region"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
+                  className: "px-4 py-3 font-medium",
+                  children: "Banner"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
+                  className: "px-4 py-3 font-medium",
+                  children: "On before the visitor chooses"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
+                  className: "px-4 py-3 font-medium",
+                  children: "Links in the banner"
+                })]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tbody", {
+              children: REGIONS.map(function (_ref8) {
+                var _BANNERS$find2;
+                var key = _ref8.key,
+                  label = _ref8.label,
+                  hint = _ref8.hint;
+                var rule = rules.rules[key];
+                var optIn = rule.banner === 'opt_in';
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
+                  className: "border-t border-[#F4F4F5] align-top",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
+                    className: "px-4 py-3",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                      className: "font-medium text-[#17171C]",
+                      children: label
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                      className: "text-xs text-[#6F6F7B]",
+                      children: hint
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
+                    className: "px-4 py-3",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("select", {
+                      className: "".concat(inputCls, " !pr-8"),
+                      value: rule.banner,
+                      onChange: function onChange(e) {
+                        return setRule(key, {
+                          banner: e.target.value
+                        });
+                      },
+                      "aria-label": "Banner for ".concat(label),
+                      children: BANNERS.map(function (b) {
+                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                          value: b.key,
+                          children: b.label
+                        }, b.key);
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                      className: "mt-1 max-w-[220px] text-xs text-[#6F6F7B]",
+                      children: (_BANNERS$find2 = BANNERS.find(function (b) {
+                        return b.key === rule.banner;
+                      })) === null || _BANNERS$find2 === void 0 ? void 0 : _BANNERS$find2.help
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                    className: "px-4 py-3",
+                    children: optIn ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                      className: "text-xs text-[#6F6F7B]",
+                      children: "Nothing until the visitor accepts"
+                    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                      className: "flex flex-col gap-1.5",
+                      children: CATEGORIES.map(function (c) {
+                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+                          className: "flex items-center gap-2 text-sm text-[#17171C]",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                            type: "checkbox",
+                            checked: rule.categories.includes(c.key),
+                            onChange: function onChange() {
+                              return setRule(key, {
+                                categories: toggleIn(rule.categories, c.key)
+                              });
+                            }
+                          }), c.label]
+                        }, c.key);
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                    className: "px-4 py-3",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                      className: "flex flex-col gap-1.5",
+                      children: LINKS.map(function (l) {
+                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+                          className: "flex items-center gap-2 text-sm text-[#17171C]",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                            type: "checkbox",
+                            checked: rule.links.includes(l.key),
+                            onChange: function onChange() {
+                              return setRule(key, {
+                                links: toggleIn(rule.links, l.key)
+                              });
+                            }
+                          }), l.label]
+                        }, l.key);
+                      })
+                    })
+                  })]
+                }, key);
+              })
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          className: "!text-xs !text-[#6F6F7B]",
+          children: "Only the categories your banner offers (General Settings) are used. Links appear only when their page exists: the cookie policy link from General Settings, the privacy policy page picked below (or WordPress's Settings \u2192 Privacy page), and the \"Do Not Sell or Share\" page below."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+          className: "flex max-w-[460px] flex-col gap-1.5 text-sm font-medium text-[#17171C]",
+          children: ["If a visitor's region can't be detected, use the rule for", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("select", {
+            className: "".concat(inputCls, " !pr-8"),
+            value: rules.fallback,
+            onChange: function onChange(e) {
+              return setRules(function (r) {
+                return _objectSpread(_objectSpread({}, r), {}, {
+                  fallback: e.target.value
+                });
+              });
+            },
+            children: REGIONS.map(function (r) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("option", {
+                value: r.key,
+                children: [r.label, r.key === 'eu' ? ' (strictest, recommended)' : '']
+              }, r.key);
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "space-y-3 border-t border-[#F4F4F5] pt-5",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            label: "Honor Global Privacy Control (GPC)",
+            description: "Browsers that send GPC get Marketing turned off automatically in the US, without a click, and it's recorded in the consent log",
+            name: "enabled",
+            checked: rules.gpc.enabled,
+            onChange: function onChange(name, value) {
+              return setRules(function (r) {
+                return _objectSpread(_objectSpread({}, r), {}, {
+                  gpc: _objectSpread(_objectSpread({}, r.gpc), {}, {
+                    enabled: value
+                  })
+                });
+              });
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+            className: "flex flex-col gap-1.5 text-sm font-medium text-[#17171C]",
+            children: ["US states whose laws require it", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+              type: "text",
+              className: inputCls,
+              value: statesText,
+              onChange: function onChange(e) {
+                return setStatesText(e.target.value);
+              },
+              placeholder: "CA, CO, CT",
+              disabled: !rules.gpc.enabled
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+            className: "!text-xs !text-[#6F6F7B]",
+            children: "Two-letter state codes, separated by commas. US visitors whose state can't be detected are always covered. Please have your legal advisor confirm this list."
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "grid grid-cols-1 gap-4 border-t border-[#F4F4F5] pt-5 md:grid-cols-2 lg:grid-cols-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            className: "flex flex-col gap-1.5",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+              className: "flex flex-col gap-1.5 text-sm font-medium text-[#17171C]",
+              children: ["\"Do Not Sell or Share\" page", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
+                className: "".concat(inputCls, " !pr-8"),
+                value: rules.do_not_sell_page || 0,
+                onChange: function onChange(e) {
+                  return setRules(function (r) {
+                    return _objectSpread(_objectSpread({}, r), {}, {
+                      do_not_sell_page: Number(e.target.value)
+                    });
+                  });
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                  value: 0,
+                  children: "\u2014 None \u2014"
+                }), pages.map(function (p) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                    value: p.id,
+                    children: pageLabel(p)
+                  }, p.id);
+                })]
+              })]
+            }), !rules.do_not_sell_page ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+              className: "flex flex-col items-start gap-1.5",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+                type: "button",
+                className: secondaryBtn,
+                onClick: createDnsPage,
+                disabled: creatingPage,
+                children: creatingPage ? 'Creating...' : 'Create page'
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+                className: "text-xs text-[#6F6F7B]",
+                children: ["Creates a draft page from the \"", DNS_TEMPLATE, "\" template, with the opt-out button, and uses it here."]
+              })]
+            }) : dnsIsDraft ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+              className: "text-xs text-amber-700",
+              children: ["This page is a draft \u2014 the banner link stays hidden until you publish it.", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+                href: dnsEditUrl,
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "underline",
+                children: "Review / publish the page"
+              })]
+            }) : !REGIONS.some(function (_ref9) {
+              var key = _ref9.key;
+              return rules.rules[key].links.includes('do_not_sell');
+            }) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+              className: "text-xs text-amber-700",
+              children: "No region shows this link yet: tick \"Do Not Sell or Share\" under Links in the banner (usually United States)."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+            className: "flex flex-col gap-1.5 text-sm font-medium text-[#17171C]",
+            children: ["Privacy policy page", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
+              className: "".concat(inputCls, " !pr-8"),
+              value: rules.privacy_policy_page || 0,
+              onChange: function onChange(e) {
+                return setRules(function (r) {
+                  return _objectSpread(_objectSpread({}, r), {}, {
+                    privacy_policy_page: Number(e.target.value)
+                  });
+                });
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                value: 0,
+                children: "\u2014 WordPress default (Settings \u2192 Privacy) \u2014"
+              }), pages.map(function (p) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                  value: p.id,
+                  children: pageLabel(p)
+                }, p.id);
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+              className: "text-xs font-normal text-[#6F6F7B]",
+              children: "The page the banner's \"Privacy Policy\" link points at. Leave as the WordPress default to use Settings \u2192 Privacy."
+            }), privacyIsDraft ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+              className: "text-xs font-normal text-amber-700",
+              children: ["This page is a draft, so the banner ", noWpPrivacy ? 'shows no Privacy Policy link' : 'links the Settings → Privacy page instead', " until you publish it.", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+                href: pageEditUrl(rules.privacy_policy_page),
+                target: "_blank",
+                rel: "noopener noreferrer",
+                className: "underline",
+                children: "Review / publish the page"
+              })]
+            }) : !rules.privacy_policy_page && noWpPrivacy && privacyShown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+              className: "text-xs font-normal text-amber-700",
+              children: "WordPress has no privacy policy page set (Settings \u2192 Privacy), so the banner's Privacy Policy link is hidden. Pick your privacy policy page here."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+            className: "flex flex-col gap-1.5 text-sm font-medium text-[#17171C]",
+            children: ["Notice button text", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+              type: "text",
+              className: inputCls,
+              value: rules.texts.ok,
+              placeholder: "OK",
+              onChange: function onChange(e) {
+                return setRules(function (r) {
+                  return _objectSpread(_objectSpread({}, r), {}, {
+                    texts: _objectSpread(_objectSpread({}, r.texts), {}, {
+                      ok: e.target.value
+                    })
+                  });
+                });
+              }
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+            className: "flex flex-col gap-1.5 text-sm font-medium text-[#17171C]",
+            children: ["Opt-out button text", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+              type: "text",
+              className: inputCls,
+              value: rules.texts.opt_out,
+              placeholder: "Opt out",
+              onChange: function onChange(e) {
+                return setRules(function (r) {
+                  return _objectSpread(_objectSpread({}, r), {}, {
+                    texts: _objectSpread(_objectSpread({}, r.texts), {}, {
+                      opt_out: e.target.value
+                    })
+                  });
+                });
+              }
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+          type: "button",
+          className: primaryBtn,
+          onClick: save,
+          disabled: saving,
+          children: saving ? 'Saving...' : 'Save Settings'
+        })]
+      })
+    }), db && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+        className: "inline-flex items-center gap-2",
+        children: ["Location database (MaxMind)", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          className: "rounded-full bg-[#F4F4F5] px-2 py-0.5 text-xs font-medium text-[#6F6F7B]",
+          children: "Optional"
+        })]
+      }),
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.GlobeIcon, {}),
+      maxHeight: "",
+      children: !dbOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "flex flex-wrap items-center justify-between gap-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          className: "max-w-[760px] !text-sm !text-[#6F6F7B]",
+          children: "Improves location accuracy on sites without Cloudflare or a host that sends the visitor's location, using MaxMind's GeoLite2 database (needs a MaxMind account). Most sites don't need this."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+          type: "button",
+          className: secondaryBtn,
+          onClick: function onClick() {
+            return setDbOpen(true);
+          },
+          children: "Set up"
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "space-y-5",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+          className: "!text-sm !text-[#6F6F7B]",
+          children: ["Without Cloudflare or a host that sends the visitor's location, the region comes from the browser's time zone, which can be wrong and never tells the US state. With MaxMind's free GeoLite2 database the visitor's IP is looked up on your own server: it isn't sent anywhere and isn't stored.", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+            href: "https://www.maxmind.com/en/geolite2/signup",
+            target: "_blank",
+            rel: "noopener noreferrer",
+            className: "!text-[#7C3BED] underline",
+            children: "Create a free MaxMind account"
+          }), ", then generate a license key under \"Manage license keys\". The database is refreshed every week."]
+        }), !db.phar && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          className: "rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 !text-sm !text-[#17171C]",
+          children: "Your server's PHP is missing the Phar extension, which is needed to unpack the MaxMind download. Ask your host to enable it."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "grid grid-cols-1 gap-4 md:grid-cols-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+            className: "flex flex-col gap-1.5 text-sm font-medium text-[#17171C]",
+            children: ["MaxMind account ID", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+              type: "text",
+              inputMode: "numeric",
+              autoComplete: "off",
+              className: inputCls,
+              value: dbForm.account_id,
+              placeholder: "123456",
+              onChange: function onChange(e) {
+                return setDbForm(function (f) {
+                  return _objectSpread(_objectSpread({}, f), {}, {
+                    account_id: e.target.value
+                  });
+                });
+              }
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+            className: "flex flex-col gap-1.5 text-sm font-medium text-[#17171C]",
+            children: ["License key", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+              type: "password",
+              autoComplete: "new-password",
+              className: inputCls,
+              value: dbForm.license_key,
+              placeholder: db.has_key ? 'Saved (leave empty to keep it)' : 'Your MaxMind license key',
+              onChange: function onChange(e) {
+                return setDbForm(function (f) {
+                  return _objectSpread(_objectSpread({}, f), {}, {
+                    license_key: e.target.value
+                  });
+                });
+              }
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+            className: "flex flex-col gap-1.5 text-sm font-medium text-[#17171C]",
+            children: ["Database", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
+              className: "".concat(inputCls, " !pr-8"),
+              value: dbForm.edition,
+              onChange: function onChange(e) {
+                return setDbForm(function (f) {
+                  return _objectSpread(_objectSpread({}, f), {}, {
+                    edition: e.target.value
+                  });
+                });
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                value: "city",
+                children: "City \u2014 includes US states (recommended)"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                value: "country",
+                children: "Country \u2014 smaller, no states"
+              })]
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_ToggleField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          label: "My site is behind a proxy or load balancer",
+          description: "Only turn this on if your host says so. The visitor's IP is then read from the X-Forwarded-For header, which visitors could otherwise fake.",
+          name: "trust_proxy",
+          checked: dbForm.trust_proxy,
+          onChange: function onChange(name, value) {
+            return setDbForm(function (f) {
+              return _objectSpread(_objectSpread({}, f), {}, _defineProperty({}, name, value));
+            });
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "flex flex-wrap gap-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+            type: "button",
+            className: primaryBtn,
+            onClick: function onClick() {
+              return saveDb(true);
+            },
+            disabled: dbBusy !== '' || !db.phar || !dbForm.account_id.trim() || !dbForm.license_key.trim() && !db.has_key,
+            children: dbBusy === 'download' ? 'Downloading...' : 'Save & download'
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+            type: "button",
+            className: secondaryBtn,
+            onClick: function onClick() {
+              return saveDb(false);
+            },
+            disabled: dbBusy !== '',
+            children: dbBusy === 'save' ? 'Saving...' : 'Save'
+          }), db.has_key || db.available ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+            type: "button",
+            className: secondaryBtn,
+            onClick: removeDb,
+            disabled: dbBusy !== '',
+            children: dbBusy === 'remove' ? 'Removing...' : 'Remove database and key'
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+            type: "button",
+            className: secondaryBtn,
+            onClick: function onClick() {
+              return setDbOpen(false);
+            },
+            disabled: dbBusy !== '',
+            children: "Cancel"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("dl", {
+          className: "grid grid-cols-2 gap-3 border-t border-[#F4F4F5] pt-4 text-sm md:grid-cols-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dt", {
+              className: "text-xs text-[#6F6F7B]",
+              children: "Database"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dd", {
+              className: "font-semibold text-[#17171C]",
+              children: db.available ? db.status.edition : 'Not downloaded'
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dt", {
+              className: "text-xs text-[#6F6F7B]",
+              children: "Data from (MaxMind)"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dd", {
+              className: "font-semibold text-[#17171C]",
+              children: db.available ? "".concat(db.status.built.slice(0, 10)) : '—'
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dt", {
+              className: "text-xs text-[#6F6F7B]",
+              children: "Downloaded"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dd", {
+              className: "font-semibold text-[#17171C]",
+              children: db.available ? "".concat(db.status.updated.slice(0, 16), " UTC \xB7 ").concat((db.status.size / 1048576).toFixed(1), " MB") : '—'
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dt", {
+              className: "text-xs text-[#6F6F7B]",
+              children: "Next update"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dd", {
+              className: "font-semibold text-[#17171C]",
+              children: db.next ? "".concat(db.next.slice(0, 16), " UTC") : '—'
+            })]
+          })]
+        }), db.status.error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+          className: "!text-sm !text-red-600",
+          children: ["Last download failed: ", db.status.error, db.available ? ' The previously downloaded database is still in use.' : '']
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+          className: "!text-xs !text-[#6F6F7B]",
+          children: ["This product includes GeoLite2 Data created by MaxMind, available from", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+            href: "https://www.maxmind.com",
+            target: "_blank",
+            rel: "noopener noreferrer",
+            className: "underline",
+            children: "https://www.maxmind.com"
+          }), "."]
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      title: "Test my location",
+      icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_5__.GlobeIcon, {}),
+      maxHeight: "",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "space-y-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+          className: "!text-sm !text-[#6F6F7B]",
+          children: ["See which region and banner your own browser gets, and where the location came from. Save your settings first.", (db === null || db === void 0 ? void 0 : db.available) && ' With the MaxMind database you can also test any public IP address, for example one from another country.']
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "flex flex-wrap items-end gap-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+            type: "button",
+            className: secondaryBtn,
+            onClick: function onClick() {
+              return testLocation();
+            },
+            disabled: testing,
+            children: testing ? 'Checking...' : 'Test my location'
+          }), (db === null || db === void 0 ? void 0 : db.available) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+              className: "flex flex-col gap-1.5 text-sm font-medium text-[#17171C]",
+              children: ["Test an IP address", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                type: "text",
+                className: inputCls,
+                value: testIp,
+                placeholder: "e.g. 81.2.69.142",
+                onChange: function onChange(e) {
+                  return setTestIp(e.target.value);
+                },
+                onKeyDown: function onKeyDown(e) {
+                  return e.key === 'Enter' && testIp.trim() && testLocation(testIp.trim());
+                }
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+              type: "button",
+              className: secondaryBtn,
+              onClick: function onClick() {
+                return testLocation(testIp.trim());
+              },
+              disabled: testing || !testIp.trim(),
+              children: "Test IP"
+            })]
+          })]
+        }), test && (test.enabled ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("dl", {
+          className: "grid grid-cols-2 gap-3 border-t border-[#F4F4F5] pt-4 text-sm md:grid-cols-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("dt", {
+              className: "text-xs text-[#6F6F7B]",
+              children: ["Detected ", test.testedIp ? "for ".concat(test.testedIp) : 'for your browser']
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dd", {
+              className: "font-semibold text-[#17171C]",
+              children: (_test$location = test.location) !== null && _test$location !== void 0 && _test$location.country ? "".concat(test.location.country).concat(test.location.state ? "-".concat(test.location.state) : '') : ((_test$location2 = test.location) === null || _test$location2 === void 0 ? void 0 : _test$location2.timezone) || (test.testedIp ? 'Not found in the database' : 'Unknown')
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dt", {
+              className: "text-xs text-[#6F6F7B]",
+              children: "From"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dd", {
+              className: "font-semibold text-[#17171C]",
+              children: SOURCES[(_test$location3 = test.location) === null || _test$location3 === void 0 ? void 0 : _test$location3.source] || 'Nothing (fallback rule)'
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dt", {
+              className: "text-xs text-[#6F6F7B]",
+              children: "Rule"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("dd", {
+              className: "font-semibold text-[#17171C]",
+              children: [regionLabel(test.rule), !test.region ? ' (fallback)' : '', " \xB7 ", bannerLabel(test.banner)]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("dt", {
+              className: "text-xs text-[#6F6F7B]",
+              children: "Global Privacy Control"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("dd", {
+              className: "font-semibold text-[#17171C]",
+              children: [test.gpc ? 'Honored here' : 'Not applied here', !test.testedIp && " \xB7 your browser ".concat(navigator.globalPrivacyControl === true ? 'sends it' : "doesn't send it")]
+            })]
+          })]
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          className: "flex items-center gap-2 !text-sm !text-[#6F6F7B]",
+          children: "Geo-targeted banners are off. Turn them on and save to test."
+        }))]
+      })
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Regions);
 
 /***/ },
 
@@ -9522,8 +11789,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_GCookieSettings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/GCookieSettings */ "./spa/admin/src/pages/CookieBar/components/GCookieSettings/index.jsx");
 /* harmony import */ var _components_BlockServices__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/BlockServices */ "./spa/admin/src/pages/CookieBar/components/BlockServices/index.jsx");
 /* harmony import */ var _components_CookieScanner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/CookieScanner */ "./spa/admin/src/pages/CookieBar/components/CookieScanner/index.jsx");
-/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_ConsentLog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/ConsentLog */ "./spa/admin/src/pages/CookieBar/components/ConsentLog/index.jsx");
+/* harmony import */ var _components_Regions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Regions */ "./spa/admin/src/pages/CookieBar/components/Regions/index.jsx");
+/* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -9531,6 +11800,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 ;
+
+
 
 
 
@@ -9548,7 +11819,9 @@ var PRO_MESSAGES = {
   category: 'Changing a cookie\'s category is available in Legal Pages Pro.',
   ignore: 'Hiding cookies from your cookie policy (Ignore / Restore) is available in Legal Pages Pro.',
   block_services: 'Blocking third-party scripts until visitors consent is available in Legal Pages Pro.',
-  customize: 'Customizing the cookie bar position, consent categories, texts and colors is available in Legal Pages Pro.'
+  customize: 'Customizing the cookie bar position, consent categories, texts and colors is available in Legal Pages Pro.',
+  consent_log: 'Keeping a log of visitors\' consent choices (proof of consent) with CSV export is available in Legal Pages Pro.',
+  regions: 'Showing each visitor the banner their region\'s law expects (opt-in, opt-out or notice), and honoring Global Privacy Control, is available in Legal Pages Pro.'
 };
 
 /**
@@ -9598,20 +11871,20 @@ var CookieSettings = function CookieSettings(_ref) {
   // settings routes are off (legal_pages_cookie_bar_in_legacy_pro()).
   var legacyPro = (_LEGAL_PAGES = LEGAL_PAGES) === null || _LEGAL_PAGES === void 0 ? void 0 : _LEGAL_PAGES.cookie_legacy_pro;
   if (legacyPro) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
       title: "Cookie Bar Settings",
       description: "Configure EU cookie consent bar for GDPR compliance",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
         className: "mt-6 flex max-w-[1150px] flex-col gap-5 rounded-2xl border border-amber-200 bg-amber-50 p-6 sm:flex-row sm:items-center sm:justify-between",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h3", {
             className: "!mb-1 !text-[16px] !font-semibold !text-[#17171C]",
             children: "Update Legal Pages Pro to use the new Cookie Bar"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("p", {
             className: "!text-sm !text-[#6F6F7B]",
             children: ["You have Legal Pages Pro ".concat(legacyPro.version || '').trim(), ". The cookie scanner and the new cookie settings need Legal Pages Pro 2.1.0 or newer. Your current cookie banner keeps working, and your settings carry over after the update."]
           })]
-        }), legacyPro.update_url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
+        }), legacyPro.update_url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
           href: legacyPro.update_url,
           className: "inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl bg-[#7C3BED] px-5 py-3 text-sm font-semibold !text-white no-underline transition hover:bg-indigo-700",
           children: "Update Legal Pages Pro"
@@ -9622,61 +11895,71 @@ var CookieSettings = function CookieSettings(_ref) {
   var tabs = [{
     id: 'general',
     label: 'General Settings',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_7__.GeneralInformationIcon, {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_9__.GeneralInformationIcon, {})
   }, {
     id: 'block_services',
     label: 'Block Services',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_7__.CookieBlock, {}),
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_9__.CookieBlock, {}),
+    pro: true
+  }, {
+    id: 'consent_log',
+    label: 'Consent Log',
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_9__.CookieComplianceIcon, {}),
+    pro: true
+  }, {
+    id: 'regions',
+    label: 'Regions',
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_9__.GlobeIcon, {}),
     pro: true
   }];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_components_common_MainPageLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
     title: "Cookie Bar Settings",
     description: "Configure EU cookie consent bar for GDPR compliance",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: locked ? 'grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_300px] xl:items-start' : '',
-      children: [locked && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("aside", {
+      children: [locked && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("aside", {
         className: "xl:order-last xl:sticky xl:top-[52px]",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_common_ProFeaturePoster__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_ProFeaturePoster__WEBPACK_IMPORTED_MODULE_2__["default"], {
           title: "Cookie Bar is a Pro Feature",
           description: "Show a cookie consent banner, block third-party scripts until visitors consent, and customize its texts and colors. Upgrade to Pro to unlock this feature and get more control over your legal pages."
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
         className: "min-w-0",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
           className: locked ? '' : 'mt-6',
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_CookieScanner__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_CookieScanner__WEBPACK_IMPORTED_MODULE_6__["default"], {
             locked: locked,
             onLocked: showPro
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
           className: "mt-6 mb-6",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
             className: "inline-flex rounded-xl bg-[#F4F4F5] p-[4px]",
             children: tabs.map(function (tab) {
               var tabLocked = locked && tab.pro;
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("button", {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("button", {
                 onClick: function onClick() {
                   return tabLocked ? showPro(tab.id) : setActiveTab(tab.id);
                 },
                 className: ['relative flex cursor-pointer items-center gap-2 rounded-xl px-6 py-3 text-sm font-medium transition', currentTab === tab.id ? 'bg-white text-[#17171C] shadow-[0px_1px_2px_0px_#0000000D] ring-1 ring-gray-200' : 'text-gray-600 hover:text-gray-900'].join(' '),
-                children: [tab.icon, tab.label, tabLocked && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+                children: [tab.icon, tab.label, tabLocked && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
                   className: "text-[#7C3BED]",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_3__.LockIcon, {})
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_3__.LockIcon, {})
                 })]
               }, tab.id);
             })
           })
-        }), currentTab === 'general' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_GCookieSettings__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        }), currentTab === 'general' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_GCookieSettings__WEBPACK_IMPORTED_MODULE_4__["default"], {
           isLoading: isLoading,
           setIsLoading: setIsLoading,
           locked: locked,
           onLocked: showPro
-        }), currentTab === 'block_services' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_BlockServices__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        }), currentTab === 'block_services' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_BlockServices__WEBPACK_IMPORTED_MODULE_5__["default"], {
           isLoading: isLoading,
           setIsLoading: setIsLoading
-        })]
+        }), currentTab === 'consent_log' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_ConsentLog__WEBPACK_IMPORTED_MODULE_7__["default"], {}), currentTab === 'regions' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_Regions__WEBPACK_IMPORTED_MODULE_8__["default"], {})]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_common_ProFeatureModal__WEBPACK_IMPORTED_MODULE_3__["default"], {
       isOpen: proModal !== null,
       onClose: closePro,
       title: "This is a Pro Feature",
@@ -11895,9 +14178,26 @@ __webpack_require__.r(__webpack_exports__);
 var save = "".concat(LEGAL_PAGES.assets_url, "/images/icons/save.png");
 var reset = "".concat(LEGAL_PAGES.assets_url, "/images/icons/reset.png");
 var deleteIcon = "".concat(LEGAL_PAGES.assets_url, "/images/icons/delete.png");
+var REGION_OPTIONS = [{
+  value: "eu",
+  label: "European Union (EU / EEA)"
+}, {
+  value: "uk",
+  label: "United Kingdom"
+}, {
+  value: "us",
+  label: "United States"
+}, {
+  value: "canada",
+  label: "Canada"
+}, {
+  value: "australia",
+  label: "Australia"
+}];
 var GeneralInformation = function GeneralInformation(_ref) {
   var formData = _ref.formData,
     handleInputChange = _ref.handleInputChange,
+    handleRegionsChange = _ref.handleRegionsChange,
     saving = _ref.saving,
     handleSave = _ref.handleSave,
     handleReset = _ref.handleReset,
@@ -12125,6 +14425,67 @@ var GeneralInformation = function GeneralInformation(_ref) {
             onCopy: copyToClipboard
           })]
         })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        title: "Regions Served",
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_2__.GlobeIcon, {}),
+        maxWidth: "max-w-[1150px]",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          className: "mb-4 text-sm text-[#6F6F7B]",
+          children: "Select the regions your business serves. Multi-region legal pages show only the sections for the regions you tick here, and update by themselves when you change this later (no page editing). With nothing ticked, every section shows."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "grid grid-cols-1 gap-3 sm:grid-cols-2",
+          children: REGION_OPTIONS.map(function (_ref2) {
+            var value = _ref2.value,
+              label = _ref2.label;
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
+              className: "flex cursor-pointer items-center gap-3 rounded-xl border border-[#E4E4E7] p-4 transition hover:border-[#7C3BED]",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                type: "checkbox",
+                checked: (formData.regions_served || []).includes(value),
+                onChange: function onChange() {
+                  return handleRegionsChange(value);
+                },
+                className: "h-4 w-4 rounded border-gray-300 text-[#7C3BED] focus:ring-[#7C3BED]"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                className: "text-sm font-medium text-[#17171C]",
+                children: label
+              })]
+            }, value);
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "mt-4 rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] px-4 py-3 text-sm text-[#6F6F7B]",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+            className: "!mb-2 font-medium text-[#17171C]",
+            children: "Writing your own legal page?"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+            className: "!mb-2",
+            children: ["Put a paragraph between ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("code", {
+              className: "text-[#7C3BED]",
+              children: "[lp_if region=\"eu\"]"
+            }), " and", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("code", {
+              className: "text-[#7C3BED]",
+              children: "[/lp_if]"
+            }), ", and it only appears on the page while that region is ticked above:"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("pre", {
+            className: "!mb-2 whitespace-pre-wrap rounded-lg bg-white px-3 py-2 font-mono text-xs text-[#17171C] ring-1 ring-[#E4E4E7]",
+            children: "[lp_if region=\"eu\"]\nYour rights under GDPR: you can access, correct or delete your data.\n[/lp_if]"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+            className: "!mb-0",
+            children: ["Region names: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("code", {
+              children: "eu"
+            }), ", ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("code", {
+              children: "uk"
+            }), ", ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("code", {
+              children: "us"
+            }), ", ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("code", {
+              children: "canada"
+            }), ", ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("code", {
+              children: "australia"
+            }), ". For several, separate them with commas: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("code", {
+              children: "region=\"canada,australia\""
+            }), "."]
+          })]
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "flex items-center justify-start gap-2 rounded-xl p-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
@@ -12198,7 +14559,7 @@ function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbol
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -12516,7 +14877,7 @@ function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbol
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -12816,11 +15177,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_common_ProFeatureBanner__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../components/common/ProFeatureBanner */ "./spa/admin/src/components/common/ProFeatureBanner.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -12868,7 +15233,8 @@ var SettingInfo = function SettingInfo(_ref) {
       complete_address: "",
       facebook_url: "",
       linkedin_url: "",
-      twitter_url: ""
+      twitter_url: "",
+      regions_served: []
     }),
     _useState4 = _slicedToArray(_useState3, 2),
     formData = _useState4[0],
@@ -12960,6 +15326,17 @@ var SettingInfo = function SettingInfo(_ref) {
       return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, name, value));
     });
   };
+  var handleRegionsChange = function handleRegionsChange(region) {
+    setFormData(function (prev) {
+      var current = Array.isArray(prev.regions_served) ? prev.regions_served : [];
+      var next = current.includes(region) ? current.filter(function (r) {
+        return r !== region;
+      }) : [].concat(_toConsumableArray(current), [region]);
+      return _objectSpread(_objectSpread({}, prev), {}, {
+        regions_served: next
+      });
+    });
+  };
   var handleSave = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
       var emailRegex, response, result, _t2;
@@ -13038,7 +15415,8 @@ var SettingInfo = function SettingInfo(_ref) {
       complete_address: "",
       facebook_url: "",
       linkedin_url: "",
-      twitter_url: ""
+      twitter_url: "",
+      regions_served: []
     });
     _components_common_Toast__WEBPACK_IMPORTED_MODULE_6__.Toast.info("Fields reset successfully!");
   };
@@ -13083,7 +15461,8 @@ var SettingInfo = function SettingInfo(_ref) {
                 complete_address: "",
                 facebook_url: "",
                 linkedin_url: "",
-                twitter_url: ""
+                twitter_url: "",
+                regions_served: []
               });
             } else {
               _components_common_Toast__WEBPACK_IMPORTED_MODULE_6__.Toast.error("Failed to reset saved data.");
@@ -13141,6 +15520,7 @@ var SettingInfo = function SettingInfo(_ref) {
     }), activeTab === "general" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Generalinformation__WEBPACK_IMPORTED_MODULE_1__["default"], {
       formData: formData,
       handleInputChange: handleInputChange,
+      handleRegionsChange: handleRegionsChange,
       saving: saving,
       handleSave: handleSave,
       handleReset: handleReset,
@@ -13454,11 +15834,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/common/SvgIcon */ "./spa/admin/src/components/common/SvgIcon.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r; if ("undefined" != typeof Symbol && void 0 !== (r = t[Symbol.toPrimitive])) { var i = r.call(t, e || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === e ? String : Number)(t); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -13500,6 +15884,22 @@ var VISIBLE_FIELDS = [{
   name: 'email_address',
   label: 'Email Address',
   placeholder: '[emailAddress]'
+}];
+var REGION_OPTIONS = [{
+  value: 'eu',
+  label: 'European Union (EU / EEA)'
+}, {
+  value: 'uk',
+  label: 'United Kingdom'
+}, {
+  value: 'us',
+  label: 'United States'
+}, {
+  value: 'canada',
+  label: 'Canada'
+}, {
+  value: 'australia',
+  label: 'Australia'
 }];
 var StepBusinessInfo = function StepBusinessInfo(_ref) {
   var onNext = _ref.onNext,
@@ -13570,6 +15970,17 @@ var StepBusinessInfo = function StepBusinessInfo(_ref) {
       value = _e$target.value;
     setFormData(function (prev) {
       return _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, name, value));
+    });
+  };
+  var handleRegionsChange = function handleRegionsChange(region) {
+    setFormData(function (prev) {
+      var current = Array.isArray(prev.regions_served) ? prev.regions_served : [];
+      var next = current.includes(region) ? current.filter(function (r) {
+        return r !== region;
+      }) : [].concat(_toConsumableArray(current), [region]);
+      return _objectSpread(_objectSpread({}, prev), {}, {
+        regions_served: next
+      });
     });
   };
   var copyToClipboard = function copyToClipboard(text) {
@@ -13677,6 +16088,37 @@ var StepBusinessInfo = function StepBusinessInfo(_ref) {
             type: field.type || 'text'
           }, field.name);
         })
+      })
+    }), !loading && formData && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "mt-6",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_components_common_SectionCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        title: "Regions Served",
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_4__.GlobeIcon, {}),
+        maxWidth: "max-w-[1150px]",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+          className: "mb-4 text-sm text-[#6F6F7B]",
+          children: "Select the regions your business serves. Multi-region legal pages show only the sections for the regions you tick here, and update by themselves if you change this later in Settings. With nothing ticked, every section shows."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "grid grid-cols-1 gap-3 sm:grid-cols-2",
+          children: REGION_OPTIONS.map(function (_ref4) {
+            var value = _ref4.value,
+              label = _ref4.label;
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("label", {
+              className: "flex cursor-pointer items-center gap-3 rounded-xl border border-[#E4E4E7] p-4 transition hover:border-[#7C3BED]",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                type: "checkbox",
+                checked: (formData.regions_served || []).includes(value),
+                onChange: function onChange() {
+                  return handleRegionsChange(value);
+                },
+                className: "h-4 w-4 rounded border-gray-300 text-[#7C3BED] focus:ring-[#7C3BED]"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "text-sm font-medium text-[#17171C]",
+                children: label
+              })]
+            }, value);
+          })
+        })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "mt-6 flex items-center justify-between gap-3",
@@ -46027,11 +48469,11 @@ __webpack_require__.r(__webpack_exports__);
     };
     (function () {
       var isomorphicReactPackageVersion = React.version;
-      if ("19.3.0" !== isomorphicReactPackageVersion)
+      if ("19.3.1" !== isomorphicReactPackageVersion)
         throw Error(
           'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' +
             (isomorphicReactPackageVersion +
-              "\n  - react-dom:  19.3.0\nLearn more: https://react.dev/warnings/version-mismatch")
+              "\n  - react-dom:  19.3.1\nLearn more: https://react.dev/warnings/version-mismatch")
         );
     })();
     ("function" === typeof Map &&
@@ -46068,10 +48510,10 @@ __webpack_require__.r(__webpack_exports__);
       !(function () {
         var internals = {
           bundleType: 1,
-          version: "19.3.0",
+          version: "19.3.1",
           rendererPackageName: "react-dom",
           currentDispatcherRef: ReactSharedInternals,
-          reconcilerVersion: "19.3.0"
+          reconcilerVersion: "19.3.1"
         };
         internals.overrideHookState = overrideHookState;
         internals.overrideHookStateDeletePath = overrideHookStateDeletePath;
@@ -46209,7 +48651,7 @@ __webpack_require__.r(__webpack_exports__);
       listenToAllSupportedEvents(container);
       return new ReactDOMHydrationRoot(initialChildren);
     };
-    exports.version = "19.3.0";
+    exports.version = "19.3.1";
     "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
       "function" ===
         typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&
@@ -46662,7 +49104,7 @@ __webpack_require__.r(__webpack_exports__);
     exports.useFormStatus = function () {
       return resolveDispatcher().useHostTransitionStatus();
     };
-    exports.version = "19.3.0";
+    exports.version = "19.3.1";
     "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
       "function" ===
         typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&
@@ -48452,7 +50894,7 @@ if (false) // removed by dead control flow
     exports.useTransition = function () {
       return resolveDispatcher().useTransition();
     };
-    exports.version = "19.3.0";
+    exports.version = "19.3.1";
     "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
       "function" ===
         typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&

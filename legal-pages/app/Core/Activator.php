@@ -2,6 +2,7 @@
 namespace LegalPage\Core;
 
 use LegalPage\Helpers\Utility;
+use LegalPage\Models\Cookie_Scan;
 
 /**
  * Activator Class
@@ -14,6 +15,88 @@ use LegalPage\Helpers\Utility;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Activator {
+
+    // Bump when the cookies table schema changes; dbDelta() then upgrades it.
+    const COOKIES_DB_VERSION = '1.1.0';
+    const COOKIES_DB_OPTION  = 'adl_lp_cookies_db_version';
+
+    // Held while an update runs activate(); value = when it was taken. A lock older
+    // than UPGRADE_LOCK_TTL seconds is from a request that died and is taken over.
+    const UPGRADE_LOCK     = 'adl_lp_upgrade_lock';
+    const UPGRADE_LOCK_TTL = 300;
+
+    /**
+     * After a plugin update (stored version ≠ code version), run activate() once.
+     *
+     * Every request checks this on `init`, so the first requests after an update
+     * arrive together; without a lock each ran activate() and the insert-if-missing
+     * steps added new templates more than once. The request that gets the lock
+     * runs it, the others skip it (they serve the page as usual).
+     *
+     * @return void
+     */
+    public static function maybe_upgrade() {
+        if ( get_option( 'adl_lp_plugin_version' ) === LEGAL_PAGES_VERSION ) {
+            return;
+        }
+        if ( ! self::acquire_upgrade_lock() ) {
+            return;
+        }
+        try {
+            // Another request may have finished the update since our check; the
+            // options cache can be stale, so ask the database.
+            if ( self::stored_option( 'adl_lp_plugin_version' ) !== LEGAL_PAGES_VERSION ) {
+                self::activate();
+            }
+        } finally {
+            self::release_upgrade_lock();
+        }
+    }
+
+    /**
+     * Take the update lock. The INSERT is atomic (option_name is unique), so only
+     * one request gets it; a stale lock is taken over by one request through an
+     * UPDATE that only matches the old value.
+     */
+    private static function acquire_upgrade_lock(): bool {
+        global $wpdb;
+
+        $now   = time();
+        $taken = $wpdb->query(
+            $wpdb->prepare(
+                "INSERT IGNORE INTO {$wpdb->options} (option_name, option_value, autoload) VALUES (%s, %s, 'no')",
+                self::UPGRADE_LOCK,
+                $now
+            )
+        );
+        if ( $taken ) {
+            return true;
+        }
+
+        $since = self::stored_option( self::UPGRADE_LOCK );
+        if ( null === $since || $now - (int) $since <= self::UPGRADE_LOCK_TTL ) {
+            return false;
+        }
+        return (bool) $wpdb->query(
+            $wpdb->prepare(
+                "UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s AND option_value = %s",
+                $now,
+                self::UPGRADE_LOCK,
+                $since
+            )
+        );
+    }
+
+    private static function release_upgrade_lock() {
+        global $wpdb;
+        $wpdb->delete( $wpdb->options, [ 'option_name' => self::UPGRADE_LOCK ] );
+    }
+
+    // An option straight from the database, bypassing the options cache (null when missing).
+    private static function stored_option( string $name ) {
+        global $wpdb;
+        return $wpdb->get_var( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", $name ) );
+    }
 
     /**
      * Activation tasks
@@ -70,6 +153,7 @@ class Activator {
         self::insert_pro_templates( $template_table_name );
 
         self::add_cookie_list_to_templates( $template_table_name );
+        self::add_region_templates( $template_table_name );
 
         // Fresh install (no version recorded yet) — flag a one-time redirect to the Setup Wizard.
         if ( ! get_option( 'adl_lp_plugin_version' ) ) {
@@ -399,6 +483,59 @@ class Activator {
     }
 
     /**
+     * Add the two F7 region-policy templates to installs that were seeded before
+     * they existed. Template rows are only inserted on a fresh activation, so an
+     * update would otherwise never add them.
+     *
+     * Only inserts a template when its name is absent, so user edits to existing
+     * rows are never overwritten.
+     *
+     * @param string $table_name Table name
+     * @return void
+     */
+    private static function add_region_templates( $table_name ) {
+        global $wpdb;
+
+        if ( get_option( 'adl_lp_region_templates_added' ) ) {
+            return;
+        }
+
+        // Template name => view file (both ship in views/templates/pro/).
+        $templates = array(
+            'Privacy Policy (Multi-Region)'                => 'privacy-multi-region.php',
+            'Do Not Sell or Share My Personal Information' => 'do-not-sell-or-share.php',
+        );
+
+        foreach ( $templates as $name => $file ) {
+            $exists = $wpdb->get_var(
+                $wpdb->prepare( "SELECT id FROM {$table_name} WHERE name = %s", $name )
+            );
+
+            if ( $exists ) {
+                continue;
+            }
+
+            $content = Utility::get_template( 'templates/pro/' . $file );
+
+            if ( empty( $content ) ) {
+                continue;
+            }
+
+            $wpdb->insert(
+                $table_name,
+                array(
+                    'name'    => $name,
+                    'content' => $content,
+                    'type'    => 'pro',
+                ),
+                array( '%s', '%s', '%s' )
+            );
+        }
+
+        update_option( 'adl_lp_region_templates_added', true );
+    }
+
+    /**
      * Get template name mapping (old name => new filename)
      *
      * @return array Template name mapping
@@ -439,6 +576,9 @@ class Activator {
             "COPPA - Children's Online Privacy Policy" => 'coppa.php',
             'GDPR Cookie Policy'                     => 'gdpr-cookie-policy.php',
             'GDPR Privacy Policy'                    => 'gdpr-privacy-policy.php',
+            // F7 region policies: [lp_if] sections follow Settings → Regions Served.
+            'Privacy Policy (Multi-Region)'          => 'privacy-multi-region.php',
+            'Do Not Sell or Share My Personal Information' => 'do-not-sell-or-share.php',
         );
     }
 
@@ -620,5 +760,54 @@ class Activator {
 
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql );
+    }
+
+    /**
+     * Create or upgrade the cookie scanner table when its schema version changes.
+     * Called on init by Controllers\Cookie\CookieScanner (not from activate(), so
+     * it stays out of the way while a pre-2.1.0 Pro owns the cookie features).
+     *
+     * @return void
+     */
+    public static function maybe_create_cookies_table() {
+        if ( get_option( self::COOKIES_DB_OPTION ) !== self::COOKIES_DB_VERSION ) {
+            self::create_cookies_table();
+        }
+    }
+
+    /**
+     * Create the cookie scanner table ({prefix}adl_lp_cookies). See Models\Cookie_Scan.
+     *
+     * @return void
+     */
+    public static function create_cookies_table() {
+        global $wpdb;
+
+        $table           = Cookie_Scan::table();
+        $charset_collate = $wpdb->get_charset_collate();
+
+        $sql = "CREATE TABLE {$table} (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            name varchar(191) NOT NULL,
+            storage varchar(20) NOT NULL DEFAULT 'cookie',
+            service varchar(191) NOT NULL DEFAULT '',
+            category varchar(20) NOT NULL DEFAULT 'unclassified',
+            purpose text NOT NULL,
+            retention varchar(100) NOT NULL DEFAULT '',
+            found_on text NOT NULL,
+            source varchar(20) NOT NULL DEFAULT 'detected',
+            synced tinyint(1) NOT NULL DEFAULT 0,
+            auto_sync tinyint(1) NOT NULL DEFAULT 1,
+            ignored tinyint(1) NOT NULL DEFAULT 0,
+            first_seen datetime NOT NULL,
+            last_seen datetime NOT NULL,
+            PRIMARY KEY  (id),
+            UNIQUE KEY name_storage (name,storage)
+        ) {$charset_collate};";
+
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        dbDelta( $sql );
+
+        update_option( self::COOKIES_DB_OPTION, self::COOKIES_DB_VERSION );
     }
 }

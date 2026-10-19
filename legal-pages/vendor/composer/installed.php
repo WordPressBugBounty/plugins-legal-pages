@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'wpwax/legal-page',
-        'pretty_version' => 'v1.7.1',
-        'version' => '1.7.1.0',
-        'reference' => '34d07a06880c3cdd0e35bb199256ae16095b0178',
+        'pretty_version' => 'v1.8.1',
+        'version' => '1.8.1.0',
+        'reference' => '9cbdbe379a6a4bd458540c715c85ed78e84c9bb3',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -53,9 +53,9 @@
             'dev_requirement' => false,
         ),
         'wp-cli/mustangostang-spyc' => array(
-            'pretty_version' => '0.6.6',
-            'version' => '0.6.6.0',
-            'reference' => '30f25baaaba939caaff1f4b8c7ed998632f59fe2',
+            'pretty_version' => '0.6.7',
+            'version' => '0.6.7.0',
+            'reference' => '8adbd399bc819c19e36f4aab0aeeb3b918793e1c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../wp-cli/mustangostang-spyc',
             'aliases' => array(),
@@ -80,9 +80,9 @@
             'dev_requirement' => false,
         ),
         'wpwax/legal-page' => array(
-            'pretty_version' => 'v1.7.1',
-            'version' => '1.7.1.0',
-            'reference' => '34d07a06880c3cdd0e35bb199256ae16095b0178',
+            'pretty_version' => 'v1.8.1',
+            'version' => '1.8.1.0',
+            'reference' => '9cbdbe379a6a4bd458540c715c85ed78e84c9bb3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

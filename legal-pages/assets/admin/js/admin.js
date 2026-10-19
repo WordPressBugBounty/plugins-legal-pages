@@ -9,41 +9,6 @@ jQuery(document).ready(function ($) {
 
     const $menu = $('#adminmenu li.toplevel_page_adl-legal-pages');
 
-    const isProActive = $menu.find('a[href*="adl-legal-pages#/all-popups"]').length > 0;
-
-    const freeChildSel = 'a[href*="#/pro-features/all-popups"], a[href*="#/pro-features/cookie-bar"]';
-    const proChildSel  = 'a[href*="adl-legal-pages#/all-popups"], a[href*="adl-legal-pages#/cookie-bar"]';
-    const childSel     = isProActive ? proChildSel : freeChildSel;
-
-    function getProChildren() {
-        return $menu.find('.wp-submenu li').has(childSel);
-    }
-
-    function getProParent() {
-        return $menu.find('.wp-submenu li').has('a[href$="#/pro-features"]');
-    }
-
-    function setProExpanded(expanded) {
-        const $children = getProChildren();
-        const $parent   = getProParent();
-
-        if (expanded) {
-            $children.show();
-            $parent.addClass('lp-pro-open').removeClass('lp-pro-collapsed');
-        } else {
-            $children.hide();
-            $parent.addClass('lp-pro-collapsed').removeClass('lp-pro-open');
-        }
-    }
-
-    $(document).on('click', '#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href$="#/pro-features"]', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const isExpanded = getProParent().hasClass('lp-pro-open');
-        setProExpanded(!isExpanded);
-    });
-
     // Detail/edit screens that aren't themselves a registered submenu item,
     // but belong under one conceptually (an edit screen for a list page) —
     // mapped to that submenu's hash so the right item gets highlighted
@@ -74,9 +39,6 @@ jQuery(document).ready(function ($) {
 
         if ($match.length) {
             $match.addClass('current');
-            if ($match.has(childSel).length) {
-                setProExpanded(true);
-            }
         }
         // No match (e.g. /setup-wizard, or any future/unmapped route): leave
         // every submenu item un-highlighted rather than defaulting to
@@ -91,7 +53,6 @@ jQuery(document).ready(function ($) {
         updateActiveMenu();
     });
 
-    setProExpanded(false);
     updateActiveMenu();
     $(window).on('hashchange', updateActiveMenu);
 });

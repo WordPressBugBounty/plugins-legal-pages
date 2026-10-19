@@ -31,6 +31,9 @@ function legal_page_get_localized_data() {
 		'nonce'      => wp_create_nonce( 'wp_rest' ),
 		'apiUrl'     => rest_url( 'legal-pages/v1' ),
 		'ajax_url'   => admin_url( 'admin-ajax.php' ),
+		'admin_url'  => admin_url(),
+		// Settings → Privacy page URL, '' when unset or unpublished (Regions tab warning).
+		'wp_privacy_url' => get_privacy_policy_url(),
 		'site_url'   => get_site_url(),
 		'assets_url' => LEGAL_PAGES_ASSETS_URL,
 		'plugin_url' => LEGAL_PAGES_URL,

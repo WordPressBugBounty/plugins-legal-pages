@@ -127,15 +127,6 @@ class Menu {
         if ( $license_status !== 'valid' ) {
             add_submenu_page(
                 'adl-legal-pages',
-                __( 'PRO FEATURES', 'legal-pages' ),
-                __( 'PRO FEATURES', 'legal-pages' ),
-                'manage_options',
-                'adl-legal-pages#/pro-features',
-                [ $this, 'render_main_page' ]
-            );
-
-            add_submenu_page(
-                'adl-legal-pages',
                 __( 'All Popups', 'legal-pages' ),
                 __( 'All Popups', 'legal-pages' ),
                 'manage_options',
