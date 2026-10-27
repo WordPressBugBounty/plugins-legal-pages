@@ -3,7 +3,7 @@ Contributors: wpWax
 Tags: GDPR, Privacy Policy, Terms and conditions, Cookie banner, Cookie notice, Legal compliance, Legal templates, Website legal requirements, Legal pages generator, GDPR compliance, CCPA compliance, DMCA compliance
 Requires at least: 4.0
 Tested up to: 7.1
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,7 +11,7 @@ The best WordPress legal pages generator that comes with pre-made templates for 
 
 == Description ==
 
-👉 [Pro Version](https://legalpagespro.com/#pricing) | [Documentation](https://legalpagespro.com/documentation/) | [Support](https://wpwax.com/contact/) 👈
+👉 [Pro Version](https://legalpagespro.com/#pricing) | [Documentation](https://legalpagespro.com/documentation/) | [Support](https://wpwax.com/contact/#technical_support) 👈
 
 Legal Pages is a WordPress legal pages generator that helps you create and customize important legal documents for your website, including a Privacy Policy, Terms and Conditions, GDPR pages, Cookie Notice, CCPA, DMCA, Disclaimer, Refund Policy, Terms of Use, EULA, and more.
 
@@ -57,6 +57,7 @@ Create commonly used legal documents for your WordPress website, including:
 * DMCA
 * Terms of Use
 * About Us
+* Accessibility Statement
 * Advertising Disclosures
 * Affiliate Agreement
 * Affiliate Disclosure
@@ -67,6 +68,7 @@ Create commonly used legal documents for your WordPress website, including:
 * COPPA – Children's Online Privacy Policy
 * Digital Goods Refund Policy
 * Disclaimer
+* Do Not Sell or Share My Personal Information
 * Double Dart Cookie
 * Earnings Disclaimer
 * End-user License Agreement
@@ -79,6 +81,7 @@ Create commonly used legal documents for your WordPress website, including:
 * GDPR Privacy Policy
 * Linking Policy
 * Medical Disclaimer
+* Privacy Policy (Multi-Region)
 * Refund Policy
 * Terms
 * Testimonials Disclosure
@@ -153,7 +156,7 @@ Upgrade to Legal Pages Pro for additional legal templates and advanced features.
 
 The Pro version includes:
 
-* 31 legal page templates
+* 34 legal page templates
 * Advanced cookie notice options
 * EU cookie agreement notice
 * Cookie notice popups
@@ -269,6 +272,12 @@ https://legalpagespro.com/documentation/
 
 
 == Changelog ==
+= 1.8.2 =
+
+**Pro**
+* New: "Accessibility Statement" template (WCAG 2.1 AA / EN 301 549), with an EU complaints section that shows only when you serve the EU (Settings → Regions Served)
+* Note: Legal Pages Pro 2.2.1 is a version bump for this release; it still works with Legal Pages 1.8.0 or newer, and the new template appears once Legal Pages 1.8.2 is installed
+
 = 1.8.1 =
 * Update: Plugin directory tags now include "Cookie banner"
 

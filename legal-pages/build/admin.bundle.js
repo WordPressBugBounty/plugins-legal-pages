@@ -11990,31 +11990,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// Same site and utm_source as the Upgrade to Pro links.
+
+var SITE_URL = 'https://legalpagespro.com';
+var UTM = '?utm_source=lite-plugin';
+// The support link legalpagespro.com itself uses.
+var SUPPORT_URL = 'https://wpwax.com/contact/#technical_support';
 var HelpSupport = function HelpSupport() {
   var supportSections = [{
     icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_2__.LockIcon, {}),
     title: "Documentation",
     description: "Browse our comprehensive documentation to learn how to use every feature.",
     linkText: "Read Docs",
-    linkUrl: "https://wpwax.com/docs/legal-pages/"
+    linkUrl: "".concat(SITE_URL, "/documentation/").concat(UTM)
   }, {
     icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_2__.VideoTutorialIcon, {}),
-    title: "Video Tutorials",
-    description: "Watch step-by-step video guides to get started quickly.",
-    linkText: "Watch Videos",
-    linkUrl: "https://wpwax.com/product/legal-pages-pro/"
+    title: "Tutorials",
+    description: "Follow step-by-step guides to get started quickly.",
+    linkText: "Read Tutorials",
+    linkUrl: "".concat(SITE_URL, "/category/tutorial/").concat(UTM)
   }, {
     icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_2__.DocumentIcon, {}),
     title: "FAQs",
     description: "Find answers to commonly asked questions.",
     linkText: "View FAQs",
-    linkUrl: "https://wpwax.com/product/legal-pages-pro/"
+    linkUrl: "".concat(SITE_URL, "/").concat(UTM, "#faq")
   }, {
     icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_common_SvgIcon__WEBPACK_IMPORTED_MODULE_2__.LightningIcon, {}),
     title: "Feature Requests",
-    description: "Suggest new features or vote on existing requests.",
+    description: "Suggest a new feature or tell us what would make Legal Pages better for you.",
     linkText: "Submit Request",
-    linkUrl: "https://wpwax.com/dashboard/?tab=support"
+    linkUrl: SUPPORT_URL
   }];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     className: "min-h-screen bg-gradient-to-b !from-gray-50 !to-white py-10 px-4 sm:px-6 lg:px-8",
@@ -12054,7 +12060,7 @@ var HelpSupport = function HelpSupport() {
               children: "Our support team is available Monday to Friday, 9am to 5pm EST. We typically respond within 24 hours."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
-            href: "https://wpwax.com/dashboard/?tab=support",
+            href: SUPPORT_URL,
             target: "_blank",
             rel: "noopener noreferrer",
             className: "inline-flex items-center justify-center gap-[14px] !w-[200px] sm:!w-[223px] !h-[52px] sm:!h-[56px]  px-[28px] py-[12px] sm:!px-[32px] sm:!py-[14px]  !bg-[#7C3BED] !text-white font-inter !font-semibold text-[14px] sm:!text-[16px] !leading-[26px] sm:!leading-[28px]  !rounded-[12px] opacity-100 mt-4 shadow-[0px_4px_14px_-2px_#7C3BED40]",
@@ -51621,7 +51627,7 @@ var PATTERN =
  * @template {string} T
  * @overload
  * @param {T} string - string printf format string
- * @param {...import('../types').SprintfArgs<T>} args - arguments to interpolate
+ * @param {...import('../types/index.d.ts').SprintfArgs<T>} args - arguments to interpolate
  *
  * @return {string} Formatted string.
  */
@@ -51644,7 +51650,7 @@ var PATTERN =
  * @template {string} T
  * @overload
  * @param {T} string - string printf format string
- * @param {import('../types').SprintfArgs<T>} args - arguments to interpolate
+ * @param {import('../types/index.d.ts').SprintfArgs<T>} args - arguments to interpolate
  *
  * @return {string} Formatted string.
  */
@@ -51666,14 +51672,14 @@ var PATTERN =
  * ```
  * @template {string} T
  * @param {T} string - string printf format string
- * @param {...import('../types').SprintfArgs<T>} args - arguments to interpolate
+ * @param {...import('../types/index.d.ts').SprintfArgs<T>} args - arguments to interpolate
  *
  * @return {string} Formatted string.
  */
 function sprintf(string, ...args) {
 	var i = 0;
 	if (Array.isArray(args[0])) {
-		args = /** @type {import('../types').SprintfArgs<T>[]} */ (
+		args = /** @type {import('../types/index.d.ts').SprintfArgs<T>[]} */ (
 			/** @type {unknown} */ args[0]
 		);
 	}

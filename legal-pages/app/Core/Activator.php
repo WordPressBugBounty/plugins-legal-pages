@@ -579,6 +579,8 @@ class Activator {
             // F7 region policies: [lp_if] sections follow Settings → Regions Served.
             'Privacy Policy (Multi-Region)'          => 'privacy-multi-region.php',
             'Do Not Sell or Share My Personal Information' => 'do-not-sell-or-share.php',
+            // Added on update by insert_pro_templates(), which re-runs (insert-if-missing) on every version change.
+            'Accessibility Statement'                => 'accessibility-statement.php',
         );
     }
 
