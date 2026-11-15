@@ -5,6 +5,7 @@ use LegalPage\Traits\Hook;
 use LegalPage\Traits\Rest;
 use LegalPage\API\Settings;
 use LegalPage\API\Cookie;
+use LegalPage\API\Smart_Policy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -325,6 +326,23 @@ class API {
         if ( ! legal_pages_cookie_bar_in_legacy_pro() ) {
             $this->register_cookie_routes();
         }
+
+        $this->register_smart_policy_routes();
+    }
+
+    /**
+     * Smart Policy list and detection. Pro registers overrides and the notice.
+     */
+    private function register_smart_policy_routes() {
+        $smart_policy = new Smart_Policy();
+        $permission   = array( $smart_policy, 'check_permissions' );
+
+        $this->register_route( '/smart-policy', array(
+            array( 'methods' => WP_REST_Server::READABLE, 'callback' => array( $smart_policy, 'get_overview' ), 'permission_callback' => $permission ),
+        ) );
+        $this->register_route( '/smart-policy/recheck', array(
+            array( 'methods' => WP_REST_Server::CREATABLE, 'callback' => array( $smart_policy, 'recheck' ), 'permission_callback' => $permission ),
+        ) );
     }
 
     /**

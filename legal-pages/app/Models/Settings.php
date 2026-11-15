@@ -257,8 +257,22 @@ class Settings {
             ]
         );
 
-        foreach ( (array) $ids as $id ) {
+        self::purge_posts_cache( (array) $ids );
+    }
+
+    /**
+     * Drop the cache of the given posts. WP Super Cache purges the page on
+     * clean_post_cache (tested); WP Fastest Cache doesn't, it only clears on its own
+     * hook (tested 2026-11-08: without it, visitors kept the old page). The hook is
+     * a no-op when nothing listens to it.
+     *
+     * @param int[] $ids Post IDs.
+     * @return void
+     */
+    public static function purge_posts_cache( array $ids ) {
+        foreach ( $ids as $id ) {
             clean_post_cache( (int) $id );
+            do_action( 'wpfc_clear_post_cache_by_id', false, (int) $id );
         }
     }
 
@@ -515,7 +529,8 @@ class Settings {
     // Dismissible admin SPA notices (per user)
     // ────────────────────────────────────────────────
 
-    const DISMISSIBLE_NOTICES = [ 'cookie_scan' ];
+    // bf_2026_*: Black Friday 2026 notices (Controllers\Admin\Promo), remove after the sale.
+    const DISMISSIBLE_NOTICES = [ 'cookie_scan', 'bf_2026_bar', 'bf_2026_hero' ];
     const DISMISSED_NOTICES_META = 'adl_lp_dismissed_notices';
 
     public static function get_dismissed_notices( $user_id = 0 ) {

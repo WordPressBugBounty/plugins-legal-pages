@@ -160,6 +160,16 @@ class Cookie_Scan {
         return array_map( [ __CLASS__, 'format_row' ], $rows ?: [] );
     }
 
+    /**
+     * Rows reported at or after $datetime (site time, like last_seen).
+     */
+    public static function rows_seen_since( string $datetime ): array {
+        global $wpdb;
+
+        $table = self::table();
+        return $wpdb->get_results( $wpdb->prepare( "SELECT name, storage, ignored FROM {$table} WHERE last_seen >= %s", $datetime ), ARRAY_A ) ?: []; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+    }
+
     private static function format_row( array $row ): array {
         $found_on = json_decode( $row['found_on'], true );
         return [

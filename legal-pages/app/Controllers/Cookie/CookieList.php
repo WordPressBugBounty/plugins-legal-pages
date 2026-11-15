@@ -56,10 +56,11 @@ class CookieList {
      * [legal_pages_manage_consent] and the [legal_pages_dnsmpi_form] opt-out form
      * belong to Legal Pages Pro's banner, along with their short aliases
      * [lp_manage_consent] and [lp_do_not_sell_form]. Without it (or without a
-     * license) they render nothing, so pages never show the raw tags.
+     * license) they render nothing, so pages never show the raw tags. The same goes
+     * for Pro's [lp_smart_policy]: visitors never see an upgrade message.
      */
     public function register_manage_consent_fallback() {
-        foreach ( [ 'legal_pages_manage_consent', 'legal_pages_dnsmpi_form', 'lp_manage_consent', 'lp_do_not_sell_form' ] as $tag ) {
+        foreach ( [ 'legal_pages_manage_consent', 'legal_pages_dnsmpi_form', 'lp_manage_consent', 'lp_do_not_sell_form', 'lp_smart_policy' ] as $tag ) {
             if ( ! shortcode_exists( $tag ) ) {
                 $this->add_shortcode( $tag, '__return_empty_string' );
             }

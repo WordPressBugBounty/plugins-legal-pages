@@ -19,6 +19,11 @@ class Cookie_Bar {
     const OPTION_KEY   = 'adl_lp_cookie';
     const SERVICES_KEY = 'adl_lp_cookie_available_services';
 
+    // Before 1.8.3 the middle part was google\.\[\w\.\]+, which looks for a literal "[",
+    // so a normal map embed (www.google.com/maps/embed) never matched.
+    const GOOGLE_MAPS_REGEX     = 'maps\.google\.com|google\.[\w.]+\/maps\/|maps\.googleapis\.com';
+    const OLD_GOOGLE_MAPS_REGEX = 'maps\.google\.com|google\.\[\w\.\]+\/maps\/|maps\.googleapis\.com';
+
     // Consent categories a visitor can opt in to. "functional" is always granted and not listed.
     const OPTIONAL_CATEGORIES = [ 'preferences', 'statistics', 'marketing' ];
 
@@ -166,7 +171,7 @@ class Cookie_Bar {
             [ 'id' => 5,  'name' => 'Google AdWords Remarketing/Conversion Tag',  'regex' => 'googleadservices\.com\/pagead\/conversion\.js|googleads\.g\.doubleclick' ],
             [ 'id' => 6,  'name' => 'Google Analytics',                           'regex' => 'google-analytics\.com\/analytics\.js' ],
             [ 'id' => 7,  'name' => 'Google Gtag',                                'regex' => 'googletagmanager\.com\/gtag\/js' ],
-            [ 'id' => 8,  'name' => 'Google Maps',                                'regex' => 'maps\.google\.com|google\.\[\w\.\]+\/maps\/|maps\.googleapis\.com' ],
+            [ 'id' => 8,  'name' => 'Google Maps',                                'regex' => self::GOOGLE_MAPS_REGEX ],
             [ 'id' => 9,  'name' => 'Google Tag Manager',                         'regex' => 'www\.googletagmanager\.com\/gtm\.js' ],
             [ 'id' => 10, 'name' => 'Instagram',                                  'regex' => 'instagram\.com\/embed\.js|platform\.instagram\.com\/.*\/embeds\.js' ],
             [ 'id' => 11, 'name' => 'Jetpack Stats',                              'regex' => '\/\/stats\.wp\.com' ],

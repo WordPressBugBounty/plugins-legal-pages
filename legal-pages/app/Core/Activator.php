@@ -154,6 +154,8 @@ class Activator {
 
         self::add_cookie_list_to_templates( $template_table_name );
         self::add_region_templates( $template_table_name );
+        self::add_smart_policy_to_templates( $template_table_name );
+        self::fix_google_maps_service_pattern();
 
         // Fresh install (no version recorded yet) — flag a one-time redirect to the Setup Wizard.
         if ( ! get_option( 'adl_lp_plugin_version' ) ) {
@@ -241,8 +243,10 @@ class Activator {
             }
         }
 
-        // Merge in priority order: wp_editor > anchor > plain
-        $replacements = array_merge( $wp_editor_patterns, $anchor_replacements, $plain_replacements );
+        // Merge in priority order: wp_editor > anchor > plain. Not array_merge(): an
+        // all-digit phone or ZIP is an integer key here, which it renumbers to 0, 1…,
+        // and the loop below then replaces every "0" and "1" in the page.
+        $replacements = $wp_editor_patterns + $anchor_replacements + $plain_replacements;
 
         // Sort by key length descending to avoid partial replacements
         uksort( $replacements, function( $a, $b ) {
@@ -480,6 +484,92 @@ class Activator {
         }
 
         update_option( 'adl_lp_cookie_list_template_migration_done', true );
+    }
+
+    /**
+     * Add [lp_smart_policy] to the stored privacy templates. Rows are only seeded once,
+     * so the change to the template files wouldn't reach existing installs. Only adds
+     * the tag when it's missing, and never touches pages already created from them.
+     *
+     * @param string $table_name Table name
+     * @return void
+     */
+    /**
+     * The scanner's catalog is saved per site once Block Services is edited, so the
+     * fixed Google Maps pattern doesn't reach it through the defaults. Swap it only
+     * where the old text is unchanged; an admin's own pattern stays as it is.
+     *
+     * @return void
+     */
+    private static function fix_google_maps_service_pattern() {
+        if ( get_option( 'adl_lp_google_maps_pattern_migration_done' ) ) {
+            return;
+        }
+
+        $services = get_option( \LegalPage\Models\Cookie_Bar::SERVICES_KEY, null );
+
+        if ( is_array( $services ) ) {
+            $changed = false;
+            foreach ( $services as $key => $service ) {
+                if ( is_array( $service ) && \LegalPage\Models\Cookie_Bar::OLD_GOOGLE_MAPS_REGEX === ( $service['regex'] ?? '' ) ) {
+                    $services[ $key ]['regex'] = \LegalPage\Models\Cookie_Bar::GOOGLE_MAPS_REGEX;
+                    $changed                   = true;
+                }
+            }
+            if ( $changed ) {
+                update_option( \LegalPage\Models\Cookie_Bar::SERVICES_KEY, $services );
+            }
+        }
+
+        update_option( 'adl_lp_google_maps_pattern_migration_done', true );
+    }
+
+    private static function add_smart_policy_to_templates( $table_name ) {
+        global $wpdb;
+
+        if ( get_option( 'adl_lp_smart_policy_template_migration_done' ) ) {
+            return;
+        }
+
+        $shortcode = '[lp_smart_policy]';
+
+        // Template name => heading whose section the shortcode goes after.
+        $targets = array(
+            'Privacy Policy'                => 'What partners or service providers have access to',
+            'Privacy Policy (Multi-Region)' => 'Sharing your information',
+        );
+
+        foreach ( $targets as $name => $heading ) {
+            $row = $wpdb->get_row(
+                $wpdb->prepare( "SELECT id, content FROM {$table_name} WHERE name = %s", $name ),
+                ARRAY_A
+            );
+
+            if ( ! $row || false !== strpos( $row['content'], $shortcode ) ) {
+                continue;
+            }
+
+            // An edited template may have lost the heading: fall back to the end of the text.
+            $position = strpos( $row['content'], $heading );
+            $end      = false !== $position ? strpos( $row['content'], '</p>', $position ) : false;
+
+            if ( false !== $end ) {
+                $end    += strlen( '</p>' );
+                $content = substr( $row['content'], 0, $end ) . "\n\n" . $shortcode . "\n\n" . ltrim( substr( $row['content'], $end ) );
+            } else {
+                $content = rtrim( $row['content'] ) . "\n\n" . $shortcode . "\n";
+            }
+
+            $wpdb->update(
+                $table_name,
+                array( 'content' => $content ),
+                array( 'id' => $row['id'] ),
+                array( '%s' ),
+                array( '%d' )
+            );
+        }
+
+        update_option( 'adl_lp_smart_policy_template_migration_done', true );
     }
 
     /**

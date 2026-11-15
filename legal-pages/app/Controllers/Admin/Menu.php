@@ -122,6 +122,15 @@ class Menu {
             [ $this, 'render_main_page' ]
         );
 
+        add_submenu_page(
+            'adl-legal-pages',
+            __( 'Smart Policy', 'legal-pages' ),
+            __( 'Smart Policy', 'legal-pages' ),
+            'manage_options',
+            'adl-legal-pages#/smart-policy',
+            [ $this, 'render_main_page' ]
+        );
+
         $license_status = get_option( 'wplp_license_status', '' );
 
         if ( $license_status !== 'valid' ) {

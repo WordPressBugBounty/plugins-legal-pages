@@ -24,6 +24,8 @@
 <strong>Sharing your information</strong>
 <p>We share personal information with service providers who help us run our website and business, when the law requires it, or to protect our rights. We require service providers to protect your information and to use it only on our instructions.</p>
 
+[lp_smart_policy]
+
 <strong>How long we keep your information</strong>
 <p>We keep personal information only for as long as we need it for the purposes described in this policy, or as long as the law requires.</p>
 

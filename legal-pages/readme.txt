@@ -3,7 +3,7 @@ Contributors: wpWax
 Tags: GDPR, Privacy Policy, Terms and conditions, Cookie banner, Cookie notice, Legal compliance, Legal templates, Website legal requirements, Legal pages generator, GDPR compliance, CCPA compliance, DMCA compliance
 Requires at least: 4.0
 Tested up to: 7.1
-Stable tag: 1.8.2
+Stable tag: 1.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -148,6 +148,7 @@ Features include:
 * Legal content popups
 * Cookie notice bar
 * Cookie Bar Scan
+* Smart Policy: see which third-party services your site uses
 
 
 == Pro Version ==
@@ -161,6 +162,7 @@ The Pro version includes:
 * EU cookie agreement notice
 * Cookie notice popups
 * Cookie bar scan
+* Smart Policy: add a section about the third-party services your site uses to your Privacy Policy
 * Additional legal page templates
 * Content restriction based on Terms and Conditions acceptance
 * More customization options
@@ -272,6 +274,23 @@ https://legalpagespro.com/documentation/
 
 
 == Changelog ==
+= 1.8.3 =
+
+**Free**
+* New: Black Friday sale — Legal Pages Pro is 50% off, lifetime plans included, from November 15 to December 5, 2026. The offer shows only on the Legal Pages screens, only to administrators without a Pro license, and goes away by itself after December 5. You can close the top notice and the banner
+* New: Smart Policy screen (Legal Pages → Smart Policy) — see which third-party services your site uses, found from your active plugins, your content, the cookie scan and your WordPress settings. The list updates when plugins are activated or deactivated, and is re-checked daily or whenever you click Re-check
+* New: The Privacy Policy templates now include the [lp_smart_policy] tag. It shows nothing without Legal Pages Pro, and pages you have already created are not changed
+* Update: Pages that use region sections are now also refreshed in WP Fastest Cache when you change Regions Served
+* Fix: Updating the plugin could change digits in your legal pages (for example "WCAG 2.1" became "WCAG 2.[zipCode]") when your phone number or ZIP code in Settings contained only digits. Pages already affected are not repaired automatically, so please check yours
+
+**Pro**
+* New: Smart Policy — [lp_smart_policy] adds a "Third-party services we use" section to your Privacy Policy, with a clause for each service your site uses and a link to the provider's privacy policy where one applies
+* New: Sites that serve the EU or UK also get a legal basis line for each category of service, and a line naming the services that may transfer data outside the EU and UK. Choose your regions in Settings → Regions Served
+* New: Switch off a detected service or add one by hand on the Smart Policy screen, and get a notice when a new service is found
+* Update: The policy version in the consent log changes when your Smart Policy list changes
+* Fix: The Google Maps entry in Block Services did not match normal map embeds
+* Note: Legal Pages Pro 2.3.0 needs Legal Pages 1.8.3 or newer for Smart Policy
+
 = 1.8.2 =
 
 **Pro**

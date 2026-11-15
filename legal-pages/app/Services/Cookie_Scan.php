@@ -143,6 +143,11 @@ class Cookie_Scan {
 
             self::sync();
 
+            /**
+             * Fires when a scan has finished and its cookies are synced.
+             */
+            do_action( 'legal_pages_cookie_scan_complete' );
+
             return [ 'done' => true, 'url' => '', 'state' => Scan_Model::public_state() ];
         }
 

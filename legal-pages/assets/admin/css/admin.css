@@ -206,6 +206,29 @@
     color: #fff !important;
 }
 
+/* ── Black Friday 2026 (Controllers\Admin\Promo adds the class and badge only
+   during the sale; remove this block after it) ── */
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li.lp-promo-menu a[href="admin.php?page=adl-legal-pages#/upgrade-to-pro"] {
+    color: #fff !important;
+    font-weight: 700 !important;
+    white-space: nowrap;
+}
+#adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li.lp-promo-menu a[href="admin.php?page=adl-legal-pages#/upgrade-to-pro"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FCD34D'%3E%3Cpath d='M13 2 3 14h9l-1 8 10-12h-9l1-8z'/%3E%3C/svg%3E");
+}
+#adminmenu #toplevel_page_adl-legal-pages .lp-promo-badge {
+    display: inline-block;
+    margin-left: 4px;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: #FCD34D;
+    color: #17171C;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 16px;
+    vertical-align: middle;
+}
+
 /* License */
 #adminmenu #toplevel_page_adl-legal-pages ul.wp-submenu li a[href="admin.php?page=adl-legal-pages#/license"]::before {
     background-image: url('../../images/icons/license.png');

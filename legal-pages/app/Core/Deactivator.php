@@ -53,6 +53,10 @@ class Deactivator {
         delete_option( 'adl_demo_inserted' );
         delete_option( 'adl_ccpa_demo_inserted' );
         delete_option( 'wplp_legal_page_discount' );
+        delete_option( 'lp_smart_policy_detected' );
+        delete_option( 'lp_smart_policy_last_checked' );
+        delete_option( 'adl_lp_smart_policy_template_migration_done' );
+        delete_option( 'adl_lp_google_maps_pattern_migration_done' );
 
         // Drop custom table
         $wpdb->query( "DROP TABLE IF EXISTS {$template_table_name}" );
